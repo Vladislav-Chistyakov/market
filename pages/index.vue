@@ -9,13 +9,13 @@ const fetchServer = async function () {
 
 <template>
   <div class="p-4 text-red">
-    <h1 class="text-2xl font-bold mb-4">🗨️ WebSocket Чат</h1>
+    <h1 class="text-2xl font-bold mb-4 bg-test">🗨️ WebSocket Чат</h1>
 
     <div class="border p-3 rounded mb-3 h-60 overflow-y-auto bg-gray-100">
     </div>
 
     <div class="flex gap-2">
-      <button @click="fetchServer" class="bg-purple">Server Api</button>
+      <button @click="fetchServer" class="bg-test">Server Api</button>
     </div>
   </div>
 </template>
