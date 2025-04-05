@@ -13,7 +13,8 @@ export default {
     extend: {
       fontFamily: {
         'roboto': 'Roboto',
-        'test': 'Bungee Tint',
+        'manrope': 'Manrope',
+        'poppins': 'Poppins'
       },
       colors: {
         'text-black': '#3C4242',
