@@ -15,7 +15,7 @@ const fetchServer = async function () {
     </div>
 
     <div class="flex gap-2">
-      <button @click="fetchServer" class="bg-test">Server Api</button>
+      <button @click="fetchServer" class="font-test bg-test">Server Api</button>
     </div>
   </div>
 </template>

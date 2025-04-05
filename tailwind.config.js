@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./components/**/*.{js,vue,ts}",
@@ -10,6 +11,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'roboto': 'Roboto',
+        'test': 'Bungee Tint',
+      },
       colors: {
         'text-black': '#3C4242',
         'text-black-100': '#333333',
