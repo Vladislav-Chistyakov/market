@@ -19,7 +19,8 @@ export default {
         'manrope': 'Manrope',
         'poppins': 'Poppins',
         'causten': ['Causten'],
-        'core-sans-c': ['Core-Sans-C']
+        'core-sans-c': ['Core-Sans-C'],
+        // 'mintaka': ['Mintaka'],
       },
       colors: {
         'text-black': '#3C4242',
