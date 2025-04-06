@@ -18,7 +18,8 @@ export default {
         'roboto': 'Roboto',
         'manrope': 'Manrope',
         'poppins': 'Poppins',
-        'causten': ['Causten', 'sans-serif']
+        'causten': ['Causten'],
+        'core-sans-c': ['Core-Sans-C']
       },
       colors: {
         'text-black': '#3C4242',

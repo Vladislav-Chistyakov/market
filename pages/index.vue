@@ -10,6 +10,8 @@ const fetchServer = async function () {
 <template>
   <div class="p-4 text-red">
     <h1 class="text-2xl font-bold mb-4 bg-test font-causten font-bold">🗨️ WebSocket Чат</h1>
+    <h1 class="text-2xl font-bold mb-4 bg-test font-core-sans-c font-bold">🗨️ WebSocket Чат</h1>
+
 
     <div class="border p-3 rounded mb-3 h-60 overflow-y-auto bg-gray-100">
     </div>
