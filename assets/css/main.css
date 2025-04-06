@@ -4,3 +4,81 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Causten';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(./public/fonts/Causten-Light.ttf) format('ttf');
+}
+
+@font-face {
+    font-family: 'Causten';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(./public/fonts/Causten-Regular.ttf) format('ttf');
+}
+
+@font-face {
+    font-family: 'Causten';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(./public/fonts/Causten-Medium.ttf) format('ttf');
+}
+
+@font-face {
+    font-family: 'Causten';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(./public/fonts/Causten-Semi-Bold.ttf) format('ttf');
+}
+
+@font-face {
+    font-family: 'Causten';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/Causten-Bold.ttf) format('ttf');
+}
+
+/*@layer base {*/
+/*    @font-face {*/
+/*        font-family: 'Causten';*/
+/*        font-style: normal;*/
+/*        font-weight: 300;*/
+/*        font-display: swap;*/
+/*        src: url(../fonts/Causten-Light.ttf) format('ttf');*/
+/*    }*/
+/*    @font-face {*/
+/*        font-family: 'Causten';*/
+/*        font-style: normal;*/
+/*        font-weight: 400;*/
+/*        font-display: swap;*/
+/*        src: url(../fonts/Causten-Regular.ttf) format('ttf');*/
+/*    }*/
+/*    @font-face {*/
+/*        font-family: 'Causten';*/
+/*        font-style: normal;*/
+/*        font-weight: 500;*/
+/*        font-display: swap;*/
+/*        src: url(../fonts/Causten-Medium.ttf) format('ttf');*/
+/*    }*/
+/*    @font-face {*/
+/*        font-family: 'Causten';*/
+/*        font-style: normal;*/
+/*        font-weight: 600;*/
+/*        font-display: swap;*/
+/*        src: url(../fonts/Causten-Semi-Bold.ttf) format('ttf');*/
+/*    }*/
+/*    @font-face {*/
+/*        font-family: 'Causten';*/
+/*        font-style: normal;*/
+/*        font-weight: 700;*/
+/*        font-display: swap;*/
+/*        src: url(../fonts/Causten-Bold.ttf) format('ttf');*/
+/*    }*/
+/*}*/

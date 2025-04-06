@@ -10,11 +10,15 @@ export default {
     "./error.vue",
   ],
   theme: {
+    // fontFamily: {
+    //
+    // },
     extend: {
       fontFamily: {
         'roboto': 'Roboto',
         'manrope': 'Manrope',
-        'poppins': 'Poppins'
+        'poppins': 'Poppins',
+        'causten': ['Causten', 'sans-serif']
       },
       colors: {
         'text-black': '#3C4242',
