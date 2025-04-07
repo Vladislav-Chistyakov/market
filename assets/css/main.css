@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wdth,wght@75..100,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -88,13 +89,3 @@
 }
 
 /* _______________________________________________________________*/
-
-/*@font-face {*/
-/*    font-family: 'Mintaka';*/
-/*    font-style: normal;*/
-/*    font-weight: 400;*/
-/*    font-display: swap;*/
-/*    src: url('/fonts/Mintaka.woff') format('woff');*/
-/*}*/
-
-

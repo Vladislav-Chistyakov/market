@@ -10,17 +10,28 @@ export default {
     "./error.vue",
   ],
   theme: {
-    // fontFamily: {
-    //
-    // },
     extend: {
+      container: {
+        center: true,
+        sm: '576px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1440px',
+        padding: {
+          DEFAULT: '12px',
+          sm: '16px',
+          md: '20px',
+          lg: '48px',
+          xl: '102px',
+        }
+      },
       fontFamily: {
         'roboto': 'Roboto',
         'manrope': 'Manrope',
         'poppins': 'Poppins',
+        'montserrat': 'Montserrat',
         'causten': ['Causten'],
         'core-sans-c': ['Core-Sans-C'],
-        // 'mintaka': ['Mintaka'],
       },
       colors: {
         'text-black': '#3C4242',
