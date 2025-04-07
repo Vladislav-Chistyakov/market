@@ -13,10 +13,6 @@ export default {
     extend: {
       container: {
         center: true,
-        sm: '576px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1440px',
         padding: {
           DEFAULT: '12px',
           sm: '16px',
