@@ -6,6 +6,10 @@
   <div>
     <Header />
     <main>
+      <div class="container xl:max-w-[1440px] xl:mx-auto mb-[130px]">
+        Hero
+      </div>
+      <PagesMainPromotions class="mb-[72px]" />
       <NuxtPage />
     </main>
     <Footer />

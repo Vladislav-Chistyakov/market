@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <footer class="bg-black pt-[74px] pb-[60px]">
-    <div class="container mb-[41px] grid grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-[80px] gap-y-[10px]">
+  <footer class="bg-black pt-[74px] pb-[60px] xl:max-w-[1440px] mx-auto">
+    <div class="container xl:max-w-[1220px] mb-[41px] grid grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-[80px] gap-y-[10px]">
       <ul class="grid grid-cols-3 gap-[50px]">
         <li>
           <b class="block font-causten font-bold text-text-gray-50 text-[28px] leading-[32px] mb-[39px]">
@@ -154,9 +154,9 @@
       </div>
     </div>
 
-    <hr class="border-gray-border pb-[24px] max-w-[1220px] mx-auto " />
+    <hr class="border-gray-border pb-[24px] xl:max-w-[1220px] mx-auto " />
 
-    <div class="container pr-[62px]">
+    <div class="container xl:max-w-[1220px] pr-[62px]">
       <button class="w-full flex flex-row justify-between items-center font-causten text-white text-center font-bold text-[28px] leading-[32px]">
         <span>
           Popular Categories
@@ -166,9 +166,9 @@
       </button>
     </div>
 
-    <hr class="border-gray-border mt-[28px] max-w-[1220px] mx-auto" />
+    <hr class="border-gray-border mt-[28px] xl:max-w-[1220px] mx-auto" />
 
-    <b class="block container pt-[44px] block font-causten text-white text-center font-bold text-[18px] leading-[22px]">
+    <b class="block container xl:max-w-[1220px] pt-[44px] block font-causten text-white text-center font-bold text-[18px] leading-[22px]">
       Copyright © 2023 Euphoria Folks Pvt Ltd. All rights reserved.
     </b>
   </footer>
