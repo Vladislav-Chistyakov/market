@@ -6,9 +6,8 @@
   <div>
     <Header />
     <main>
-      <div class="container xl:max-w-[1440px] xl:mx-auto mb-[130px]">
-        Hero
-      </div>
+      <PagesMainHero />
+
       <PagesMainPromotions class="mb-[72px]" />
 
       <PagesMainCompanyGoal class="mb-[80px]" />
