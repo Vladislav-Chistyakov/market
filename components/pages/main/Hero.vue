@@ -1,21 +1,14 @@
 <script setup lang="ts">
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Pagination, Scrollbar, A11y } from 'swiper/modules'
+import { Pagination, Scrollbar } from 'swiper/modules'
 
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-const onSwiper = (swiper) => {
-  console.log(swiper)
-}
-const onSlideChange = () => {
-  console.log('slide change')
-}
-
-const modules = [Pagination, Scrollbar, A11y]
+const modules = [Pagination, Scrollbar]
 </script>
 
 <template>
@@ -27,8 +20,6 @@ const modules = [Pagination, Scrollbar, A11y]
         :modules="modules"
         :pagination="{ clickable: true }"
         navigation
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
     >
       <swiper-slide class="text-white">
         <div class="pl-[193px] pt-[140px] pb-[132px] bg-[url('@/assets/images/pages/main/hero/hero-one.jpeg')] bg-cover bg-no-repeat h-full">
