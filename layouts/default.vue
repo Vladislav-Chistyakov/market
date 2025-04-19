@@ -12,6 +12,8 @@
 
       <PagesMainCompanyGoal class="mb-[80px]" />
 
+      <PagesMainProducts class="mb-[94px]" />
+
       <PagesMainBrands class="mb-[134px]" />
 
       <PagesMainReviews class="mb-[68px]" />
