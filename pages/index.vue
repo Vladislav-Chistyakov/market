@@ -8,5 +8,17 @@ const fetchServer = async function () {
 </script>
 
 <template>
-  <div class="container xl:max-w-[1440px]" />
+  <div>
+    <PagesMainHero />
+
+    <PagesMainPromotions class="mb-[72px]" />
+
+    <PagesMainCompanyGoal class="mb-[80px]" />
+
+    <PagesMainProducts class="mb-[94px]" />
+
+    <PagesMainBrands class="mb-[134px]" />
+
+    <PagesMainReviews class="mb-[68px]" />
+  </div>
 </template>
