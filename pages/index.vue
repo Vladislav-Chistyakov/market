@@ -1,15 +1,21 @@
 <script setup>
-const fetchServer = async function () {
-  await $fetch('/api/hello', { method: 'POST', body: { text: 'Text' } }).then(res => {
-    console.log(res)
+const products = ref([
+  { id: 1, title: 'A' },
+  { id: 2, title: 'B' },
+  { id: 3, title: 'C' }
+])
+
+const fetchServer = async () => {
+  products.value.forEach(product => {
+    console.log(product.title)
   })
 }
-
 </script>
 
 <template>
   <div>
     <PagesMainHero />
+    <button @click="fetchServer">123123</button>
 
     <PagesMainPromotions class="mb-[72px]" />
 
