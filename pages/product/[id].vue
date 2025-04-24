@@ -5,8 +5,12 @@
 <template>
   <div>
     <div class="grid grid-cols-2 lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto">
-      <div class="container pr-0">
-        <div>slider</div>
+      <div class="container pr-0 grid grid-cols-[100px_1fr] gap-[20px] items-center">
+        <div class=" overflow-hidden fle">
+          <div class="block">
+            <PagesProductSlider />
+          </div>
+        </div>
 
         <img
             class="flex"
