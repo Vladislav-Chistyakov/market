@@ -1,23 +1,23 @@
 <script setup lang="ts">
-
+import ThembsSlider from "~/components/pages/product/Slider.vue";
 </script>
 
 <template>
   <div>
-    <div class="grid grid-cols-2 lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto">
-      <div class="container pr-0 grid grid-cols-[100px_1fr] gap-[20px] items-center">
-        <div class="">
-          <div class="block">
-            <PagesProductSlider />
-          </div>
-        </div>
+    <div class="grid grid-cols-2 lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto mb-[100px]">
+      <div class="container bg-[#F6F6F6] pr-0 grid grid-cols-[auto_1fr] items-center">
+        <!--        <div class="block flex justify-center">-->
+        <!--          <PagesProductSlider />-->
+        <!--        </div>-->
 
-        <img
-            class="flex"
-            src="@/assets/images/pages/product/product-one.jpeg"
-            alt="product"
-        >
+        <!--        <img-->
+        <!--            class="flex"-->
+        <!--            src="@/assets/images/pages/product/product-one.jpeg"-->
+        <!--            alt="product"-->
+        <!--        >-->
+        <PagesProductSlider />
       </div>
+
 
       <div class="container pl-[74px] pt-[87px]">
         <h2 class="font-core-sans-c font-semibold text-[34px] leading-[40px] text-black mb-[24px]">

@@ -4,9 +4,11 @@
 
 <template>
   <header class="container flex flex-row items-center border-b border-solid border-b-gray-border xl:max-w-[1440px] py-[14px] xl:py-[32px]">
-    <picture>
-      <img src="@/assets/images/header/logo.svg" alt="logo" />
-    </picture>
+    <nuxt-link to="/">
+      <picture>
+        <img src="@/assets/images/header/logo.svg" alt="logo" />
+      </picture>
+    </nuxt-link>
 
     <label class="flex gap-[12px] item-center ml-[163px] min-w-[184px] bg-gray-50 rounded-[8px] px-[48px] py-[12px]">
       <img src="@/assets/images/header/search.svg" alt="search" />

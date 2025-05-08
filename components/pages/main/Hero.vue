@@ -18,6 +18,7 @@ const modules = [Pagination, Scrollbar]
         :slides-per-view="1"
         :space-between="0"
         :modules="modules"
+        :navigation="{ enabled: true }"
         :pagination="{ clickable: true }"
         navigation
     >
@@ -67,7 +68,6 @@ const modules = [Pagination, Scrollbar]
 
 <style>
 .hero {
-
   .swiper-horizontal {
     .swiper-pagination-bullet {
       margin: 0 1px;
