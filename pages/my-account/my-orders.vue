@@ -4,8 +4,10 @@
 
 <template>
   <NuxtLayout name="my-account">
-    <div>My-orders</div>
-    <div>My-orders</div>
+    <div>
+      <div>My-orders</div>
+      <div>My-orders</div>
+    </div>
   </NuxtLayout>
 </template>
 

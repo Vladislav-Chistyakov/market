@@ -4,8 +4,10 @@
 
 <template>
   <NuxtLayout name="my-account">
-    <div>wishlist</div>
-    <div>wishlist</div>
+    <div>
+      <div>wishlist</div>
+      <div>wishlist</div>
+    </div>
   </NuxtLayout>
 </template>
 

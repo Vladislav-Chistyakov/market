@@ -14,8 +14,8 @@ enum Pages {
 </script>
 
 <template>
-  <div class="lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto container">
-    <div>
+  <div class="lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto container pt-[23px]">
+    <div class="grid grid-cols-[304px_1fr] gap-[50px]">
       <div>
         <UniversalHeading title="Hello ${name}" class="mb-[10px]" />
 
