@@ -15,7 +15,6 @@ const fetchServer = async () => {
 <template>
   <div>
     <PagesMainHero />
-    <button @click="fetchServer">123123</button>
 
     <PagesMainPromotions class="mb-[72px]" />
 
