@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useRoute } from "#vue-router";
+import { useRoute } from "#vue-router"
 
-const route = useRoute();
+const route = useRoute()
 
 enum Pages {
   MyOrders = "/my-account/my-orders",

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Pagination, Scrollbar } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue"
+import { Pagination, Scrollbar } from "swiper/modules"
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import "swiper/css"
+import "swiper/css/pagination"
+import "swiper/css/scrollbar"
 
-const modules = [Pagination, Scrollbar];
+const modules = [Pagination, Scrollbar]
 
-type StarsStatus = Array<"full" | "half" | "outline">;
+type StarsStatus = Array<"full" | "half" | "outline">
 
 const reviews = [
   {
@@ -53,22 +53,22 @@ const reviews = [
     review: `ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
       Exercitation veniam consequat sunt nostrud amet.`,
   },
-];
+]
 
 function listStar(starsNumber: number): StarsStatus {
-  let stars = starsNumber;
-  const starsStatus: StarsStatus = [];
+  let stars = starsNumber
+  const starsStatus: StarsStatus = []
   for (let i = 5; i > 0; i--) {
     if (stars > 1) {
-      starsStatus.push("full");
+      starsStatus.push("full")
     } else if (stars > 0 && stars < 1) {
-      starsStatus.push("half");
+      starsStatus.push("half")
     } else {
-      starsStatus.push("outline");
+      starsStatus.push("outline")
     }
-    stars--;
+    stars--
   }
-  return starsStatus;
+  return starsStatus
 }
 </script>
 

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 // Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Pagination, Scrollbar } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue"
+import { Pagination, Scrollbar } from "swiper/modules"
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import "swiper/css"
+import "swiper/css/pagination"
+import "swiper/css/scrollbar"
 
-const modules = [Pagination, Scrollbar];
+const modules = [Pagination, Scrollbar]
 </script>
 
 <template>

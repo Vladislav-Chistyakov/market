@@ -1,29 +1,29 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from "vue"
 // Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from "swiper/vue";
+import { Swiper, SwiperSlide } from "swiper/vue"
 
 // Import Swiper styles
-import "swiper/css";
+import "swiper/css"
 
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
+import "swiper/css/free-mode"
+import "swiper/css/navigation"
+import "swiper/css/thumbs"
 
 // import required modules
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-const thumbsSwiper = ref(null);
+import { FreeMode, Navigation, Thumbs } from "swiper/modules"
+const thumbsSwiper = ref(null)
 
 const setThumbsSwiper = (swiper) => {
-  thumbsSwiper.value = swiper;
-};
+  thumbsSwiper.value = swiper
+}
 
-const modules = [FreeMode, Navigation, Thumbs];
+const modules = [FreeMode, Navigation, Thumbs]
 
 const navigationOption = {
   prevEl: ".product-slider-button-prev",
   nextEl: ".product-slider-button-next",
-};
+}
 </script>
 
 <template>

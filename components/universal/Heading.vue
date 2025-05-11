@@ -1,13 +1,13 @@
 <script setup lang="ts">
 type Props = {
-  title?: string;
-  decoration?: boolean;
-};
+  title?: string
+  decoration?: boolean
+}
 
 withDefaults(defineProps<Props>(), {
   title: "Title",
   decoration: true,
-});
+})
 </script>
 
 <template>
