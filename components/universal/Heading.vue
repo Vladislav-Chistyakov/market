@@ -5,7 +5,7 @@ type Props = {
 }
 
 withDefaults(defineProps<Props>(), {
-  title: "Title",
+  title: 'Title',
   decoration: true,
 })
 </script>

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from "swiper/vue"
-import { Pagination, Scrollbar } from "swiper/modules"
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination, Scrollbar } from 'swiper/modules'
 
 // Import Swiper styles
-import "swiper/css"
-import "swiper/css/pagination"
-import "swiper/css/scrollbar"
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
 
 const modules = [Pagination, Scrollbar]
 
-type StarsStatus = Array<"full" | "half" | "outline">
+type StarsStatus = Array<'full' | 'half' | 'outline'>
 
 const reviews = [
   {
-    name: "Floyd Miles",
-    srcImg: "/images/person-review/person-one.png",
+    name: 'Floyd Miles',
+    srcImg: '/images/person-review/person-one.png',
     stars: 4.5,
     review: `Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
       enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est
@@ -22,15 +22,15 @@ const reviews = [
       do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.`,
   },
   {
-    name: "Ronald Richards",
-    srcImg: "/images/person-review/person-two.png",
+    name: 'Ronald Richards',
+    srcImg: '/images/person-review/person-two.png',
     stars: 4,
     review: `ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
       Exercitation veniam consequat sunt nostrud amet.`,
   },
   {
-    name: "Savannah Nguyen",
-    srcImg: "/images/person-review/person-three.png",
+    name: 'Savannah Nguyen',
+    srcImg: '/images/person-review/person-three.png',
     stars: 3.5,
     review: `Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
       enim velit mollit.
@@ -38,8 +38,8 @@ const reviews = [
       do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.`,
   },
   {
-    name: "Floyd Miles",
-    srcImg: "/images/person-review/person-one.png",
+    name: 'Floyd Miles',
+    srcImg: '/images/person-review/person-one.png',
     stars: 4.5,
     review: `Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
       enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est
@@ -47,8 +47,8 @@ const reviews = [
       do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.`,
   },
   {
-    name: "Ronald Richards",
-    srcImg: "/images/person-review/person-two.png",
+    name: 'Ronald Richards',
+    srcImg: '/images/person-review/person-two.png',
     stars: 4,
     review: `ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
       Exercitation veniam consequat sunt nostrud amet.`,
@@ -60,11 +60,11 @@ function listStar(starsNumber: number): StarsStatus {
   const starsStatus: StarsStatus = []
   for (let i = 5; i > 0; i--) {
     if (stars > 1) {
-      starsStatus.push("full")
+      starsStatus.push('full')
     } else if (stars > 0 && stars < 1) {
-      starsStatus.push("half")
+      starsStatus.push('half')
     } else {
-      starsStatus.push("outline")
+      starsStatus.push('outline')
     }
     stars--
   }

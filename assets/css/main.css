@@ -1,91 +1,91 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wdth,wght@75..100,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wdth,wght@75..100,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-  font-family: "Causten";
+  font-family: 'Causten';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url("/fonts/Causten-Light.woff2") format("woff2");
+  src: url('/fonts/Causten-Light.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "Causten";
+  font-family: 'Causten';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/Causten-Regular.woff2") format("woff2");
+  src: url('/fonts/Causten-Regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "Causten";
+  font-family: 'Causten';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("/fonts/Causten-Medium.woff2") format("woff2");
+  src: url('/fonts/Causten-Medium.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "Causten";
+  font-family: 'Causten';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("/fonts/Causten-SemiBold.woff2") format("woff2");
+  src: url('/fonts/Causten-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "Causten";
+  font-family: 'Causten';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/fonts/Causten-Bold.woff2") format("woff2");
+  src: url('/fonts/Causten-Bold.woff2') format('woff2');
 }
 
 /* _______________________________________________________________*/
 
 @font-face {
-  font-family: "Core-Sans-C";
+  font-family: 'Core-Sans-C';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/CoreSansC-45Regular.woff") format("woff");
+  src: url('/fonts/CoreSansC-45Regular.woff') format('woff');
 }
 
 @font-face {
-  font-family: "Core-Sans-C";
+  font-family: 'Core-Sans-C';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("/fonts/CoreSansC-55Medium.woff") format("woff");
+  src: url('/fonts/CoreSansC-55Medium.woff') format('woff');
 }
 
 @font-face {
-  font-family: "Core-Sans-C";
+  font-family: 'Core-Sans-C';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("/fonts/CoreSansC-65Bold.woff") format("woff");
+  src: url('/fonts/CoreSansC-65Bold.woff') format('woff');
 }
 
 @font-face {
-  font-family: "Core-Sans-C";
+  font-family: 'Core-Sans-C';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/fonts/CoreSansC-75ExtraBold.woff") format("woff");
+  src: url('/fonts/CoreSansC-75ExtraBold.woff') format('woff');
 }
 
 @font-face {
-  font-family: "Core-Sans-C";
+  font-family: 'Core-Sans-C';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url("/fonts/CoreSansC-85Heavy.woff") format("woff");
+  src: url('/fonts/CoreSansC-85Heavy.woff') format('woff');
 }
 
 /* _______________________________________________________________*/
