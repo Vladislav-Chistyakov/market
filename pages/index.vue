@@ -1,15 +1,15 @@
 <script setup>
-const products = ref([
-  { id: 1, title: 'A' },
-  { id: 2, title: 'B' },
-  { id: 3, title: 'C' }
-])
+// const products = ref([
+//   { id: 1, title: 'A' },
+//   { id: 2, title: 'B' },
+//   { id: 3, title: 'C' }
+// ])
 
-const fetchServer = async () => {
-  products.value.forEach(product => {
-    console.log(product.title)
-  })
-}
+// const fetchServer = async () => {
+//   products.value.forEach(product => {
+//     console.log(product.title)
+//   })
+// }
 </script>
 
 <template>
