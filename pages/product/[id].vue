@@ -160,7 +160,7 @@
     </div>
 
     <div class="container">
-      <UniversalHeading title="Product Description" class="mb-[30px]" />
+      <UniversalBaseHeading title="Product Description" class="mb-[30px]" />
 
       <div>
         <div>

@@ -16,7 +16,7 @@ enum Pages {
   >
     <div class="grid grid-cols-[304px_1fr] gap-[50px]">
       <div>
-        <UniversalHeading title="Hello ${name}" class="mb-[10px]" />
+        <UniversalBaseHeading title="Hello ${name}" class="mb-[10px]" />
 
         <p
           class="font-core-sans-c text-[13px] leading-[15px] text-text-gray-200 mb-[30px]"

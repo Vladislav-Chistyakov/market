@@ -74,7 +74,7 @@ function listStar(starsNumber: number): StarsStatus {
 
 <template>
   <div class="reviews container xl:max-w-[1440px]">
-    <UniversalHeading title="Feedback" class="mb-[70px]" />
+    <UniversalBaseHeading title="Feedback" class="mb-[70px]" />
 
     <swiper
       class="h-fit"

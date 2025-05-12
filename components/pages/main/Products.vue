@@ -2,7 +2,7 @@
 
 <template>
   <div class="container xl:max-w-[1440px]">
-    <UniversalHeading title="Categories For Men" class="mb-[68px]" />
+    <UniversalBaseHeading title="Categories For Men" class="mb-[68px]" />
 
     <ul class="grid grid-cols-4 gap-[50px]">
       <li>
