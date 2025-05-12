@@ -31,6 +31,10 @@ withDefaults(defineProps<Props>(), {
         class=""
         @input.prevent="$emit('update:value', $event.target.value)"
       />
+
+      <span class="block">
+        <slot name="error-message" />
+      </span>
     </label>
 
     <slot name="suffix" />

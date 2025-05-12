@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div />
+  <div>reset password</div>
 </template>
 
 <style scoped></style>
