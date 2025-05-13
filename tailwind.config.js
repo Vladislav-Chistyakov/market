@@ -37,6 +37,7 @@ export default {
         'text-gray-200': '#807D7E',
         'gray-border': '#BEBCBD',
         'text-yellow': '#FBD103',
+        'color-gray': '#676B80',
         purple: '#8A33FD',
         black: '#3C4242',
         'gray-300': '#666666',
