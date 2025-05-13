@@ -6,8 +6,8 @@ definePageMeta({
 const statusHidePassword = ref(false)
 
 const form = reactive({
-  nameOrEmail: null,
   password: null,
+  duplicatePassword: null,
 })
 </script>
 
@@ -18,73 +18,14 @@ const form = reactive({
   >
     <template #default>
       <div class="pb-8 pt-[30px]">
-        <button
-          class="mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
-        >
-          <img
-            src="@/assets/images/pages/authorization/icon/google.svg"
-            alt="Google"
-          />
-
-          <span
-            class="font-causten font-medium text-[22px] leading-[24px] text-purple"
-          >
-            Continue With Google
-          </span>
-        </button>
-
-        <button
-          class="mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
-        >
-          <img
-            src="@/assets/images/pages/authorization/icon/twitter.svg"
-            alt="Google"
-          />
-
-          <span
-            class="font-causten font-medium text-[22px] leading-[24px] text-purple"
-          >
-            Continue With Twitter
-          </span>
-        </button>
-
-        <div class="flex gap-[24px] items-center mb-[50px]">
-          <div class="w-full bg-gray-300-opacity-25 h-[1px]" />
-
-          <p
-            class="font-core-sans-c text-[18px] font-normal leading-[20px] text-gray-300"
-          >
-            OR
-          </p>
-
-          <div class="w-full bg-gray-300-opacity-25 h-[1px]" />
-        </div>
-
         <form>
-          <UniversalBaseInput
-            class="mb-[30px]"
-            :disabled="false"
-            :placeholder="''"
-            :type="'text'"
-            :value="form.nameOrEmail"
-            @update:value="form.nameOrEmail = $event"
-          >
-            <template #label>
-              <span
-                class="text-black font-causten text-[18px] leading-5 mb-[10px]"
-              >
-                User name or email address
-              </span>
-            </template>
-          </UniversalBaseInput>
-
           <UniversalBaseInput
             class="mb-[10px]"
             :disabled="false"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
-            :value="form.password"
-            @update:value="form.password = $event"
+            :value="form.duplicatePassword"
+            @update:value="form.duplicatePassword = $event"
           >
             <template #label>
               <div class="flex items-center justify-between gap-2">
@@ -95,9 +36,9 @@ const form = reactive({
                 </span>
 
                 <button
-                  @click="statusHidePassword = !statusHidePassword"
                   type="button"
                   class="flex items-center gap-[15px]"
+                  @click="statusHidePassword = !statusHidePassword"
                 >
                   <img
                     v-show="statusHidePassword"
@@ -126,28 +67,30 @@ const form = reactive({
             </template>
           </UniversalBaseInput>
 
-          <NuxtLink
-            to="/authorization/reset-password"
-            target="_blank"
-            class="block ml-auto w-fit text-black underline font-causten text-[16px] leading-[18px]"
+          <UniversalBaseInput
+            class="mb-[10px]"
+            :disabled="false"
+            :placeholder="''"
+            :type="statusHidePassword ? 'text' : 'password'"
+            :value="form.duplicatePassword"
+            @update:value="form.duplicatePassword = $event"
           >
-            Forget your password
-          </NuxtLink>
+            <template #label>
+              <div class="flex items-center justify-between gap-2">
+                <span
+                  class="text-black font-causten text-[18px] leading-5 mb-[10px]"
+                >
+                  Confirm Password
+                </span>
+              </div>
+            </template>
+          </UniversalBaseInput>
 
           <button
             class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
           >
-            Sign In
+            Reset Password
           </button>
-
-          <p
-            class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
-          >
-            Don’t have an account?
-            <NuxtLink class="underline" to="/authorization/sign-up">
-              Sign up
-            </NuxtLink>
-          </p>
         </form>
       </div>
     </template>

@@ -6,7 +6,7 @@ definePageMeta({
 const statusHidePassword = ref(false)
 
 const form = reactive({
-  nameOrEmail: null,
+  email: null,
   password: null,
 })
 </script>
@@ -48,32 +48,20 @@ const form = reactive({
           </span>
         </button>
 
-        <div class="flex gap-[24px] items-center mb-[50px]">
-          <div class="w-full bg-gray-300-opacity-25 h-[1px]" />
-
-          <p
-            class="font-core-sans-c text-[18px] font-normal leading-[20px] text-gray-300"
-          >
-            OR
-          </p>
-
-          <div class="w-full bg-gray-300-opacity-25 h-[1px]" />
-        </div>
-
         <form>
           <UniversalBaseInput
             class="mb-[30px]"
             :disabled="false"
-            :placeholder="''"
-            :type="'text'"
-            :value="form.nameOrEmail"
-            @update:value="form.nameOrEmail = $event"
+            :placeholder="'designer@gmail.com'"
+            :type="'email'"
+            :value="form.email"
+            @update:value="form.email = $event"
           >
             <template #label>
               <span
                 class="text-black font-causten text-[18px] leading-5 mb-[10px]"
               >
-                User name or email address
+                Email Address
               </span>
             </template>
           </UniversalBaseInput>
@@ -126,26 +114,18 @@ const form = reactive({
             </template>
           </UniversalBaseInput>
 
-          <NuxtLink
-            to="/authorization/reset-password"
-            target="_blank"
-            class="block ml-auto w-fit text-black underline font-causten text-[16px] leading-[18px]"
-          >
-            Forget your password
-          </NuxtLink>
-
           <button
             class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
           >
-            Sign In
+            Sign Up
           </button>
 
           <p
             class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
           >
-            Don’t have an account?
-            <NuxtLink class="underline" to="/authorization/sign-up">
-              Sign up
+            Already have an account?
+            <NuxtLink class="underline" to="/authorization/sign-in">
+              Log in
             </NuxtLink>
           </p>
         </form>
