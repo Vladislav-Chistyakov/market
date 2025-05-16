@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRegister } from '@/composables/useRegister'
+
 definePageMeta({
   middleware: 'authorization',
 })
@@ -9,6 +11,18 @@ const form = reactive({
   nameOrEmail: null,
   password: null,
 })
+
+const { register } = useRegister()
+
+const handleRegister = async () => {
+  try {
+    const user = await register(form.nameOrEmail, form.password)
+    console.log('Успешная регистрация:', user)
+    // redirect или другой шаг
+  } catch (err) {
+    console.error('ERROR: ', err.message)
+  }
+}
 </script>
 
 <template>
@@ -92,9 +106,9 @@ const form = reactive({
                 </span>
 
                 <button
-                  @click="statusHidePassword = !statusHidePassword"
                   type="button"
                   class="flex items-center gap-[15px]"
+                  @click="statusHidePassword = !statusHidePassword"
                 >
                   <img
                     v-show="statusHidePassword"
@@ -133,6 +147,7 @@ const form = reactive({
 
           <button
             class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
+            @click="handleRegister"
           >
             Sign In
           </button>

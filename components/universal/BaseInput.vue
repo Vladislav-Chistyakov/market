@@ -24,11 +24,11 @@ withDefaults(defineProps<Props>(), {
       </span>
 
       <input
+        class="w-full block focus-visible:outline-0 border border-black rounded-[8px] text-[14px] leading-[16px] text-black placeholder:placeholder-text-gray-200 px-[19px] py-[20px]"
         :disabled="disabled"
         :value="value"
         :placeholder="placeholder"
         :type="type"
-        class=""
         @input.prevent="$emit('update:value', $event.target.value)"
       />
 
