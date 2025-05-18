@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRegister } from '@/composables/useRegister'
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 definePageMeta({
   middleware: 'authorization',
@@ -8,21 +8,11 @@ definePageMeta({
 const statusHidePassword = ref(false)
 
 const form = reactive({
-  nameOrEmail: null,
-  password: null,
+  nameOrEmail: 'chey8212@yandex.ru',
+  password: 'qwe123',
 })
 
-const { register } = useRegister()
-
-const handleRegister = async () => {
-  try {
-    const user = await register(form.nameOrEmail, form.password)
-    console.log('Успешная регистрация:', user)
-    // redirect или другой шаг
-  } catch (err) {
-    console.error('ERROR: ', err.message)
-  }
-}
+const userSignIn = useFirebaseFunctions().userSignIn
 </script>
 
 <template>
@@ -31,6 +21,7 @@ const handleRegister = async () => {
       <div class="pb-8">
         <button
           class="mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          type="button"
         >
           <img
             src="@/assets/images/pages/authorization/icon/google.svg"
@@ -46,6 +37,7 @@ const handleRegister = async () => {
 
         <button
           class="mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          type="button"
         >
           <img
             src="@/assets/images/pages/authorization/icon/twitter.svg"
@@ -147,7 +139,8 @@ const handleRegister = async () => {
 
           <button
             class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
-            @click="handleRegister"
+            type="button"
+            @click="userSignIn(form.nameOrEmail, form.password)"
           >
             Sign In
           </button>

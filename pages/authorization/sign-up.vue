@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+
 definePageMeta({
   middleware: 'authorization',
 })
@@ -9,6 +11,8 @@ const form = reactive({
   email: null,
   password: null,
 })
+
+const userRegistration = useFirebaseFunctions().userRegistration
 </script>
 
 <template>
@@ -116,6 +120,8 @@ const form = reactive({
 
           <button
             class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
+            type="button"
+            @click="userRegistration(form.email, form.password)"
           >
             Sign Up
           </button>
