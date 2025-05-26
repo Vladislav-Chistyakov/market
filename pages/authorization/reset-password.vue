@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+
 definePageMeta({
   middleware: 'authorization',
 })
 
 const form = reactive({
-  email: null,
+  email: 'chey69@yandex.ru',
 })
+
+const sendPasswordUserEmail = useFirebaseFunctions().updatePasswordUser
 </script>
 
 <template>
@@ -34,6 +38,8 @@ const form = reactive({
           </UniversalBaseInput>
 
           <button
+            @click="sendPasswordUserEmail(form.email)"
+            type="button"
             class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
           >
             Send
