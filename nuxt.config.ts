@@ -6,6 +6,9 @@ export default defineNuxtConfig({
     cssPath: ['./assets/css/main.css', { injectPosition: 'first' }],
     config: './tailwind.config.js',
   },
+  nitro: {
+    preset: 'static',
+  },
   vite: {
     build: {
       sourcemap: true,
