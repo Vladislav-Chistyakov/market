@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth'
-import { useFirebaseConfig } from '~/composables/useFirebaseConfig'
+import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 
 export const useFirebaseFunctions = () => {
   const firebaseConfig = useFirebaseConfig()
@@ -41,16 +41,23 @@ export const useFirebaseFunctions = () => {
 
   function updatePasswordUser(email: string) {
     console.log(
-      `https://vladislav-chistyakov-market-5ce2.twc1.net/?email=${email}`,
+      `https://vlad-chistyakov-market-project.ru/?email=${email}`,
       email,
       auth,
     )
+
+    const actionCodeSetting = {
+      url: `https://vlad-chistyakov-market-project.ru/authorization/create-new-password?email=${email}`,
+      linkDomain: 'vlad-chistyakov-market-project.ru',
+      handleCodeInApp: false,
+    }
+    // {
+    //   url: `https://vlad-chistyakov-market-project.ru/authorization/create-new-password?email=${email}`,
+    //       ,
+    //     handleCodeInApp: false,
+    // }
     if (auth && email) {
-      sendPasswordResetEmail(auth, email, {
-        url: `https://vladislav-chistyakov-market-5ce2.twc1.net/?email=${email}`,
-        linkDomain: 'vladislav-chistyakov-market-5ce2.twc1.net',
-        handleCodeInApp: true,
-      })
+      sendPasswordResetEmail(auth, email, actionCodeSetting)
         .then(() => {
           console.log('Отправлено сообщение на почту для сброса пароля')
         })

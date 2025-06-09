@@ -8,8 +8,8 @@ definePageMeta({
 const statusHidePassword = ref(false)
 
 const form = reactive({
-  email: null,
-  password: null,
+  email: 'chey69@yandex.ru',
+  password: 'qweqwe',
 })
 
 const userRegistration = useFirebaseFunctions().userRegistration
