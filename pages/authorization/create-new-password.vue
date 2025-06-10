@@ -1,6 +1,26 @@
 <script setup lang="ts">
+import { useRoute, useRouter } from '#vue-router'
+
 definePageMeta({
   middleware: 'authorization',
+})
+
+const email = ref('')
+const router = useRouter()
+
+onBeforeMount(() => {
+  const route = useRoute()
+  if (route?.query?.continueUrl) {
+    const parsed = new URL(route.query.continueUrl)
+    email.value = parsed.searchParams.get('email') || ''
+    if (!email.value) {
+      router.push('/')
+    } else {
+      console.log('email', email.value)
+    }
+  } else {
+    router.push('/')
+  }
 })
 
 const statusHidePassword = ref(false)
