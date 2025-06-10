@@ -87,9 +87,9 @@ const userRegistration = useFirebaseFunctions().userRegistration
                 </span>
 
                 <button
-                  @click="statusHidePassword = !statusHidePassword"
                   type="button"
                   class="flex items-center gap-[15px]"
+                  @click="statusHidePassword = !statusHidePassword"
                 >
                   <img
                     v-show="statusHidePassword"

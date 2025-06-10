@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from '#vue-router'
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 definePageMeta({
   middleware: 'authorization',
 })
 
-const email = ref('')
+const oobCode = ref('')
+
 const router = useRouter()
 
 onBeforeMount(() => {
   const route = useRoute()
-  if (route?.query?.continueUrl) {
-    const parsed = new URL(route.query.continueUrl)
-    email.value = parsed.searchParams.get('email') || ''
-    if (!email.value) {
+  if (route?.query?.oobCode) {
+    oobCode.value = route.query.oobCode as string
+
+    if (!oobCode.value) {
       router.push('/')
     } else {
-      console.log('email', email.value)
+      console.log('oobCode', oobCode.value)
     }
   } else {
     router.push('/')
@@ -29,6 +31,8 @@ const form = reactive({
   password: null,
   duplicatePassword: null,
 })
+
+const createNewPassword = useFirebaseFunctions().createNewPasswordForUser
 </script>
 
 <template>
@@ -44,8 +48,8 @@ const form = reactive({
             :disabled="false"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
-            :value="form.duplicatePassword"
-            @update:value="form.duplicatePassword = $event"
+            :value="form.password"
+            @update:value="form.password = $event"
           >
             <template #label>
               <div class="flex items-center justify-between gap-2">
@@ -107,7 +111,9 @@ const form = reactive({
           </UniversalBaseInput>
 
           <button
+            type="button"
             class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
+            @click="createNewPassword(oobCode, form.password)"
           >
             Reset Password
           </button>

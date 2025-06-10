@@ -6,6 +6,7 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth'
 import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
+import { confirmPasswordReset } from '@firebase/auth'
 
 export const useFirebaseFunctions = () => {
   const firebaseConfig = useFirebaseConfig()
@@ -70,5 +71,20 @@ export const useFirebaseFunctions = () => {
     }
   }
 
-  return { userRegistration, userSignIn, updatePasswordUser }
+  function createNewPasswordForUser(oobCode: string, newPassword: string) {
+    confirmPasswordReset(auth, oobCode, newPassword)
+      .then(() => {
+        console.log('Пароль успешно изменён на ', newPassword)
+      })
+      .catch((err) => {
+        console.error('Не удалось изменить пароль пользователя: ', err)
+      })
+  }
+
+  return {
+    userRegistration,
+    userSignIn,
+    updatePasswordUser,
+    createNewPasswordForUser,
+  }
 }

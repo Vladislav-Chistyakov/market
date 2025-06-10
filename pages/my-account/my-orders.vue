@@ -8,5 +8,3 @@
     </div>
   </NuxtLayout>
 </template>
-
-<style scoped></style>

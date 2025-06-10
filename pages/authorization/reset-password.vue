@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+import { useFirebaseFunctions } from '@/composables/useFirebaseFunctions'
 
 definePageMeta({
   middleware: 'authorization',
@@ -38,9 +38,9 @@ const sendPasswordUserEmail = useFirebaseFunctions().updatePasswordUser
           </UniversalBaseInput>
 
           <button
-            @click="sendPasswordUserEmail(form.email)"
             type="button"
             class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
+            @click="sendPasswordUserEmail(form.email)"
           >
             Send
           </button>
