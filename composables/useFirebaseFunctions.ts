@@ -40,34 +40,19 @@ export const useFirebaseFunctions = () => {
     return user
   }
 
-  function updatePasswordUser(email: string) {
-    console.log(
-      `https://vlad-chistyakov-market-project.ru/?email=${email}`,
-      email,
-      auth,
-    )
-
+  async function updatePasswordUser(email: string) {
     const actionCodeSetting = {
       url: `https://vlad-chistyakov-market-project.ru/authorization/create-new-password?email=${email}`,
       linkDomain: 'vlad-chistyakov-market-project.ru',
       handleCodeInApp: false,
     }
-    // {
-    //   url: `https://vlad-chistyakov-market-project.ru/authorization/create-new-password?email=${email}`,
-    //       ,
-    //     handleCodeInApp: false,
-    // }
+
     if (auth && email) {
-      sendPasswordResetEmail(auth, email, actionCodeSetting)
-        .then(() => {
-          console.log('Отправлено сообщение на почту для сброса пароля')
-        })
-        .catch((error) => {
-          console.log(
-            'Не удалось отправить сообщение на почту для сброса пароля',
-            error,
-          )
-        })
+      await sendPasswordResetEmail(auth, email, actionCodeSetting).catch(
+        (error) => {
+          throw error
+        },
+      )
     }
   }
 

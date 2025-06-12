@@ -9,7 +9,27 @@ const form = reactive({
   email: 'chey69@yandex.ru',
 })
 
+const pending = ref(false)
+const linkSentSuccessfully = ref(false)
+
 const sendPasswordUserEmail = useFirebaseFunctions().updatePasswordUser
+
+async function resetPassword() {
+  pending.value = true
+  await sendPasswordUserEmail(form.email)
+    .then(() => {
+      console.log('Вышлена ссылка для сброса пароля на почту')
+      linkSentSuccessfully.value = true
+    })
+    .catch((error) => {
+      console.error(error)
+
+      if (error.code) {
+        console.error(error.code)
+      }
+    })
+    .finally(() => (pending.value = false))
+}
 </script>
 
 <template>
@@ -19,10 +39,10 @@ const sendPasswordUserEmail = useFirebaseFunctions().updatePasswordUser
   >
     <template #default>
       <div class="pb-8 pt-[30px]">
-        <form>
+        <form v-if="!linkSentSuccessfully">
           <UniversalBaseInput
             class="mb-[30px]"
-            :disabled="false"
+            :disabled="pending"
             :placeholder="''"
             :type="'text'"
             :value="form.email"
@@ -39,8 +59,9 @@ const sendPasswordUserEmail = useFirebaseFunctions().updatePasswordUser
 
           <button
             type="button"
-            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
-            @click="sendPasswordUserEmail(form.email)"
+            :disabled="pending"
+            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+            @click="resetPassword"
           >
             Send
           </button>
@@ -49,11 +70,36 @@ const sendPasswordUserEmail = useFirebaseFunctions().updatePasswordUser
             class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
           >
             Back to
-            <NuxtLink class="underline" to="/authorization/sign-in">
-              Login
+            <NuxtLink
+              :class="{ 'pointer-events-none opacity-60': pending }"
+              class="underline"
+              :to="pending ? null : '/authorization/sign-in'"
+            >
+              Log in
             </NuxtLink>
           </p>
         </form>
+
+        <div v-else>
+          <p
+            class="block w-fit text-black font-causten text-[24px] leading-[26px] mb-[12px]"
+          >
+            A link to reset your password has been sent to your email!
+          </p>
+
+          <p
+            class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
+          >
+            Back to
+            <NuxtLink
+              :class="{ 'pointer-events-none opacity-60': pending }"
+              class="underline"
+              :to="pending ? null : '/authorization/sign-in'"
+            >
+              Log in
+            </NuxtLink>
+          </p>
+        </div>
       </div>
     </template>
 

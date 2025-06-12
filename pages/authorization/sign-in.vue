@@ -157,7 +157,6 @@ async function loginYourAccount() {
 
           <NuxtLink
             to="/authorization/reset-password"
-            target="_blank"
             class="block ml-auto w-fit text-black underline font-causten text-[16px] leading-[18px]"
           >
             Forget your password
