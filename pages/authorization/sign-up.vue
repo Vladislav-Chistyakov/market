@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+import { useRouter } from '#vue-router'
 
 definePageMeta({
   middleware: 'authorization',
 })
+
+const router = useRouter()
 
 const statusHidePassword = ref(false)
 
@@ -12,7 +15,39 @@ const form = reactive({
   password: 'qweqwe',
 })
 
+const pending = ref(false)
+
 const userRegistration = useFirebaseFunctions().userRegistration
+
+async function createAccount() {
+  pending.value = true
+  await userRegistration(form.email, form.password)
+    .then((result) => {
+      console.log(result)
+      console.log('Успешное создание юзера')
+      router.push('/')
+    })
+    .catch((error) => {
+      console.error(error)
+
+      if (error.code) {
+        console.error('Ошибка создание юзера', error.code)
+      }
+
+      if (error.code === 'auth/invalid-email') {
+        console.error('Ошибка - неверный email')
+      }
+
+      if (error.code === 'auth/email-already-in-use') {
+        console.error('Ошибка - email уже используется')
+      }
+
+      if (error.code === 'auth / weak - password') {
+        console.error('Ошибка - паролькороткий')
+      }
+    })
+    .finally(() => (pending.value = false))
+}
 </script>
 
 <template>
@@ -55,7 +90,7 @@ const userRegistration = useFirebaseFunctions().userRegistration
         <form>
           <UniversalBaseInput
             class="mb-[30px]"
-            :disabled="false"
+            :disabled="pending"
             :placeholder="'designer@gmail.com'"
             :type="'email'"
             :value="form.email"
@@ -72,7 +107,7 @@ const userRegistration = useFirebaseFunctions().userRegistration
 
           <UniversalBaseInput
             class="mb-[10px]"
-            :disabled="false"
+            :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
             :value="form.password"
@@ -119,9 +154,10 @@ const userRegistration = useFirebaseFunctions().userRegistration
           </UniversalBaseInput>
 
           <button
-            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
+            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
             type="button"
-            @click="userRegistration(form.email, form.password)"
+            :disabled="pending"
+            @click="createAccount"
           >
             Sign Up
           </button>
@@ -130,7 +166,11 @@ const userRegistration = useFirebaseFunctions().userRegistration
             class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
           >
             Already have an account?
-            <NuxtLink class="underline" to="/authorization/sign-in">
+            <NuxtLink
+              :class="{ 'pointer-events-none opacity-60': pending }"
+              class="underline"
+              :to="pending ? null : '/authorization/sign-in'"
+            >
               Log in
             </NuxtLink>
           </p>

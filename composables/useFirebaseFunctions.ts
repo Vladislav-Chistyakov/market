@@ -14,17 +14,17 @@ export const useFirebaseFunctions = () => {
   const auth = getAuth(app)
   auth.languageCode = 'ru'
 
-  function userRegistration(email: string, password: string) {
-    createUserWithEmailAndPassword(auth, email, password)
+  async function userRegistration(email: string, password: string) {
+    let user = null
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user
-        console.log('register success', user)
+        user = userCredential.user
       })
       .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.error(errorCode, errorMessage)
+        throw error
       })
+
+    return user
   }
 
   async function userSignIn(email: string, password: string) {

@@ -176,7 +176,11 @@ async function loginYourAccount() {
             class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
           >
             Don’t have an account?
-            <NuxtLink class="underline" to="/authorization/sign-up">
+            <NuxtLink
+              :class="{ 'pointer-events-none opacity-60': pending }"
+              class="underline"
+              :to="pending ? null : '/authorization/sign-up'"
+            >
               Sign up
             </NuxtLink>
           </p>
