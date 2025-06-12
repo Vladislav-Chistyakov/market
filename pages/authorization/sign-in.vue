@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+import { useFirebaseFunctions } from '@/composables/useFirebaseFunctions'
+import { useRouter } from '#vue-router'
+
+const router = useRouter()
 
 definePageMeta({
   middleware: 'authorization',
@@ -12,7 +15,30 @@ const form = reactive({
   password: 'qweqwe',
 })
 
+const pending = ref(false)
+
 const userSignIn = useFirebaseFunctions().userSignIn
+
+async function loginYourAccount() {
+  pending.value = true
+  await userSignIn(form.nameOrEmail, form.password)
+    .then((result) => {
+      console.log(result)
+      console.log('Прошла успешная авторизация юзера')
+      // TODO Тут осуществялется переход на главную страницу после успешной авторизации
+      router.push('/')
+    })
+    .catch((error) => {
+      console.error(error)
+
+      if (error.code === 'auth/invalid-credential') {
+        // TODO от сюда надо вывести ошибку, что юзер не прошел проверку
+        // отметить ошибку в поле ввода
+        console.error('Ошибка авторизации пользователя')
+      }
+    })
+    .finally(() => (pending.value = false))
+}
 </script>
 
 <template>
@@ -66,7 +92,7 @@ const userSignIn = useFirebaseFunctions().userSignIn
         <form>
           <UniversalBaseInput
             class="mb-[30px]"
-            :disabled="false"
+            :disabled="pending"
             :placeholder="''"
             :type="'text'"
             :value="form.nameOrEmail"
@@ -83,7 +109,7 @@ const userSignIn = useFirebaseFunctions().userSignIn
 
           <UniversalBaseInput
             class="mb-[10px]"
-            :disabled="false"
+            :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
             :value="form.password"
@@ -138,9 +164,10 @@ const userSignIn = useFirebaseFunctions().userSignIn
           </NuxtLink>
 
           <button
-            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
+            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
             type="button"
-            @click="userSignIn(form.nameOrEmail, form.password)"
+            :disabled="pending"
+            @click="loginYourAccount"
           >
             Sign In
           </button>

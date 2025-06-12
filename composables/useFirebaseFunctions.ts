@@ -27,17 +27,17 @@ export const useFirebaseFunctions = () => {
       })
   }
 
-  function userSignIn(email: string, password: string) {
-    signInWithEmailAndPassword(auth, email, password)
+  async function userSignIn(email: string, password: string) {
+    let user = null
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user
-        console.log('userSignIn success', user)
+        user = userCredential.user
       })
       .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.error(errorCode, errorMessage)
+        throw error
       })
+
+    return user
   }
 
   function updatePasswordUser(email: string) {
