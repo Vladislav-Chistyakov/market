@@ -56,14 +56,13 @@ export const useFirebaseFunctions = () => {
     }
   }
 
-  function createNewPasswordForUser(oobCode: string, newPassword: string) {
-    confirmPasswordReset(auth, oobCode, newPassword)
-      .then(() => {
-        console.log('Пароль успешно изменён на ', newPassword)
-      })
-      .catch((err) => {
-        console.error('Не удалось изменить пароль пользователя: ', err)
-      })
+  async function createNewPasswordForUser(
+    oobCode: string,
+    newPassword: string,
+  ) {
+    await confirmPasswordReset(auth, oobCode, newPassword).catch((err) => {
+      throw err
+    })
   }
 
   return {

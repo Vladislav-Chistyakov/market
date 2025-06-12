@@ -33,6 +33,29 @@ const form = reactive({
 })
 
 const createNewPassword = useFirebaseFunctions().createNewPasswordForUser
+
+const pending = ref(false)
+
+const passwordChangedSuccessfully = ref(false)
+
+async function createPassword() {
+  pending.value = true
+  await createNewPassword(oobCode.value, form.password)
+    .then(() => {
+      passwordChangedSuccessfully.value = true
+    })
+    .catch((error) => {
+      console.error(error)
+
+      if (error.code) {
+        console.error(error.code)
+        if (error.code === 'auth/invalid-action-code') {
+          console.error('Неверный код для сброса пароля')
+        }
+      }
+    })
+    .finally(() => (pending.value = false))
+}
 </script>
 
 <template>
@@ -42,10 +65,10 @@ const createNewPassword = useFirebaseFunctions().createNewPasswordForUser
   >
     <template #default>
       <div class="pb-8 pt-[30px]">
-        <form>
+        <form v-if="!passwordChangedSuccessfully">
           <UniversalBaseInput
             class="mb-[10px]"
-            :disabled="false"
+            :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
             :value="form.password"
@@ -93,7 +116,7 @@ const createNewPassword = useFirebaseFunctions().createNewPasswordForUser
 
           <UniversalBaseInput
             class="mb-[10px]"
-            :disabled="false"
+            :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
             :value="form.duplicatePassword"
@@ -112,12 +135,28 @@ const createNewPassword = useFirebaseFunctions().createNewPasswordForUser
 
           <button
             type="button"
-            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white"
-            @click="createNewPassword(oobCode, form.password)"
+            :disabled="pending"
+            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+            @click="createPassword"
           >
             Reset Password
           </button>
         </form>
+
+        <div v-else>
+          <p
+            class="block w-fit text-black font-causten text-[24px] leading-[26px] mb-[12px]"
+          >
+            Password successfully changed. You can go to the
+            <NuxtLink
+              :class="{ 'pointer-events-none opacity-60': pending }"
+              class="underline text-purple"
+              :to="pending ? null : '/authorization/sign-in'"
+            >
+              authorization page!
+            </NuxtLink>
+          </p>
+        </div>
       </div>
     </template>
 
