@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useFirebaseFunctions } from '@/composables/useFirebaseFunctions'
 import { useRouter } from '#vue-router'
+import { useUserStore } from '@/store/user'
 
 const router = useRouter()
+const userStore = useUserStore()
 
 definePageMeta({
   middleware: 'authorization',
@@ -12,7 +14,7 @@ const statusHidePassword = ref(false)
 
 const form = reactive({
   nameOrEmail: 'chey69@yandex.ru',
-  password: 'qweqwe',
+  password: 'testtest',
 })
 
 const pending = ref(false)
@@ -25,6 +27,7 @@ async function loginYourAccount() {
     .then((result) => {
       console.log(result)
       console.log('Прошла успешная авторизация юзера')
+      userStore.userData = result
       // TODO Тут осуществялется переход на главную страницу после успешной авторизации
       router.push('/')
     })
