@@ -3,16 +3,20 @@ export const useUserStore = defineStore('userStore', () => {
 
   const userData = computed({
     get() {
-      return { email: user.value?.email || null, uid: user.value?.uid || null }
+      return user.value
     },
     set(value) {
-      console.log('test')
       user.value = value
     },
   })
 
+  const saveUserDataToLocalStorage = function (user: unknown) {
+    localStorage.setItem('user', JSON.stringify(user))
+  }
+
   return {
     user,
     userData,
+    saveUserDataToLocalStorage,
   }
 })

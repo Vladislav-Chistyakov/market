@@ -28,6 +28,7 @@ async function loginYourAccount() {
       console.log(result)
       console.log('Прошла успешная авторизация юзера')
       userStore.userData = result
+      userStore.saveUserDataToLocalStorage(result)
       // TODO Тут осуществялется переход на главную страницу после успешной авторизации
       router.push('/')
     })
