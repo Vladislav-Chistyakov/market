@@ -10,13 +10,8 @@ export const useUserStore = defineStore('userStore', () => {
     },
   })
 
-  const saveUserDataToLocalStorage = function (user: unknown) {
-    localStorage.setItem('user', JSON.stringify(user))
-  }
-
   return {
     user,
     userData,
-    saveUserDataToLocalStorage,
   }
 })

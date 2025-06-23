@@ -1,23 +1,17 @@
 import { useUserStore } from '@/store/user'
+import { useFirebaseFunctions } from '@/composables/useFirebaseFunctions'
 
 export default defineNuxtRouteMiddleware((to) => {
   try {
-    const userStore = useUserStore()
-    if (!userStore.userData) {
-      const userLocalStore = localStorage.getItem('user')
-
-      if (userLocalStore) {
-        const infoUser = JSON.parse(userLocalStore)
-
-        if (infoUser) {
-          userStore.userData = infoUser
+    if (!useUserStore().user) {
+      const onAuthState = useFirebaseFunctions().onAuthUser
+      // const { auth } = useFirebaseFunctions()
+      onAuthState(() => {
+        if (!to.path.includes('authorization')) {
+          abortNavigation()
+          navigateTo('/authorization/sign-in')
         }
-      }
-
-      if (!to.path.includes('authorization') && !userStore.userData) {
-        abortNavigation()
-        navigateTo('/authorization/sign-in')
-      }
+      })
     }
   } catch (error) {
     console.error(error)

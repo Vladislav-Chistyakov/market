@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { useUserStore } from '@/store/user'
 import { navigateTo } from '#app/composables/router'
-
-const userStore = useUserStore()
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 onMounted(() => {
-  const infoUser = JSON.parse(localStorage.getItem('user'))
-  if (infoUser) {
-    userStore.userData = infoUser
-  } else {
+  const onAuthState = useFirebaseFunctions().onAuthUser
+  // const { auth } = useFirebaseFunctions()
+  onAuthState(() => {
     navigateTo('/authorization/sign-in')
-  }
+  })
 })
 </script>
 

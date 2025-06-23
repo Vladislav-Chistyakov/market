@@ -6,7 +6,8 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth'
 import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
-import { confirmPasswordReset } from '@firebase/auth'
+import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
+import { useUserStore } from '~/store/user'
 
 export const useFirebaseFunctions = () => {
   const firebaseConfig = useFirebaseConfig()
@@ -65,7 +66,21 @@ export const useFirebaseFunctions = () => {
     })
   }
 
+  type CallBack = () => void
+
+  function onAuthUser(callBackIfThereIsNoUser: CallBack) {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        useUserStore().user = user
+      } else {
+        callBackIfThereIsNoUser()
+      }
+    })
+  }
+
   return {
+    auth,
+    onAuthUser,
     userRegistration,
     userSignIn,
     updatePasswordUser,
