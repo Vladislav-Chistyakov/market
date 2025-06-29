@@ -21,6 +21,12 @@
       </div>
 
       <div class="container pl-[74px] pt-[87px]">
+        <p class="text-[12px] font-semibold mb-[12px]">
+          This website is a non-commercial student project. All product images
+          belong to Lamoda or their respective brands. Used for educational and
+          demonstration purposes only.
+        </p>
+
         <h2
           class="font-core-sans-c font-semibold text-[34px] leading-[40px] text-black mb-[24px]"
         >

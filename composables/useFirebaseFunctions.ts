@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth'
+import { getFirestore, collection, addDoc } from 'firebase/firestore'
 import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
 import { useUserStore } from '~/store/user'
@@ -13,6 +14,8 @@ export const useFirebaseFunctions = () => {
   const firebaseConfig = useFirebaseConfig()
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
+  const db = getFirestore(app)
+
   auth.languageCode = 'ru'
 
   async function userRegistration(email: string, password: string) {
@@ -78,8 +81,24 @@ export const useFirebaseFunctions = () => {
     })
   }
 
+  async function addProduct(product: Record<string, unknown>) {
+    const productWithDate = {
+      ...product,
+      createdAt: new Date().toISOString(),
+    }
+
+    try {
+      const docRef = await addDoc(collection(db, 'products'), productWithDate)
+      return docRef.id
+    } catch (error) {
+      console.log('err', error)
+      throw error
+    }
+  }
+
   return {
     auth,
+    addProduct,
     onAuthUser,
     userRegistration,
     userSignIn,
