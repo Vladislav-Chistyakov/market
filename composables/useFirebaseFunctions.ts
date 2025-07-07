@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth'
-import { getFirestore, collection, addDoc } from 'firebase/firestore'
+import {getFirestore, collection, addDoc, getDocs} from 'firebase/firestore'
 import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
 import { useUserStore } from '~/store/user'
@@ -96,9 +96,26 @@ export const useFirebaseFunctions = () => {
     }
   }
 
+  async function getAllProducts(): Promise<Record<string, unknown>[]> {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'products'))
+
+      const products = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }))
+
+      return products
+    } catch (error) {
+      console.error('Ошибка при получении продуктов:', error)
+      throw error
+    }
+  }
+
   return {
     auth,
     addProduct,
+    getAllProducts,
     onAuthUser,
     userRegistration,
     userSignIn,

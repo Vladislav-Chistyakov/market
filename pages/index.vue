@@ -1,15 +1,13 @@
 <script setup>
-// const products = ref([
-//   { id: 1, title: 'A' },
-//   { id: 2, title: 'B' },
-//   { id: 3, title: 'C' }
-// ])
+import { useProductsStore } from '~/store/products'
 
-// const fetchServer = async () => {
-//   products.value.forEach(product => {
-//     console.log(product.title)
-//   })
-// }
+const menProductsList = computed(() => {
+  return useProductsStore().menProducts.length ? useProductsStore().menProducts.slice(0, 4) : []
+})
+
+const womenProductsList = computed(() => {
+  return useProductsStore().womenProducts.length ? useProductsStore().womenProducts.slice(0, 4) : []
+})
 </script>
 
 <template>
@@ -20,7 +18,9 @@
 
     <PagesMainCompanyGoal class="mb-[80px]" />
 
-    <PagesMainProducts class="mb-[94px]" />
+    <PagesMainProducts v-if="menProductsList.length" title="Categories For Men" :list="menProductsList" class="mb-[94px]" />
+
+    <PagesMainProducts v-if="womenProductsList.length" title="Categories For Woman" :list="womenProductsList" class="mb-[94px]" />
 
     <PagesMainBrands class="mb-[134px]" />
 

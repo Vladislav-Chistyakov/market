@@ -9,6 +9,6 @@ export default withNuxt({
   },
   rules: {
     ...eslintConfigPrettier.rules,
-    ...eslintPluginPrettierRecommended.rules,
+    ...eslintPluginPrettierRecommended.rules
   },
 })
