@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useProductsStore } from '~/store/products'
+
+const { getProduct } = useProductsStore()
+const route = useRoute()
+console.log('загружена страница')
+const product = getProduct(route.params.id)
+</script>
 
 <template>
   <div>
@@ -21,6 +28,7 @@
       </div>
 
       <div class="container pl-[74px] pt-[87px]">
+        <div>#{{ product }}@</div>
         <p class="text-[12px] font-semibold mb-[12px]">
           This website is a non-commercial student project. All product images
           belong to Lamoda or their respective brands. Used for educational and
