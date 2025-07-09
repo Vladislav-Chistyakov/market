@@ -1,0 +1,6 @@
+# игнорировать сгенерированные/лишние папки
+node_modules
+dist
+.nuxt
+.output
+.firebase
