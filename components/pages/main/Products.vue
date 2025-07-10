@@ -1,12 +1,12 @@
 <script setup lang="ts">
 type Props = {
-  title: string,
+  title: string
   list: any[]
 }
 
 withDefaults(defineProps<Props>(), {
   title: '',
-  list: []
+  list: () => [],
 })
 </script>
 
@@ -16,7 +16,10 @@ withDefaults(defineProps<Props>(), {
 
     <ul class="grid grid-cols-4 gap-[50px]">
       <li v-for="(item, index) in list" :key="index">
-        <nuxt-link target="_blank" :href="'/product/' + item.id">
+        <nuxt-link
+          target="_blank"
+          :href="'/products/' + item.gender + '/' + item.id"
+        >
           <div
             class="h-[393px] w-[270px] rounded-[10px] overflow-hidden mb-[15px]"
           >
