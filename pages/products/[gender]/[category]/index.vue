@@ -6,9 +6,9 @@ const route = useRoute()
 
 const productsList = computed(() => {
   if (route.params.gender === 'male') {
-    return productsStore.menProducts || []
+    return productsStore.menCategoryProducts || []
   } else if (route.params.gender === 'female') {
-    return productsStore.womenProducts || []
+    return productsStore.womenCategoryProducts || []
   } else {
     return productsStore.products || []
   }
@@ -17,6 +17,7 @@ const productsList = computed(() => {
 
 <template>
   <div>
+    {{ productsList }}
     <PagesMainProducts
       v-if="productsList.length"
       title="Products"

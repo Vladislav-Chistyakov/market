@@ -3,6 +3,7 @@ import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 import type { RouteParamValue } from '#vue-router'
 
 export const useProductsStore = defineStore('productsStore', () => {
+  const route = useRoute()
   const products: Ref<any[]> = ref([])
   const productsPending = ref(false)
   const { getAllProducts } = useFirebaseFunctions()
@@ -44,6 +45,33 @@ export const useProductsStore = defineStore('productsStore', () => {
     return []
   })
 
+  const womenCategoryProducts = computed(() => {
+    if (products.value.length) {
+      return products.value.filter((item) => {
+        console.log(
+          'route.params.category === item?.category',
+          route.params.category,
+          item?.category,
+        )
+        return (
+          route.params.category === item?.category && item?.gender === 'female'
+        )
+      })
+    }
+    return []
+  })
+
+  const menCategoryProducts = computed(() => {
+    if (products.value.length) {
+      return products.value.filter((item) => {
+        return (
+          route.params.category === item?.category && item?.gender === 'male'
+        )
+      })
+    }
+    return []
+  })
+
   return {
     products,
     getProduct,
@@ -52,5 +80,7 @@ export const useProductsStore = defineStore('productsStore', () => {
     productsPending,
     womenProducts,
     menProducts,
+    womenCategoryProducts,
+    menCategoryProducts,
   }
 })
