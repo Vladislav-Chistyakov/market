@@ -1,9 +1,9 @@
-import {useProductsStore} from '~/store/products'
+import { useProductsStore } from '~/store/products'
 
 export const useUserStore = defineStore('userStore', () => {
   const user: Ref<null | unknown> = ref(null)
 
-  const productStore = useProductsStore()
+  const { getProducts } = useProductsStore()
 
   const userData = computed({
     get() {
@@ -14,11 +14,11 @@ export const useUserStore = defineStore('userStore', () => {
     },
   })
 
-  watch(userData, (newValue) => {
+  watch(userData, async (newValue) => {
     if (newValue) {
-      productStore.getProducts().then((products) => {
-        console.log('test', products)
-      })
+      await getProducts().finally(() =>
+        console.log('Получили список продуктов'),
+      )
     }
   })
 

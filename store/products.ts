@@ -7,6 +7,8 @@ export const useProductsStore = defineStore('productsStore', () => {
   const productsPending = ref(false)
   const { getAllProducts } = useFirebaseFunctions()
 
+  const productsAll = computed(() => products.value)
+
   const getProducts = async () => {
     try {
       productsPending.value = true
@@ -46,6 +48,8 @@ export const useProductsStore = defineStore('productsStore', () => {
     products,
     getProduct,
     getProducts,
+    productsAll,
+    productsPending,
     womenProducts,
     menProducts,
   }

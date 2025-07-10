@@ -1,12 +1,18 @@
 <script setup>
 import { useProductsStore } from '~/store/products'
 
+const productsStore = useProductsStore()
+
 const menProductsList = computed(() => {
-  return useProductsStore().menProducts.length ? useProductsStore().menProducts.slice(0, 4) : []
+  return productsStore.menProducts.length ?
+      productsStore.menProducts.slice(0, 4)
+    : []
 })
 
 const womenProductsList = computed(() => {
-  return useProductsStore().womenProducts.length ? useProductsStore().womenProducts.slice(0, 4) : []
+  return productsStore.womenProducts.length ?
+      productsStore.womenProducts.slice(0, 4)
+    : []
 })
 </script>
 
@@ -18,9 +24,19 @@ const womenProductsList = computed(() => {
 
     <PagesMainCompanyGoal class="mb-[80px]" />
 
-    <PagesMainProducts v-if="menProductsList.length" title="Categories For Men" :list="menProductsList" class="mb-[94px]" />
+    <PagesMainProducts
+      v-if="menProductsList.length"
+      title="Categories For Men"
+      :list="menProductsList"
+      class="mb-[94px]"
+    />
 
-    <PagesMainProducts v-if="womenProductsList.length" title="Categories For Woman" :list="womenProductsList" class="mb-[94px]" />
+    <PagesMainProducts
+      v-if="womenProductsList.length"
+      title="Categories For Woman"
+      :list="womenProductsList"
+      class="mb-[94px]"
+    />
 
     <PagesMainBrands class="mb-[134px]" />
 

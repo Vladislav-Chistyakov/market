@@ -1,10 +1,41 @@
 <script setup lang="ts">
 import { useProductsStore } from '~/store/products'
 
-const { getProduct } = useProductsStore()
+const productsStore = useProductsStore()
+
 const route = useRoute()
-console.log('загружена страница')
-const product = getProduct(route.params.id)
+
+const product = ref(null)
+
+watchEffect(() => {
+  if (!productsStore.productsPending && productsStore.products.length) {
+    product.value = productsStore.getProduct(String(route.params.id))
+  }
+})
+
+const images = computed((): string[] => {
+  if (product.value?.images && product.value?.images.length) {
+    return product.value.images as string[]
+  } else {
+    return []
+  }
+})
+
+const sizes = computed((): string[] => {
+  if (product.value?.size && product.value?.size.length) {
+    return product.value.size as string[]
+  } else {
+    return []
+  }
+})
+
+const colors = computed((): string[] => {
+  if (product.value?.color && product.value?.color.length) {
+    return product.value.color as string[]
+  } else {
+    return []
+  }
+})
 </script>
 
 <template>
@@ -15,20 +46,10 @@ const product = getProduct(route.params.id)
       <div
         class="container bg-[#F6F6F6] pr-0 grid grid-cols-[auto_1fr] items-center"
       >
-        <!--        <div class="block flex justify-center">-->
-        <!--          <PagesProductSlider />-->
-        <!--        </div>-->
-
-        <!--        <img-->
-        <!--            class="flex"-->
-        <!--            src="@/assets/images/pages/product/product-one.jpeg"-->
-        <!--            alt="product"-->
-        <!--        >-->
-        <PagesProductSlider />
+        <PagesProductSlider :images="images" />
       </div>
 
       <div class="container pl-[74px] pt-[87px]">
-        <div>#{{ product }}@</div>
         <p class="text-[12px] font-semibold mb-[12px]">
           This website is a non-commercial student project. All product images
           belong to Lamoda or their respective brands. Used for educational and
@@ -36,9 +57,10 @@ const product = getProduct(route.params.id)
         </p>
 
         <h2
+          v-if="product && product.name"
           class="font-core-sans-c font-semibold text-[34px] leading-[40px] text-black mb-[24px]"
         >
-          Raven Hoodie With Black colored Design
+          {{ product.name }}
         </h2>
 
         <div class="mb-[34px]">
@@ -48,28 +70,18 @@ const product = getProduct(route.params.id)
             Select size
           </p>
 
-          <ul class="flex items-center gap-6">
-            <li
-              class="flex justify-center items-center h-[38px] w-[38px] rounded-[12px] border-gray-border border text-black font-causten font-medium text-[14px] leading-[14px]"
-            >
-              xs
-            </li>
-
-            <li
-              class="flex justify-center items-center h-[38px] w-[38px] rounded-[12px] border-gray-border border text-black font-causten font-medium text-[14px] leading-[14px]"
-            >
-              s
-            </li>
-
-            <li
-              class="flex justify-center items-center h-[38px] w-[38px] rounded-[12px] border-gray-border border text-black font-causten font-medium text-[14px] leading-[14px]"
-            >
-              m
+          <ul v-if="sizes.length" class="flex items-center gap-6">
+            <li v-for="(size, indexSize) in sizes" :key="indexSize">
+              <button
+                class="flex justify-center items-center h-[38px] w-[38px] rounded-[12px] border-gray-border border text-black font-causten font-medium text-[14px] leading-[14px]"
+              >
+                {{ size }}
+              </button>
             </li>
           </ul>
         </div>
 
-        <div class="mb-[34px]">
+        <div v-if="colors.length" class="mb-[34px]">
           <p
             class="font-causten font-semibold text-[18px] leading-[18px] text-black mb-[24px]"
           >
@@ -77,16 +89,26 @@ const product = getProduct(route.params.id)
           </p>
 
           <ul class="flex gap-[16px] items-center">
-            <li class="flex w-fit p-[3px] border border-red rounded-full">
-              <span class="block h-[22px] w-[22px] bg-red rounded-full" />
-            </li>
+            <li v-for="(color, indexColor) in colors" :key="indexColor">
+              <button
+                v-if="color === 'white'"
+                class="flex w-fit p-[3px] border border-black rounded-full"
+              >
+                <span
+                  class="block h-[22px] w-[22px] border border-black rounded-full"
+                />
+              </button>
 
-            <li class="flex w-fit p-[3px] border border-green-700 rounded-full">
-              <span class="block h-[22px] w-[22px] bg-green-700 rounded-full" />
-            </li>
-
-            <li class="flex w-fit p-[3px] border border-blue-800 rounded-full">
-              <span class="block h-[22px] w-[22px] bg-blue-800 rounded-full" />
+              <button
+                v-else
+                class="flex w-fit p-[3px] border rounded-full"
+                :style="{ borderColor: color }"
+              >
+                <span
+                  class="block h-[22px] w-[22px] rounded-full"
+                  :style="{ backgroundColor: color }"
+                />
+              </button>
             </li>
           </ul>
         </div>
@@ -104,9 +126,10 @@ const product = getProduct(route.params.id)
           </button>
 
           <button
+            v-if="product && product.price"
             class="px-[39px] py-[13px] text-black font-causten font-bold text-[18px] leading-[18px] rounded border border-black"
           >
-            $63.00
+            ${{ product.price }}
           </button>
         </div>
 
@@ -178,11 +201,8 @@ const product = getProduct(route.params.id)
 
       <div>
         <div>
-          <p>
-            100% Bio-washed Cotton – makes the fabric extra soft & silky.
-            Flexible ribbed crew neck. Precisely stitched with no pilling & no
-            fading. Provide all-time comfort. Anytime, anywhere. Infinite range
-            of matte-finish HD prints.
+          <p v-if="product && product.description">
+            {{ product.description }}
           </p>
 
           <table>
