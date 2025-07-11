@@ -34,8 +34,6 @@ const listCategoriesMenuFilter = computed(() => {
   }
   return []
 })
-
-const path = computed(() => '' + '')
 </script>
 
 <template>
