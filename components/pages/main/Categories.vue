@@ -18,9 +18,7 @@ withDefaults(defineProps<Props>(), {
       <li v-for="(item, index) in list" :key="index">
         <nuxt-link
           target="_blank"
-          :href="
-            '/products/' + item.gender + '/' + item.category + '/' + item.id
-          "
+          :href="'/products/' + item.gender + '/' + item.category"
         >
           <div
             class="h-[393px] w-[270px] rounded-[10px] overflow-hidden mb-[15px]"

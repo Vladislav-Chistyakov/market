@@ -17,7 +17,6 @@ const productsList = computed(() => {
 
 <template>
   <div>
-    {{ productsList }}
     <PagesMainProducts
       v-if="productsList.length"
       title="Products"
