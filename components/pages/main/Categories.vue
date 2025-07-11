@@ -38,7 +38,7 @@ withDefaults(defineProps<Props>(), {
               <b
                 class="block font-causten font-bold text-[18px] leading-[26px] text-black"
               >
-                {{ item.name }}
+                {{ item.category[0].toUpperCase() + item.category.slice(1) }}
               </b>
 
               <p class="font-causten text-[14px] font-medium leading-[26px]">
