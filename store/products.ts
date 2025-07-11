@@ -72,6 +72,44 @@ export const useProductsStore = defineStore('productsStore', () => {
     return []
   })
 
+  const listCategoriesProductsMen = computed(() => {
+    if (menProducts.value.length) {
+      const listProductsDifferentCategories: any = []
+      menProducts.value.forEach((item: any) => {
+        const isCategoryInList = listProductsDifferentCategories.find(
+          (element: any) => {
+            return element.category === item.category
+          },
+        )
+        if (!isCategoryInList) {
+          listProductsDifferentCategories.push(item)
+        }
+      })
+
+      return listProductsDifferentCategories
+    }
+    return []
+  })
+
+  const listCategoriesProductsWoman = computed(() => {
+    if (womenProducts.value.length) {
+      const listProductsDifferentCategories: any = []
+      womenProducts.value.forEach((item: any) => {
+        const isCategoryInList = listProductsDifferentCategories.find(
+          (element: any) => {
+            return element.category === item.category
+          },
+        )
+        if (!isCategoryInList) {
+          listProductsDifferentCategories.push(item)
+        }
+      })
+
+      return listProductsDifferentCategories
+    }
+    return []
+  })
+
   return {
     products,
     getProduct,
@@ -82,5 +120,7 @@ export const useProductsStore = defineStore('productsStore', () => {
     menProducts,
     womenCategoryProducts,
     menCategoryProducts,
+    listCategoriesProductsMen,
+    listCategoriesProductsWoman,
   }
 })

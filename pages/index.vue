@@ -14,6 +14,18 @@ const womenProductsList = computed(() => {
       productsStore.womenProducts.slice(0, 4)
     : []
 })
+
+const menCategoriesList = computed(() => {
+  return productsStore.listCategoriesProductsMen.length ?
+      productsStore.listCategoriesProductsMen.slice(0, 4)
+    : []
+})
+
+const womenCategoriesList = computed(() => {
+  return productsStore.listCategoriesProductsWoman.length ?
+      productsStore.listCategoriesProductsWoman.slice(0, 4)
+    : []
+})
 </script>
 
 <template>
@@ -23,6 +35,20 @@ const womenProductsList = computed(() => {
     <PagesMainPromotions class="mb-[72px]" />
 
     <PagesMainCompanyGoal class="mb-[80px]" />
+
+    <PagesMainCategories
+      v-if="menCategoriesList.length"
+      title="Categories"
+      :list="menCategoriesList"
+      class="mb-[94px]"
+    />
+
+    <PagesMainCategories
+      v-if="womenCategoriesList.length"
+      title="Categories"
+      :list="womenCategoriesList"
+      class="mb-[94px]"
+    />
 
     <PagesMainProducts
       v-if="menProductsList.length"
