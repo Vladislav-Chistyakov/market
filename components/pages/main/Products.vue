@@ -11,15 +11,18 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div class="container xl:max-w-[1440px]">
-    <UniversalBaseHeading :title="title" class="mb-[68px]" />
-
-    <ul class="grid grid-cols-4 gap-[50px]">
+  <div class="">
+    <ul class="grid grid-cols-3 gap-[50px]">
       <li v-for="(item, index) in list" :key="index">
         <nuxt-link
           target="_blank"
           :href="
-            '/products/' + item.gender + '/' + item.category + '/' + item.id
+            '/products/'
+            + item.gender
+            + '/'
+            + item.category.toLowerCase()
+            + '/'
+            + item.id
           "
         >
           <div

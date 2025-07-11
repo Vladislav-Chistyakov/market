@@ -48,11 +48,6 @@ export const useProductsStore = defineStore('productsStore', () => {
   const womenCategoryProducts = computed(() => {
     if (products.value.length) {
       return products.value.filter((item) => {
-        console.log(
-          'route.params.category === item?.category',
-          route.params.category,
-          item?.category,
-        )
         return (
           route.params.category === item?.category && item?.gender === 'female'
         )

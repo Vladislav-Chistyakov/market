@@ -43,6 +43,7 @@ export default {
         'gray-300': '#666666',
         'gray-300-opacity-25': '#D9D9D9',
         'gray-300-opacity-80': '#666666CC',
+        'gray-400': '#8A8989',
         red: '#FF0000',
       },
     },
