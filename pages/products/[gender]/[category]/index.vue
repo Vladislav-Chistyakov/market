@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useProductsStore } from '~/store/products'
+import ListClothes from '~/components/pages/products/ListClothes.vue'
 
 const productsStore = useProductsStore()
 const route = useRoute()
@@ -61,12 +62,7 @@ const productsList = computed(() => {
         <div class="border-b border-gray-border pb-[30px]">списко фильтров</div>
       </aside>
 
-      <PagesMainProducts
-        v-if="productsList.length"
-        title="Products"
-        :list="productsList"
-        class="mt-[33px]"
-      />
+      <ListClothes :list="productsList" title="Products" class="mt-[33px]" />
     </div>
   </div>
 </template>
