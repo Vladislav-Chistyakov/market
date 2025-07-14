@@ -25,37 +25,46 @@ const add = async () => {
 // 'Shoes'        // Обувь
 // 'Accessories'  // Аксессуары
 type CategoryProducts =
-    | 'Shirts'
-    | 'Pants'
-    | 'Jackets'
-    | 'Shoes'
-    | 'Accessories'
-    | ''
+  | 'T-shirts'
+  | 'Jeans'
+  | 'Hoodies & Sweetshirt'
+  | 'Boxers'
+  | 'Printed T-Shirts'
+  | 'Shirts'
+  | 'Pants'
+  | 'Jackets'
+  | 'Shoes'
+  | 'Accessories'
+  | ''
 type Gender = 'male' | 'female' | 'unisex' | ''
 type Color =
-    | 'black'
-    | 'white'
-    | 'gray'
-    | 'red'
-    | 'blue'
-    | 'green'
-    | 'beige'
-    | 'brown'
-    | 'yellow'
-    | 'navy'
-    | ''
+  | 'black'
+  | 'white'
+  | 'gray'
+  | 'red'
+  | 'blue'
+  | 'green'
+  | 'beige'
+  | 'brown'
+  | 'yellow'
+  | 'navy'
+  | ''
 
 type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | ''
+type Information = { label: string; value: string }
 
 type Form = {
   category: CategoryProducts
   createdAt: string
   images: string[]
   name: string
+  brand: string
   description: string
+  price: number
   gender: Gender
   color: Color[]
   size: Size[]
+  information: Information[]
 }
 
 const form: Reactive<Form> = reactive({
@@ -64,9 +73,19 @@ const form: Reactive<Form> = reactive({
   images: ['', '', ''] as string[],
   name: '',
   description: '',
+  price: 0,
+  brand: '',
   gender: '' as Gender,
-  color: [] as Color,
-  size: [] as Size,
+  color: [] as Color[],
+  size: [] as Size[],
+  information: [
+    { label: 'Fabric', value: 'Bio-washed Cotton' },
+    { label: 'Pattern', value: 'Printed' },
+    { label: 'Fit', value: 'Regular-fit' },
+    { label: 'Neck', value: 'Round Neck' },
+    { label: 'Sleeve', value: 'Half-sleeves' },
+    { label: 'Style', value: 'Casual Wear' },
+  ],
 })
 
 const resetForm = function () {
@@ -75,6 +94,8 @@ const resetForm = function () {
   form.images = ['', '', '']
   form.name = ''
   form.description = ''
+  form.brand = ''
+  form.price = 0
   form.gender = ''
   form.color = []
   form.size = []
@@ -88,51 +109,61 @@ const resetForm = function () {
       <form @submit.prevent="add">
         <div class="mb-[20px]">
           <UniversalBaseInput
-              :disabled="pending"
-              type="text"
-              placeholder="name"
-              :value="form.name"
-              @update:value="form.name = $event"
+            :disabled="pending"
+            type="text"
+            placeholder="name"
+            :value="form.name"
+            @update:value="form.name = $event"
           />
         </div>
 
         <div class="mb-[20px]">
           <UniversalBaseInput
-              :disabled="pending"
-              type="text"
-              placeholder="description"
-              :value="form.description"
-              @update:value="form.description = $event"
+            :disabled="pending"
+            type="text"
+            placeholder="description"
+            :value="form.description"
+            @update:value="form.description = $event"
           />
         </div>
 
         <div class="mb-[20px]">
           <UniversalBaseInput
-              :disabled="pending"
-              type="text"
-              placeholder="images[0]"
-              :value="form.images[0]"
-              @update:value="form.images[0] = $event"
+            :disabled="pending"
+            type="number"
+            placeholder="price"
+            :value="form.price"
+            @update:value="form.price = $event"
           />
         </div>
 
         <div class="mb-[20px]">
           <UniversalBaseInput
-              :disabled="pending"
-              type="text"
-              placeholder="images[1]"
-              :value="form.images[1]"
-              @update:value="form.images[1] = $event"
+            :disabled="pending"
+            type="text"
+            placeholder="images[0]"
+            :value="form.images[0]"
+            @update:value="form.images[0] = $event"
           />
         </div>
 
         <div class="mb-[20px]">
           <UniversalBaseInput
-              :disabled="pending"
-              type="text"
-              placeholder="images[2]"
-              :value="form.images[2]"
-              @update:value="form.images[2] = $event"
+            :disabled="pending"
+            type="text"
+            placeholder="images[1]"
+            :value="form.images[1]"
+            @update:value="form.images[1] = $event"
+          />
+        </div>
+
+        <div class="mb-[20px]">
+          <UniversalBaseInput
+            :disabled="pending"
+            type="text"
+            placeholder="images[2]"
+            :value="form.images[2]"
+            @update:value="form.images[2] = $event"
           />
         </div>
 
@@ -164,9 +195,9 @@ const resetForm = function () {
         <label class="mb-[20px] block">
           Color:
           <select
-              v-model="form.color"
-              multiple
-              class="h-[100px] border p-2 rounded min-w-[200px]"
+            v-model="form.color"
+            multiple
+            class="h-[100px] border p-2 rounded min-w-[200px]"
           >
             <option value="">Select color</option>
             <option value="black">Black</option>
@@ -186,9 +217,9 @@ const resetForm = function () {
         <label class="mb-[20px] block">
           Size:
           <select
-              v-model="form.size"
-              multiple
-              class="h-[100px] border p-2 rounded min-w-[200px]"
+            v-model="form.size"
+            multiple
+            class="h-[100px] border p-2 rounded min-w-[200px]"
           >
             <option value="">Select size</option>
             <option value="XS">XS</option>
