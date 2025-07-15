@@ -5,7 +5,7 @@ const productsStore = useProductsStore()
 
 const menCategoriesList = computed(() => {
   return productsStore.listCategoriesProductsMen.length ?
-      productsStore.listCategoriesProductsMen.slice(0, 4)
+      productsStore.listCategoriesProductsMen.slice(0, 8)
     : []
 })
 

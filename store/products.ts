@@ -49,7 +49,8 @@ export const useProductsStore = defineStore('productsStore', () => {
     if (products.value.length) {
       return products.value.filter((item) => {
         return (
-          route.params.category === item?.category && item?.gender === 'female'
+          route.params.category === item?.category.toLowerCase()
+          && item?.gender === 'female'
         )
       })
     }
@@ -60,7 +61,8 @@ export const useProductsStore = defineStore('productsStore', () => {
     if (products.value.length) {
       return products.value.filter((item) => {
         return (
-          route.params.category === item?.category && item?.gender === 'male'
+          route.params.category === item?.category.toLowerCase()
+          && item?.gender === 'male'
         )
       })
     }

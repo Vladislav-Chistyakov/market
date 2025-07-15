@@ -27,9 +27,9 @@ const add = async () => {
 type CategoryProducts =
   | 'T-shirts'
   | 'Jeans'
-  | 'Hoodies & Sweetshirt'
-  | 'Boxers'
-  | 'Printed T-Shirts'
+  | 'Hoodies'
+  | 'Turtlenecks'
+  | 'Printed-T-Shirts'
   | 'Shirts'
   | 'Pants'
   | 'Jackets'
@@ -68,14 +68,15 @@ type Form = {
 }
 
 const form: Reactive<Form> = reactive({
-  category: '' as CategoryProducts,
+  category: 'Turtlenecks' as CategoryProducts,
   createdAt: '',
   images: ['', '', ''] as string[],
-  name: '',
-  description: '',
+  name: 'Turtleneck',
+  description:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
   price: 0,
-  brand: '',
-  gender: '' as Gender,
+  brand: 'Gubaha Team T.',
+  gender: 'male' as Gender,
   color: [] as Color[],
   size: [] as Size[],
   information: [
@@ -89,14 +90,14 @@ const form: Reactive<Form> = reactive({
 })
 
 const resetForm = function () {
-  form.category = ''
+  // form.category = ''
   form.createdAt = ''
   form.images = ['', '', '']
-  form.name = ''
-  form.description = ''
-  form.brand = ''
+  // form.name = ''
+  // form.description = ''
+  // form.brand = ''
+  // form.gender = ''
   form.price = 0
-  form.gender = ''
   form.color = []
   form.size = []
 }
@@ -117,13 +118,23 @@ const resetForm = function () {
           />
         </div>
 
+        <!--        <div class="mb-[20px]">-->
+        <!--          <UniversalBaseInput-->
+        <!--            :disabled="pending"-->
+        <!--            type="text"-->
+        <!--            placeholder="description"-->
+        <!--            :value="form.description"-->
+        <!--            @update:value="form.description = $event"-->
+        <!--          />-->
+        <!--        </div>-->
+
         <div class="mb-[20px]">
           <UniversalBaseInput
             :disabled="pending"
             type="text"
             placeholder="description"
-            :value="form.description"
-            @update:value="form.description = $event"
+            :value="form.brand"
+            @update:value="form.brand = $event"
           />
         </div>
 
@@ -171,12 +182,15 @@ const resetForm = function () {
         <label class="mb-[20px] block">
           Category:
           <select v-model="form.category">
-            <option value="">Select a category</option>
-            <option value="Shirts">Shirts</option>
-            <option value="Pants">Pants</option>
-            <option value="Jackets">Jackets</option>
-            <option value="Shoes">Shoes</option>
-            <option value="Accessories">Accessories</option>
+            <option value="">Выбери категорию</option>
+            <option value="T-shirts">T-shirts</option>
+            <option value="Jeans">Jeans</option>
+            <option value="Hoodies">Hoodies</option>
+            <option value="Turtlenecks">Turtlenecks</option>
+            <option value="Printed-T-Shirts">Printed-T-Shirts</option>
+            <!--            <option value="Shirts">Shirts</option>-->
+            <!--            <option value="Pants">Pants</option>-->
+            <!--            <option value="Jackets">Jackets</option>-->
           </select>
         </label>
 
@@ -238,15 +252,15 @@ const resetForm = function () {
     </div>
 
     <div>
-      <pre>
-        {{ form }}
-      </pre>
-
       <div class="grid grid-cols-3">
         <img :src="form.images[0]" :alt="form.name" height="100" />
         <img :src="form.images[1]" :alt="form.name" height="100" />
         <img :src="form.images[2]" :alt="form.name" height="100" />
       </div>
+
+      <pre>
+        {{ form }}
+      </pre>
     </div>
   </div>
 </template>

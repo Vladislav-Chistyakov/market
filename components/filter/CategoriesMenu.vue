@@ -45,8 +45,12 @@ const listCategoriesMenuFilter = computed(() => {
       >
         <nuxt-link
           class="w-full flex items-center justify-between py-[9px] px-[30px]"
-          :class="{ 'bg-black': route.params.category === category }"
-          :to="'/products/' + route.params.gender + '/' + category"
+          :class="{
+            'bg-black': route.params.category === category.toLowerCase(),
+          }"
+          :to="
+            '/products/' + route.params.gender + '/' + category.toLowerCase()
+          "
         >
           <p class="text-gray-400 text-[16px] leading-[18px]">{{ category }}</p>
 
