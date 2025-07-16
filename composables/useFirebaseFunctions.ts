@@ -137,6 +137,45 @@ export const useFirebaseFunctions = () => {
       throw error
     }
   }
+  //
+  // async function addCarts(productId: string, uid: string) {
+  //   try {
+  //     const docRef = await addDoc(collection(db, 'carts', uid), productId)
+  //     return docRef.id
+  //   } catch (error) {
+  //     console.log('err', error)
+  //     throw error
+  //   }
+  // }
+  //
+  // const addToCart = async (userId: string, productId: string) => {
+  //   const cartRef = doc(db, 'carts', userId)
+  //   const cartSnap = await getDoc(cartRef)
+  //
+  //   let items = []
+  //
+  //   if (cartSnap.exists()) {
+  //     const cartData = cartSnap.data()
+  //     items = cartData.items || []
+  //
+  //     const existingItem = items.find((item) => item.productId === productId)
+  //     if (existingItem) {
+  //       existingItem.quantity += 1
+  //     } else {
+  //       items.push({ productId, quantity: 1 })
+  //     }
+  //
+  //     await updateDoc(cartRef, {
+  //       items,
+  //       updatedAt: serverTimestamp(),
+  //     })
+  //   } else {
+  //     await setDoc(cartRef, {
+  //       items: [{ productId, quantity: 1 }],
+  //       updatedAt: serverTimestamp(),
+  //     })
+  //   }
+  // }
 
   return {
     auth,
