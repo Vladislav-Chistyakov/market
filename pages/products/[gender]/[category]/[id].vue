@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import { useProductsStore } from '~/store/products'
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 const productsStore = useProductsStore()
+const { getProductId } = useFirebaseFunctions()
 
 const route = useRoute()
 
-const product = ref(null)
+const product: any = ref(null)
+const pending = ref(false)
 
-watchEffect(() => {
-  if (!productsStore.productsPending && productsStore.products.length) {
-    product.value = productsStore.getProduct(String(route.params.id))
-  }
-})
+try {
+  pending.value = true
+  product.value = await getProductId(String(route.params.id))
+} catch (err) {
+  console.error(err)
+} finally {
+  pending.value = false
+}
 
 const images = computed((): string[] => {
   if (product.value?.images && product.value?.images.length) {
@@ -117,10 +123,7 @@ const colors = computed((): string[] => {
           <button
             class="px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple"
           >
-            <img
-              src="../../../../assets/images/pages/product/basket.svg"
-              alt="basket"
-            />
+            <img src="@/assets/images/pages/product/basket.svg" alt="basket" />
 
             <span
               class="block font-causten font-semibold text-white text-[18px] leading-[18px]"
@@ -144,7 +147,7 @@ const colors = computed((): string[] => {
               class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
             >
               <img
-                src="../../../../assets/images/pages/product/credit-card.svg"
+                src="@/assets/images/pages/product/credit-card.svg"
                 alt="basket"
               />
             </div>
@@ -159,7 +162,7 @@ const colors = computed((): string[] => {
               class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
             >
               <img
-                src="../../../../assets/images/pages/product/Size-&-Fit.svg"
+                src="@/assets/images/pages/product/Size-&-Fit.svg"
                 alt="basket"
               />
             </div>
@@ -173,10 +176,7 @@ const colors = computed((): string[] => {
             <div
               class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
             >
-              <img
-                src="../../../../assets/images/pages/product/truck.svg"
-                alt="basket"
-              />
+              <img src="@/assets/images/pages/product/truck.svg" alt="basket" />
             </div>
 
             <p class="font-causten font-medium text-[18px] leading-[18px]">
@@ -189,7 +189,7 @@ const colors = computed((): string[] => {
               class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
             >
               <img
-                src="../../../../assets/images/pages/product/Free-Shipping-&-Returns.svg"
+                src="@/assets/images/pages/product/Free-Shipping-&-Returns.svg"
                 alt="basket"
               />
             </div>
