@@ -3,12 +3,13 @@ import { useProductsStore } from '~/store/products'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 const productsStore = useProductsStore()
-const { getProductId } = useFirebaseFunctions()
+const { getProductId, addToCart } = useFirebaseFunctions()
 
 const route = useRoute()
 
 const product: any = ref(null)
 const pending = ref(false)
+const pendingAddToCart = ref(false)
 
 try {
   pending.value = true
@@ -42,6 +43,17 @@ const colors = computed((): string[] => {
     return []
   }
 })
+
+async function addCarts() {
+  pendingAddToCart.value = true
+  await addToCart(product.value.id, 'green')
+    .catch((err) => {
+      console.error('Error adding product to cart: ', err)
+    })
+    .finally(() => {
+      pendingAddToCart.value = false
+    })
+}
 </script>
 
 <template>
@@ -121,14 +133,20 @@ const colors = computed((): string[] => {
 
         <div class="flex items-center gap-[25px] mb-[35px]">
           <button
+            @click.prevent="addCarts"
+            :disabled="pendingAddToCart"
             class="px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple"
           >
             <img src="@/assets/images/pages/product/basket.svg" alt="basket" />
 
             <span
+              v-show="!pendingAddToCart"
               class="block font-causten font-semibold text-white text-[18px] leading-[18px]"
-              >Add to cart</span
             >
+              Add to cart
+            </span>
+
+            <div v-show="pendingAddToCart">Loading...</div>
           </button>
 
           <button

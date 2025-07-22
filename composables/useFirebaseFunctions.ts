@@ -12,6 +12,7 @@ import {
   getDocs,
   doc,
   getDoc,
+  setDoc,
 } from 'firebase/firestore'
 import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
@@ -137,9 +138,11 @@ export const useFirebaseFunctions = () => {
       throw error
     }
   }
-  //
-  // async function addCarts(productId: string, uid: string) {
+
+  // async function addCarts(productId: string) {
   //   try {
+  //     const uid = useUserStore()?.user?.uid
+  //     console.log('test 1')
   //     const docRef = await addDoc(collection(db, 'carts', uid), productId)
   //     return docRef.id
   //   } catch (error) {
@@ -147,39 +150,51 @@ export const useFirebaseFunctions = () => {
   //     throw error
   //   }
   // }
-  //
-  // const addToCart = async (userId: string, productId: string) => {
-  //   const cartRef = doc(db, 'carts', userId)
-  //   const cartSnap = await getDoc(cartRef)
-  //
-  //   let items = []
-  //
-  //   if (cartSnap.exists()) {
-  //     const cartData = cartSnap.data()
-  //     items = cartData.items || []
-  //
-  //     const existingItem = items.find((item) => item.productId === productId)
-  //     if (existingItem) {
-  //       existingItem.quantity += 1
-  //     } else {
-  //       items.push({ productId, quantity: 1 })
-  //     }
-  //
-  //     await updateDoc(cartRef, {
-  //       items,
-  //       updatedAt: serverTimestamp(),
-  //     })
-  //   } else {
-  //     await setDoc(cartRef, {
-  //       items: [{ productId, quantity: 1 }],
-  //       updatedAt: serverTimestamp(),
-  //     })
-  //   }
-  // }
+
+  const addToCart = async (productId: string, productColor: string) => {
+    const uid = useUserStore()?.user?.uid
+
+    const test = false
+
+    // Переключалка
+    if (test) {
+      // создание объекта
+      const infoProductCart = {}
+
+      // Добавление данных объекта через id объекта
+      infoProductCart[productId] = {
+        productId,
+        countProductCart: 1,
+        color: productColor,
+      }
+
+      try {
+        // добавление данных в стор
+        await setDoc(doc(db, 'carts', uid), infoProductCart)
+        console.log('333')
+      } catch (error) {
+        console.log('err', error)
+        throw error
+      }
+    } else {
+      // Получение данных по id пользователя
+      const cartRef = doc(db, 'carts', uid)
+      const cartSnap = await getDoc(cartRef)
+
+      // Показываем данные
+      if (cartSnap.exists()) {
+        const dataProduct = cartSnap.data()[productId]
+        console.log('data', dataProduct)
+        if (dataProduct) {
+        }
+      }
+    }
+  }
 
   return {
     auth,
     addProduct,
+    addToCart,
     getAllProducts,
     getProductId,
     onAuthUser,

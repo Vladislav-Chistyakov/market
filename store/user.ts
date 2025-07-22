@@ -1,7 +1,7 @@
 import { useProductsStore } from '~/store/products'
 
 export const useUserStore = defineStore('userStore', () => {
-  const user: Ref<null | unknown> = ref(null)
+  const user: Ref<null | object> = ref(null)
 
   const { getProducts } = useProductsStore()
 
