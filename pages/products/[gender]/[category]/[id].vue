@@ -47,7 +47,7 @@ const colors = computed((): string[] => {
 async function addCarts() {
   pendingAddToCart.value = true
   await addToCart(product.value.id, 'green')
-    .catch((err) => {
+    .catch((err: any) => {
       console.error('Error adding product to cart: ', err)
     })
     .finally(() => {

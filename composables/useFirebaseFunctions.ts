@@ -139,59 +139,42 @@ export const useFirebaseFunctions = () => {
     }
   }
 
-  // async function addCarts(productId: string) {
-  //   try {
-  //     const uid = useUserStore()?.user?.uid
-  //     console.log('test 1')
-  //     const docRef = await addDoc(collection(db, 'carts', uid), productId)
-  //     return docRef.id
-  //   } catch (error) {
-  //     console.log('err', error)
-  //     throw error
-  //   }
-  // }
-
   const addToCart = async (productId: string, productColor: string) => {
     const uid = useUserStore()?.user?.uid
 
-    const test = false
+    const cartRef = doc(db, 'carts', uid)
+    const cartSnap = await getDoc(cartRef)
+    if (cartSnap.exists()) {
+      const dataProducts = cartSnap.data()
+      const infoProductCart = { ...dataProducts }
 
-    // Переключалка
-    if (test) {
-      // создание объекта
-      const infoProductCart = {}
-
-      // Добавление данных объекта через id объекта
-      infoProductCart[productId] = {
-        productId,
-        countProductCart: 1,
-        color: productColor,
-      }
-
+      // Ну и отправляем все данные на серв
       try {
         // добавление данных в стор
-        await setDoc(doc(db, 'carts', uid), infoProductCart)
-        console.log('333')
-      } catch (error) {
-        console.log('err', error)
-        throw error
-      }
-    } else {
-      // Получение данных по id пользователя
-      const cartRef = doc(db, 'carts', uid)
-      const cartSnap = await getDoc(cartRef)
 
-      // Показываем данные
-      if (cartSnap.exists()) {
-        const dataProduct = cartSnap.data()[productId]
-        console.log('data', dataProduct)
-        if (dataProduct) {
+        if (
+          infoProductCart[productId]
+          && infoProductCart[productId].color === productColor
+        ) {
+          infoProductCart[productId].countProductCart += 1
+        } else {
+          // Инача создаем новый по id продукта
+          infoProductCart[productId] = {
+            productId: productId,
+            countProductCart: 1,
+            color: productColor,
+          }
         }
+
+        await setDoc(doc(db, 'carts', uid), infoProductCart)
+      } catch (error) {
+        throw error
       }
     }
   }
 
   return {
+    db,
     auth,
     addProduct,
     addToCart,
