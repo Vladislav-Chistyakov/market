@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useProductsStore } from '~/store/products'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 import type { Ref } from 'vue'
 
-const productsStore = useProductsStore()
 const { getProductId, addToCart } = useFirebaseFunctions()
 
 const route = useRoute()
@@ -73,6 +71,8 @@ async function addCarts() {
       })
       .finally(() => {
         pendingAddToCart.value = false
+        form.value.size = null
+        form.value.color = null
       })
   } else {
     alert('Заполните данные формы')

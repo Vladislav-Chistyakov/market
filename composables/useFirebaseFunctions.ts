@@ -153,17 +153,14 @@ export const useFirebaseFunctions = () => {
       const infoProductCart = { ...dataProducts }
 
       // Ну и отправляем все данные на серв
+      const keyProductCart = `${productId}-${productColor}-${productSize}`
       try {
         // добавление данных в стор
-
-        if (
-          infoProductCart[productId]
-          && infoProductCart[productId].color === productColor
-        ) {
-          infoProductCart[productId].countProductCart += 1
+        if (infoProductCart[keyProductCart]) {
+          infoProductCart[keyProductCart].countProductCart += 1
         } else {
           // Инача создаем новый по id продукта
-          infoProductCart[productId] = {
+          infoProductCart[keyProductCart] = {
             productId: productId,
             countProductCart: 1,
             color: productColor,
