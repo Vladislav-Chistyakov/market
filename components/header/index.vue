@@ -71,7 +71,8 @@
       </li>
 
       <li>
-        <button
+        <nuxt-link
+          to="/cart"
           class="h-[44px] w-[44px] rounded-[8px] bg-text-gray-50 p-1 flex items-center justify-center"
           aria-label="Basket"
         >
@@ -89,7 +90,7 @@
               stroke-linecap="round"
             />
           </svg>
-        </button>
+        </nuxt-link>
       </li>
     </ul>
   </header>
