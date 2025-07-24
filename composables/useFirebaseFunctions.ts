@@ -139,7 +139,11 @@ export const useFirebaseFunctions = () => {
     }
   }
 
-  const addToCart = async (productId: string, productColor: string) => {
+  const addToCart = async (
+    productId: string,
+    productColor: string,
+    productSize: string,
+  ) => {
     const uid = useUserStore()?.user?.uid
 
     const cartRef = doc(db, 'carts', uid)
@@ -163,6 +167,7 @@ export const useFirebaseFunctions = () => {
             productId: productId,
             countProductCart: 1,
             color: productColor,
+            size: productSize,
           }
         }
 

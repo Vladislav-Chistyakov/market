@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useProductsStore } from '~/store/products'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+import type { Ref } from 'vue'
 
 const productsStore = useProductsStore()
 const { getProductId, addToCart } = useFirebaseFunctions()
@@ -19,6 +20,15 @@ try {
 } finally {
   pending.value = false
 }
+
+type Form = {
+  size: null | string
+  color: null | string
+}
+const form: Ref<Form> = ref({
+  size: null,
+  color: null,
+})
 
 const images = computed((): string[] => {
   if (product.value?.images && product.value?.images.length) {
@@ -44,15 +54,29 @@ const colors = computed((): string[] => {
   }
 })
 
+function activeSizeButton(size: string) {
+  form.value.size === size ? (form.value.size = null) : (form.value.size = size)
+}
+
+function activeColorButton(color: string) {
+  form.value.color === color ?
+    (form.value.color = null)
+  : (form.value.color = color)
+}
+
 async function addCarts() {
-  pendingAddToCart.value = true
-  await addToCart(product.value.id, 'green')
-    .catch((err: any) => {
-      console.error('Error adding product to cart: ', err)
-    })
-    .finally(() => {
-      pendingAddToCart.value = false
-    })
+  if (form.value.size && form.value.color) {
+    pendingAddToCart.value = true
+    await addToCart(product.value.id, form.value.color, form.value.size)
+      .catch((err: any) => {
+        console.error('Error adding product to cart: ', err)
+      })
+      .finally(() => {
+        pendingAddToCart.value = false
+      })
+  } else {
+    alert('Заполните данные формы')
+  }
 }
 </script>
 
@@ -91,6 +115,11 @@ async function addCarts() {
           <ul v-if="sizes.length" class="flex items-center gap-6">
             <li v-for="(size, indexSize) in sizes" :key="indexSize">
               <button
+                @click="activeSizeButton(size)"
+                :class="{
+                  'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
+                    form.size === size,
+                }"
                 class="flex justify-center items-center h-[38px] w-[38px] rounded-[12px] border-gray-border border text-black font-causten font-medium text-[14px] leading-[14px]"
               >
                 {{ size }}
@@ -110,7 +139,12 @@ async function addCarts() {
             <li v-for="(color, indexColor) in colors" :key="indexColor">
               <button
                 v-if="color === 'white'"
-                class="flex w-fit p-[3px] border border-black rounded-full"
+                @click="activeColorButton(color)"
+                :class="{
+                  'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
+                    form.color === color,
+                }"
+                class="flex w-fit p-[3px] border border-black rounded-full shadow-md"
               >
                 <span
                   class="block h-[22px] w-[22px] border border-black rounded-full"
@@ -119,7 +153,12 @@ async function addCarts() {
 
               <button
                 v-else
+                @click="activeColorButton(color)"
                 class="flex w-fit p-[3px] border rounded-full"
+                :class="{
+                  'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
+                    form.color === color,
+                }"
                 :style="{ borderColor: color }"
               >
                 <span
@@ -134,19 +173,16 @@ async function addCarts() {
         <div class="flex items-center gap-[25px] mb-[35px]">
           <button
             @click.prevent="addCarts"
-            :disabled="pendingAddToCart"
-            class="px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple"
+            :disabled="!form.size || !form.color || pendingAddToCart"
+            class="px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple disabled:opacity-40"
           >
             <img src="@/assets/images/pages/product/basket.svg" alt="basket" />
 
             <span
-              v-show="!pendingAddToCart"
               class="block font-causten font-semibold text-white text-[18px] leading-[18px]"
             >
-              Add to cart
+              {{ pendingAddToCart ? 'Loading...' : 'Add to cart' }}
             </span>
-
-            <div v-show="pendingAddToCart">Loading...</div>
           </button>
 
           <button
