@@ -1,7 +1,9 @@
 import { useProductsStore } from '~/store/products'
+import type { Ref } from 'vue'
 
 export const useUserStore = defineStore('userStore', () => {
   const user: Ref<null | object> = ref(null)
+  const isAuthorization = computed(() => !!user.value)
 
   const { getProducts } = useProductsStore()
 
@@ -25,5 +27,6 @@ export const useUserStore = defineStore('userStore', () => {
   return {
     user,
     userData,
+    isAuthorization,
   }
 })
