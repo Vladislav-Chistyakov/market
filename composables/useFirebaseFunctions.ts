@@ -143,6 +143,7 @@ export const useFirebaseFunctions = () => {
     productId: string,
     productColor: string,
     productSize: string,
+    productPrice: number,
   ) => {
     const uid = useUserStore()?.user?.uid
 
@@ -165,6 +166,7 @@ export const useFirebaseFunctions = () => {
             countProductCart: 1,
             color: productColor,
             size: productSize,
+            price: productPrice,
           }
         }
 

@@ -65,7 +65,13 @@ function activeColorButton(color: string) {
 async function addCarts() {
   if (form.value.size && form.value.color) {
     pendingAddToCart.value = true
-    await addToCart(product.value.id, form.value.color, form.value.size)
+
+    await addToCart(
+      product.value.id,
+      form.value.color,
+      form.value.size,
+      Number(product.value.price),
+    )
       .catch((err: any) => {
         console.error('Error adding product to cart: ', err)
       })
