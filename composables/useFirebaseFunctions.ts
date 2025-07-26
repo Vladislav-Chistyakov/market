@@ -147,6 +147,7 @@ export const useFirebaseFunctions = () => {
   ) => {
     const uid = useUserStore()?.user?.uid
 
+    if (!uid) throw new Error('UID is not defined')
     const cartRef = doc(db, 'carts', uid)
     const cartSnap = await getDoc(cartRef)
     if (cartSnap.exists()) {
@@ -177,11 +178,23 @@ export const useFirebaseFunctions = () => {
     }
   }
 
+  const getCart = async (uid: string) => {
+    if (!uid) throw new Error('UID is not defined')
+    const cartRef = doc(db, 'carts', uid)
+    const cartSnap = await getDoc(cartRef)
+    if (cartSnap.exists()) {
+      const dataProducts = cartSnap.data()
+      return dataProducts
+    }
+    return {}
+  }
+
   return {
     db,
     auth,
     addProduct,
     addToCart,
+    getCart,
     getAllProducts,
     getProductId,
     onAuthUser,

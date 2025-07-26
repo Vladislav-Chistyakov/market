@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { useUserStore } from '~/store/user'
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+import { navigateTo } from '#app/composables/router'
 
-const userStore = useUserStore()
+const { getCart } = useFirebaseFunctions()
+
+const onAuthState = useFirebaseFunctions().onAuthUser
+let cartUser = reactive({})
+const userStore = await useUserStore()
 </script>
 
 <template>
   <div class="font-causten">
+    {{ cartUser }}
     <div class="container xl:max-w-[1440px] py-[50px]">
       <div class="flex items-center gap-[15px] mb-[30px]">
         <nuxt-link
