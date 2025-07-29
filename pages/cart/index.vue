@@ -2,17 +2,85 @@
 import { useUserStore } from '~/store/user'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 import { navigateTo } from '#app/composables/router'
+import type { Ref } from 'vue'
 
 const { getCart } = useFirebaseFunctions()
 
 const onAuthState = useFirebaseFunctions().onAuthUser
-let cartUser = reactive({})
+const getProductId = useFirebaseFunctions().getProductId
 const userStore = await useUserStore()
+const pending = ref(false)
+
+type CartItem = {
+  color: string
+  price: number
+  countProductCart: number
+  size: string
+  productId: string
+  key: string
+}
+
+type CartUser = {
+  [productId: string]: CartItem
+}
+
+const products: Ref<unknown> = ref([])
+let cartUser: CartUser = reactive({})
+
+async function getCartUser() {
+  pending.value = true
+  try {
+    if (userStore.userData && userStore.userData.uid) {
+      const data = await getCart(userStore.userData.uid)
+
+      // Удаляем старые ключи
+      for (const key in cartUser) {
+        delete cartUser[key]
+      }
+
+      // Добавляем новые
+      for (const key in data) {
+        cartUser[key] = data[key]
+        cartUser[key].key = key
+      }
+
+      const productIds = Object.values(cartUser).map((item) => item.productId)
+
+      const productRequests = productIds.map((id) => getProductId(id))
+
+      products.value = await Promise.all(productRequests)
+      console.log('products', products.value)
+    }
+  } catch (error) {
+    console.log('Error getCartUser', error)
+  } finally {
+    pending.value = false
+  }
+}
+
+const arrayCartProduct = computed(() => {
+  const arrCart = Object.values(cartUser)
+  const arr = products.value.map((item: any, index: number) => {
+    console.log({ ...item, ...arrCart[index] })
+    return {
+      name: item.name || '',
+      color: arrCart[index].color || '',
+      size: arrCart[index].size || '',
+      price: arrCart[index].price || null,
+      imgSrc: item.images[0] || '',
+      count: arrCart[index].countProductCart || null,
+      subtotal: item.subtotal || 'free',
+      productId: item.productId || '',
+    }
+  })
+  return arr
+})
 </script>
 
 <template>
   <div class="font-causten">
-    {{ cartUser }}
+    <button @click="getCartUser">1231212312</button>
+    {{ arrayCartProduct }}
     <div class="container xl:max-w-[1440px] py-[50px]">
       <div class="flex items-center gap-[15px] mb-[30px]">
         <nuxt-link
@@ -79,189 +147,221 @@ const userStore = await useUserStore()
       </div>
 
       <!-- Строки данных -->
-      <div class="py-[50px]">
-        <div
-          class="container xl:max-w-[1440px] bg-white text-black items-center"
+      <ul class="py-[50px]">
+        <li
+          v-if="pending"
+          class="p-[20px] text-center text-[22px] leading-[26px]"
         >
-          <div
-            class="py-[50px] border-b border-[#BEBCBD] grid grid-cols-[1fr_160px_160px_160px_160px_160px]"
+          Loading...
+        </li>
+
+        <template v-else-if="arrayCartProduct && arrayCartProduct.length">
+          <li
+            v-for="(item, index) in arrayCartProduct"
+            :key="index"
+            class="container xl:max-w-[1440px] bg-white text-black items-center"
           >
-            <div class="flex justify-start gap-[20px]">
-              <div>
-                <img src="#" alt="timg" class="flex w-[105px] h-auto" />
-              </div>
-
-              <div class="flex flex-col gap-[9px]">
-                <b class="text-bold text-[18px] leading-[22px]">
-                  Blue Flower Print Crop Top
-                </b>
-
-                <ul
-                  class="flex flex-col gap-[5px] text-[14px] leading-[17px] text-[#807D7E]"
-                >
-                  <li>Color: Yellow</li>
-                  <li>Size: M</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="flex justify-center items-center">
-              <b class="text-bold text-[18px] leading-[22px]"> $30.00 </b>
-            </div>
-
-            <div class="flex justify-center items-center">
-              <div
-                class="flex flex-row gap-[25px] items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"
-              >
-                <button class="flex justify-center items-center py-[7px]">
-                  <span
-                    class="block border-t border-black block h-[1px] w-[10px] rounded-[10px]"
+            <div
+              class="py-[50px] border-b border-[#BEBCBD] grid grid-cols-[1fr_160px_160px_160px_160px_160px]"
+            >
+              <div class="flex justify-start gap-[20px]">
+                <div v-if="item.imgSrc">
+                  <img
+                    :src="item.imgSrc"
+                    :alt="item.name || ''"
+                    class="flex w-[105px] h-auto"
                   />
-                </button>
+                </div>
 
-                <p class="font-medium text-black">1</p>
+                <div class="flex flex-col gap-[9px]">
+                  <b class="text-bold text-[18px] leading-[22px]">
+                    <!--                  Blue Flower Print Crop Top-->
+                    {{ item.name }}
+                  </b>
 
-                <button class="flex items-center justify-center py-[2px]">
+                  <ul
+                    class="flex flex-col gap-[5px] text-[14px] leading-[17px] text-[#807D7E]"
+                  >
+                    <li v-if="item.color">Color: {{ item.color }}</li>
+                    <li v-if="item.size">Size: {{ item.size }}</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="flex justify-center items-center">
+                <b
+                  v-if="item.price"
+                  class="text-bold text-[18px] leading-[22px]"
+                >
+                  ${{ item.price }}
+                </b>
+              </div>
+
+              <div class="flex justify-center items-center">
+                <div
+                  class="flex flex-row gap-[25px] items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"
+                >
+                  <button class="flex justify-center items-center py-[7px]">
+                    <span
+                      class="block border-t border-black block h-[1px] w-[10px] rounded-[10px]"
+                    />
+                  </button>
+
+                  <p v-if="item.count" class="font-medium text-black">
+                    {{ item.count }}
+                  </p>
+
+                  <button class="flex items-center justify-center py-[2px]">
+                    <svg
+                      width="11"
+                      height="12"
+                      viewBox="0 0 11 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.86181 1.37939V10.6206M10.4824 6L1.24121 6"
+                        stroke="#3C4242"
+                        stroke-width="1.03964"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex justify-center items-center">
+                <p
+                  v-if="item.subtotal"
+                  class="uppercase font-bold text-[18px] leading-[22px] text-[#BEBCBD]"
+                >
+                  {{ item.subtotal }}
+                </p>
+              </div>
+
+              <div class="flex justify-center items-center">
+                <b class="text-bold text-[18px] leading-[22px]">
+                  ${{
+                    item.subtotal !== 'free' ?
+                      item.price + item.subtotal
+                    : item.price
+                  }}
+                </b>
+              </div>
+
+              <div class="flex justify-end items-center">
+                <button class="" aria-label="delete">
                   <svg
-                    width="11"
-                    height="12"
-                    viewBox="0 0 11 12"
+                    width="17"
+                    height="20"
+                    viewBox="0 0 17 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M5.86181 1.37939V10.6206M10.4824 6L1.24121 6"
-                      stroke="#3C4242"
-                      stroke-width="1.03964"
-                      stroke-linecap="round"
+                      d="M7.20702 8C7.20702 7.50294 6.80407 7.1 6.30702 7.1C5.80996 7.1 5.40702 7.50294 5.40702 8H7.20702ZM5.40702 16C5.40702 16.4971 5.80996 16.9 6.30702 16.9C6.80407 16.9 7.20702 16.4971 7.20702 16H5.40702ZM11.4526 8C11.4526 7.50294 11.0497 7.1 10.5526 7.1C10.0556 7.1 9.65263 7.50294 9.65263 8H11.4526ZM9.65263 16C9.65263 16.4971 10.0556 16.9 10.5526 16.9C11.0497 16.9 11.4526 16.4971 11.4526 16H9.65263ZM3.22048 18.782L3.60997 17.9707L3.22048 18.782ZM2.29278 17.908L3.08442 17.4799H3.08442L2.29278 17.908ZM14.5669 17.908L13.7752 17.4798V17.4799L14.5669 17.908ZM13.6392 18.782L13.2497 17.9707H13.2497L13.6392 18.782ZM1 4.1C0.502944 4.1 0.1 4.50294 0.1 5C0.1 5.49706 0.502944 5.9 1 5.9V4.1ZM15.8596 5.9C16.3567 5.9 16.7596 5.49706 16.7596 5C16.7596 4.50294 16.3567 4.1 15.8596 4.1V5.9ZM3.81491 5C3.81491 5.49706 4.21786 5.9 4.71491 5.9C5.21197 5.9 5.61491 5.49706 5.61491 5H3.81491ZM11.2447 5C11.2447 5.49706 11.6477 5.9 12.1447 5.9C12.6418 5.9 13.0447 5.49706 13.0447 5H11.2447ZM5.40702 8V16H7.20702V8H5.40702ZM9.65263 8V16H11.4526V8H9.65263ZM13.8982 5V15.8H15.6982V5H13.8982ZM11.4018 18.1H5.45789V19.9H11.4018V18.1ZM1.1614 5V15.8H2.9614V5H1.1614ZM5.45789 18.1C4.84945 18.1 4.44413 18.0994 4.13271 18.0754C3.83033 18.0521 3.69385 18.0109 3.60997 17.9707L2.83099 19.5934C3.2012 19.7711 3.58898 19.8389 3.99456 19.8701C4.39111 19.9006 4.87745 19.9 5.45789 19.9V18.1ZM1.1614 15.8C1.1614 16.3443 1.16062 16.81 1.19369 17.1914C1.22782 17.5849 1.30291 17.9696 1.50113 18.3361L3.08442 17.4799C3.05127 17.4186 3.01067 17.3093 2.98696 17.0358C2.96219 16.7502 2.9614 16.3758 2.9614 15.8H1.1614ZM3.60997 17.9707C3.37513 17.8579 3.19428 17.683 3.08442 17.4799L1.50113 18.3361C1.79832 18.8856 2.26696 19.3226 2.83099 19.5934L3.60997 17.9707ZM13.8982 15.8C13.8982 16.3758 13.8975 16.7502 13.8727 17.0358C13.849 17.3093 13.8084 17.4186 13.7752 17.4798L15.3585 18.3361C15.5567 17.9696 15.6318 17.5849 15.666 17.1914C15.699 16.81 15.6982 16.3443 15.6982 15.8H13.8982ZM11.4018 19.9C11.9822 19.9 12.4685 19.9006 12.8651 19.8701C13.2707 19.8389 13.6585 19.7711 14.0287 19.5934L13.2497 17.9707C13.1658 18.0109 13.0293 18.0521 12.7269 18.0754C12.4155 18.0994 12.0102 18.1 11.4018 18.1V19.9ZM13.7752 17.4799C13.6654 17.683 13.4845 17.8579 13.2497 17.9707L14.0287 19.5934C14.5927 19.3226 15.0613 18.8856 15.3585 18.3361L13.7752 17.4799ZM1 5.9H2.0614V4.1H1V5.9ZM2.0614 5.9H14.7982V4.1H2.0614V5.9ZM14.7982 5.9H15.8596V4.1H14.7982V5.9ZM5.61491 4.2C5.61491 3.05108 6.74448 1.9 8.42982 1.9V0.1C6.01179 0.1 3.81491 1.8143 3.81491 4.2H5.61491ZM8.42982 1.9C10.1152 1.9 11.2447 3.05108 11.2447 4.2H13.0447C13.0447 1.8143 10.8479 0.1 8.42982 0.1V1.9ZM3.81491 4.2V5H5.61491V4.2H3.81491ZM11.2447 4.2V5H13.0447V4.2H11.2447Z"
+                      fill="#8A33FD"
                     />
                   </svg>
                 </button>
               </div>
             </div>
+          </li>
+        </template>
 
-            <div class="flex justify-center items-center">
-              <p
-                class="uppercase font-bold text-[18px] leading-[22px] text-[#BEBCBD]"
-              >
-                free
-              </p>
-            </div>
-
-            <div class="flex justify-center items-center">
-              <b class="text-bold text-[18px] leading-[22px]"> $30.00 </b>
-            </div>
-
-            <div class="flex justify-end items-center">
-              <button class="" aria-label="delete">
-                <svg
-                  width="17"
-                  height="20"
-                  viewBox="0 0 17 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.20702 8C7.20702 7.50294 6.80407 7.1 6.30702 7.1C5.80996 7.1 5.40702 7.50294 5.40702 8H7.20702ZM5.40702 16C5.40702 16.4971 5.80996 16.9 6.30702 16.9C6.80407 16.9 7.20702 16.4971 7.20702 16H5.40702ZM11.4526 8C11.4526 7.50294 11.0497 7.1 10.5526 7.1C10.0556 7.1 9.65263 7.50294 9.65263 8H11.4526ZM9.65263 16C9.65263 16.4971 10.0556 16.9 10.5526 16.9C11.0497 16.9 11.4526 16.4971 11.4526 16H9.65263ZM3.22048 18.782L3.60997 17.9707L3.22048 18.782ZM2.29278 17.908L3.08442 17.4799H3.08442L2.29278 17.908ZM14.5669 17.908L13.7752 17.4798V17.4799L14.5669 17.908ZM13.6392 18.782L13.2497 17.9707H13.2497L13.6392 18.782ZM1 4.1C0.502944 4.1 0.1 4.50294 0.1 5C0.1 5.49706 0.502944 5.9 1 5.9V4.1ZM15.8596 5.9C16.3567 5.9 16.7596 5.49706 16.7596 5C16.7596 4.50294 16.3567 4.1 15.8596 4.1V5.9ZM3.81491 5C3.81491 5.49706 4.21786 5.9 4.71491 5.9C5.21197 5.9 5.61491 5.49706 5.61491 5H3.81491ZM11.2447 5C11.2447 5.49706 11.6477 5.9 12.1447 5.9C12.6418 5.9 13.0447 5.49706 13.0447 5H11.2447ZM5.40702 8V16H7.20702V8H5.40702ZM9.65263 8V16H11.4526V8H9.65263ZM13.8982 5V15.8H15.6982V5H13.8982ZM11.4018 18.1H5.45789V19.9H11.4018V18.1ZM1.1614 5V15.8H2.9614V5H1.1614ZM5.45789 18.1C4.84945 18.1 4.44413 18.0994 4.13271 18.0754C3.83033 18.0521 3.69385 18.0109 3.60997 17.9707L2.83099 19.5934C3.2012 19.7711 3.58898 19.8389 3.99456 19.8701C4.39111 19.9006 4.87745 19.9 5.45789 19.9V18.1ZM1.1614 15.8C1.1614 16.3443 1.16062 16.81 1.19369 17.1914C1.22782 17.5849 1.30291 17.9696 1.50113 18.3361L3.08442 17.4799C3.05127 17.4186 3.01067 17.3093 2.98696 17.0358C2.96219 16.7502 2.9614 16.3758 2.9614 15.8H1.1614ZM3.60997 17.9707C3.37513 17.8579 3.19428 17.683 3.08442 17.4799L1.50113 18.3361C1.79832 18.8856 2.26696 19.3226 2.83099 19.5934L3.60997 17.9707ZM13.8982 15.8C13.8982 16.3758 13.8975 16.7502 13.8727 17.0358C13.849 17.3093 13.8084 17.4186 13.7752 17.4798L15.3585 18.3361C15.5567 17.9696 15.6318 17.5849 15.666 17.1914C15.699 16.81 15.6982 16.3443 15.6982 15.8H13.8982ZM11.4018 19.9C11.9822 19.9 12.4685 19.9006 12.8651 19.8701C13.2707 19.8389 13.6585 19.7711 14.0287 19.5934L13.2497 17.9707C13.1658 18.0109 13.0293 18.0521 12.7269 18.0754C12.4155 18.0994 12.0102 18.1 11.4018 18.1V19.9ZM13.7752 17.4799C13.6654 17.683 13.4845 17.8579 13.2497 17.9707L14.0287 19.5934C14.5927 19.3226 15.0613 18.8856 15.3585 18.3361L13.7752 17.4799ZM1 5.9H2.0614V4.1H1V5.9ZM2.0614 5.9H14.7982V4.1H2.0614V5.9ZM14.7982 5.9H15.8596V4.1H14.7982V5.9ZM5.61491 4.2C5.61491 3.05108 6.74448 1.9 8.42982 1.9V0.1C6.01179 0.1 3.81491 1.8143 3.81491 4.2H5.61491ZM8.42982 1.9C10.1152 1.9 11.2447 3.05108 11.2447 4.2H13.0447C13.0447 1.8143 10.8479 0.1 8.42982 0.1V1.9ZM3.81491 4.2V5H5.61491V4.2H3.81491ZM11.2447 4.2V5H13.0447V4.2H11.2447Z"
-                    fill="#8A33FD"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div
+        <li
+          v-else
           class="container xl:max-w-[1440px] bg-white text-black items-center"
         >
-          <div
-            class="py-[50px] grid grid-cols-[1fr_160px_160px_160px_160px_160px]"
-          >
-            <div class="flex justify-start gap-[20px]">
-              <div>
-                <img src="#" alt="timg" class="flex w-[105px] h-auto" />
-              </div>
+          <div>eeeroror</div>
+          <!--          <div-->
+          <!--            class="py-[50px] grid grid-cols-[1fr_160px_160px_160px_160px_160px]"-->
+          <!--          >-->
+          <!--            <div class="flex justify-start gap-[20px]">-->
+          <!--              <div>-->
+          <!--                <img src="#" alt="timg" class="flex w-[105px] h-auto" />-->
+          <!--              </div>-->
 
-              <div class="flex flex-col gap-[9px]">
-                <b class="text-bold text-[18px] leading-[22px]">
-                  Blue Flower Print Crop Top
-                </b>
+          <!--              <div class="flex flex-col gap-[9px]">-->
+          <!--                <b class="text-bold text-[18px] leading-[22px]">-->
+          <!--                  Blue Flower Print Crop Top-->
+          <!--                </b>-->
 
-                <ul
-                  class="flex flex-col gap-[5px] text-[14px] leading-[17px] text-[#807D7E]"
-                >
-                  <li>Color: Yellow</li>
-                  <li>Size: M</li>
-                </ul>
-              </div>
-            </div>
+          <!--                <ul-->
+          <!--                  class="flex flex-col gap-[5px] text-[14px] leading-[17px] text-[#807D7E]"-->
+          <!--                >-->
+          <!--                  <li>Color: Yellow</li>-->
+          <!--                  <li>Size: M</li>-->
+          <!--                </ul>-->
+          <!--              </div>-->
+          <!--            </div>-->
 
-            <div class="flex justify-center items-center">
-              <b class="text-bold text-[18px] leading-[22px]"> $30.00 </b>
-            </div>
+          <!--            <div class="flex justify-center items-center">-->
+          <!--              <b class="text-bold text-[18px] leading-[22px]"> $30.00 </b>-->
+          <!--            </div>-->
 
-            <div class="flex justify-center items-center">
-              <div
-                class="flex flex-row gap-[25px] items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"
-              >
-                <button class="flex justify-center items-center py-[7px]">
-                  <span
-                    class="block border-t border-black block h-[1px] w-[10px] rounded-[10px]"
-                  />
-                </button>
+          <!--            <div class="flex justify-center items-center">-->
+          <!--              <div-->
+          <!--                class="flex flex-row gap-[25px] items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"-->
+          <!--              >-->
+          <!--                <button class="flex justify-center items-center py-[7px]">-->
+          <!--                  <span-->
+          <!--                    class="block border-t border-black block h-[1px] w-[10px] rounded-[10px]"-->
+          <!--                  />-->
+          <!--                </button>-->
 
-                <p class="font-medium text-black">1</p>
+          <!--                <p class="font-medium text-black">1</p>-->
 
-                <button class="flex items-center justify-center py-[2px]">
-                  <svg
-                    width="11"
-                    height="12"
-                    viewBox="0 0 11 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.86181 1.37939V10.6206M10.4824 6L1.24121 6"
-                      stroke="#3C4242"
-                      stroke-width="1.03964"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
+          <!--                <button class="flex items-center justify-center py-[2px]">-->
+          <!--                  <svg-->
+          <!--                    width="11"-->
+          <!--                    height="12"-->
+          <!--                    viewBox="0 0 11 12"-->
+          <!--                    fill="none"-->
+          <!--                    xmlns="http://www.w3.org/2000/svg"-->
+          <!--                  >-->
+          <!--                    <path-->
+          <!--                      d="M5.86181 1.37939V10.6206M10.4824 6L1.24121 6"-->
+          <!--                      stroke="#3C4242"-->
+          <!--                      stroke-width="1.03964"-->
+          <!--                      stroke-linecap="round"-->
+          <!--                    />-->
+          <!--                  </svg>-->
+          <!--                </button>-->
+          <!--              </div>-->
+          <!--            </div>-->
 
-            <div class="flex justify-center items-center">
-              <p
-                class="uppercase font-bold text-[18px] leading-[22px] text-[#BEBCBD]"
-              >
-                free
-              </p>
-            </div>
+          <!--            <div class="flex justify-center items-center">-->
+          <!--              <p-->
+          <!--                class="uppercase font-bold text-[18px] leading-[22px] text-[#BEBCBD]"-->
+          <!--              >-->
+          <!--                free-->
+          <!--              </p>-->
+          <!--            </div>-->
 
-            <div class="flex justify-center items-center">
-              <b class="text-bold text-[18px] leading-[22px]"> $30.00 </b>
-            </div>
+          <!--            <div class="flex justify-center items-center">-->
+          <!--              <b class="text-bold text-[18px] leading-[22px]"> $30.00 </b>-->
+          <!--            </div>-->
 
-            <div class="flex justify-end items-center">
-              <button class="" aria-label="delete">
-                <svg
-                  width="17"
-                  height="20"
-                  viewBox="0 0 17 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.20702 8C7.20702 7.50294 6.80407 7.1 6.30702 7.1C5.80996 7.1 5.40702 7.50294 5.40702 8H7.20702ZM5.40702 16C5.40702 16.4971 5.80996 16.9 6.30702 16.9C6.80407 16.9 7.20702 16.4971 7.20702 16H5.40702ZM11.4526 8C11.4526 7.50294 11.0497 7.1 10.5526 7.1C10.0556 7.1 9.65263 7.50294 9.65263 8H11.4526ZM9.65263 16C9.65263 16.4971 10.0556 16.9 10.5526 16.9C11.0497 16.9 11.4526 16.4971 11.4526 16H9.65263ZM3.22048 18.782L3.60997 17.9707L3.22048 18.782ZM2.29278 17.908L3.08442 17.4799H3.08442L2.29278 17.908ZM14.5669 17.908L13.7752 17.4798V17.4799L14.5669 17.908ZM13.6392 18.782L13.2497 17.9707H13.2497L13.6392 18.782ZM1 4.1C0.502944 4.1 0.1 4.50294 0.1 5C0.1 5.49706 0.502944 5.9 1 5.9V4.1ZM15.8596 5.9C16.3567 5.9 16.7596 5.49706 16.7596 5C16.7596 4.50294 16.3567 4.1 15.8596 4.1V5.9ZM3.81491 5C3.81491 5.49706 4.21786 5.9 4.71491 5.9C5.21197 5.9 5.61491 5.49706 5.61491 5H3.81491ZM11.2447 5C11.2447 5.49706 11.6477 5.9 12.1447 5.9C12.6418 5.9 13.0447 5.49706 13.0447 5H11.2447ZM5.40702 8V16H7.20702V8H5.40702ZM9.65263 8V16H11.4526V8H9.65263ZM13.8982 5V15.8H15.6982V5H13.8982ZM11.4018 18.1H5.45789V19.9H11.4018V18.1ZM1.1614 5V15.8H2.9614V5H1.1614ZM5.45789 18.1C4.84945 18.1 4.44413 18.0994 4.13271 18.0754C3.83033 18.0521 3.69385 18.0109 3.60997 17.9707L2.83099 19.5934C3.2012 19.7711 3.58898 19.8389 3.99456 19.8701C4.39111 19.9006 4.87745 19.9 5.45789 19.9V18.1ZM1.1614 15.8C1.1614 16.3443 1.16062 16.81 1.19369 17.1914C1.22782 17.5849 1.30291 17.9696 1.50113 18.3361L3.08442 17.4799C3.05127 17.4186 3.01067 17.3093 2.98696 17.0358C2.96219 16.7502 2.9614 16.3758 2.9614 15.8H1.1614ZM3.60997 17.9707C3.37513 17.8579 3.19428 17.683 3.08442 17.4799L1.50113 18.3361C1.79832 18.8856 2.26696 19.3226 2.83099 19.5934L3.60997 17.9707ZM13.8982 15.8C13.8982 16.3758 13.8975 16.7502 13.8727 17.0358C13.849 17.3093 13.8084 17.4186 13.7752 17.4798L15.3585 18.3361C15.5567 17.9696 15.6318 17.5849 15.666 17.1914C15.699 16.81 15.6982 16.3443 15.6982 15.8H13.8982ZM11.4018 19.9C11.9822 19.9 12.4685 19.9006 12.8651 19.8701C13.2707 19.8389 13.6585 19.7711 14.0287 19.5934L13.2497 17.9707C13.1658 18.0109 13.0293 18.0521 12.7269 18.0754C12.4155 18.0994 12.0102 18.1 11.4018 18.1V19.9ZM13.7752 17.4799C13.6654 17.683 13.4845 17.8579 13.2497 17.9707L14.0287 19.5934C14.5927 19.3226 15.0613 18.8856 15.3585 18.3361L13.7752 17.4799ZM1 5.9H2.0614V4.1H1V5.9ZM2.0614 5.9H14.7982V4.1H2.0614V5.9ZM14.7982 5.9H15.8596V4.1H14.7982V5.9ZM5.61491 4.2C5.61491 3.05108 6.74448 1.9 8.42982 1.9V0.1C6.01179 0.1 3.81491 1.8143 3.81491 4.2H5.61491ZM8.42982 1.9C10.1152 1.9 11.2447 3.05108 11.2447 4.2H13.0447C13.0447 1.8143 10.8479 0.1 8.42982 0.1V1.9ZM3.81491 4.2V5H5.61491V4.2H3.81491ZM11.2447 4.2V5H13.0447V4.2H11.2447Z"
-                    fill="#8A33FD"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+          <!--            <div class="flex justify-end items-center">-->
+          <!--              <button class="" aria-label="delete">-->
+          <!--                <svg-->
+          <!--                  width="17"-->
+          <!--                  height="20"-->
+          <!--                  viewBox="0 0 17 20"-->
+          <!--                  fill="none"-->
+          <!--                  xmlns="http://www.w3.org/2000/svg"-->
+          <!--                >-->
+          <!--                  <path-->
+          <!--                    d="M7.20702 8C7.20702 7.50294 6.80407 7.1 6.30702 7.1C5.80996 7.1 5.40702 7.50294 5.40702 8H7.20702ZM5.40702 16C5.40702 16.4971 5.80996 16.9 6.30702 16.9C6.80407 16.9 7.20702 16.4971 7.20702 16H5.40702ZM11.4526 8C11.4526 7.50294 11.0497 7.1 10.5526 7.1C10.0556 7.1 9.65263 7.50294 9.65263 8H11.4526ZM9.65263 16C9.65263 16.4971 10.0556 16.9 10.5526 16.9C11.0497 16.9 11.4526 16.4971 11.4526 16H9.65263ZM3.22048 18.782L3.60997 17.9707L3.22048 18.782ZM2.29278 17.908L3.08442 17.4799H3.08442L2.29278 17.908ZM14.5669 17.908L13.7752 17.4798V17.4799L14.5669 17.908ZM13.6392 18.782L13.2497 17.9707H13.2497L13.6392 18.782ZM1 4.1C0.502944 4.1 0.1 4.50294 0.1 5C0.1 5.49706 0.502944 5.9 1 5.9V4.1ZM15.8596 5.9C16.3567 5.9 16.7596 5.49706 16.7596 5C16.7596 4.50294 16.3567 4.1 15.8596 4.1V5.9ZM3.81491 5C3.81491 5.49706 4.21786 5.9 4.71491 5.9C5.21197 5.9 5.61491 5.49706 5.61491 5H3.81491ZM11.2447 5C11.2447 5.49706 11.6477 5.9 12.1447 5.9C12.6418 5.9 13.0447 5.49706 13.0447 5H11.2447ZM5.40702 8V16H7.20702V8H5.40702ZM9.65263 8V16H11.4526V8H9.65263ZM13.8982 5V15.8H15.6982V5H13.8982ZM11.4018 18.1H5.45789V19.9H11.4018V18.1ZM1.1614 5V15.8H2.9614V5H1.1614ZM5.45789 18.1C4.84945 18.1 4.44413 18.0994 4.13271 18.0754C3.83033 18.0521 3.69385 18.0109 3.60997 17.9707L2.83099 19.5934C3.2012 19.7711 3.58898 19.8389 3.99456 19.8701C4.39111 19.9006 4.87745 19.9 5.45789 19.9V18.1ZM1.1614 15.8C1.1614 16.3443 1.16062 16.81 1.19369 17.1914C1.22782 17.5849 1.30291 17.9696 1.50113 18.3361L3.08442 17.4799C3.05127 17.4186 3.01067 17.3093 2.98696 17.0358C2.96219 16.7502 2.9614 16.3758 2.9614 15.8H1.1614ZM3.60997 17.9707C3.37513 17.8579 3.19428 17.683 3.08442 17.4799L1.50113 18.3361C1.79832 18.8856 2.26696 19.3226 2.83099 19.5934L3.60997 17.9707ZM13.8982 15.8C13.8982 16.3758 13.8975 16.7502 13.8727 17.0358C13.849 17.3093 13.8084 17.4186 13.7752 17.4798L15.3585 18.3361C15.5567 17.9696 15.6318 17.5849 15.666 17.1914C15.699 16.81 15.6982 16.3443 15.6982 15.8H13.8982ZM11.4018 19.9C11.9822 19.9 12.4685 19.9006 12.8651 19.8701C13.2707 19.8389 13.6585 19.7711 14.0287 19.5934L13.2497 17.9707C13.1658 18.0109 13.0293 18.0521 12.7269 18.0754C12.4155 18.0994 12.0102 18.1 11.4018 18.1V19.9ZM13.7752 17.4799C13.6654 17.683 13.4845 17.8579 13.2497 17.9707L14.0287 19.5934C14.5927 19.3226 15.0613 18.8856 15.3585 18.3361L13.7752 17.4799ZM1 5.9H2.0614V4.1H1V5.9ZM2.0614 5.9H14.7982V4.1H2.0614V5.9ZM14.7982 5.9H15.8596V4.1H14.7982V5.9ZM5.61491 4.2C5.61491 3.05108 6.74448 1.9 8.42982 1.9V0.1C6.01179 0.1 3.81491 1.8143 3.81491 4.2H5.61491ZM8.42982 1.9C10.1152 1.9 11.2447 3.05108 11.2447 4.2H13.0447C13.0447 1.8143 10.8479 0.1 8.42982 0.1V1.9ZM3.81491 4.2V5H5.61491V4.2H3.81491ZM11.2447 4.2V5H13.0447V4.2H11.2447Z"-->
+          <!--                    fill="#8A33FD"-->
+          <!--                  />-->
+          <!--                </svg>-->
+          <!--              </button>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </li>
+      </ul>
     </div>
 
     <div class="container xl:max-w-[1440px] bg-[#F6F6F6]">
