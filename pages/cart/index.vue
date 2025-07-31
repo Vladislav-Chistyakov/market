@@ -136,18 +136,18 @@ const arrayCartProduct = computed(() => {
     <div class="mx-auto xl:max-w-[1440px]">
       <!-- Заголовок -->
       <div
-        class="container uppercase xl:max-w-[1440px] grid grid-cols-[1fr_160px_160px_160px_160px_160px] bg-black text-white font-semibold pt-[26px] pb-[28px]"
+        class="tracking-[1px] container uppercase xl:max-w-[1440px] grid grid-cols-[1fr_195px_177px_224px_178px_135px] bg-black text-white font-semibold pt-[25px] pb-[27px]"
       >
-        <div class="text-start">Project details</div>
-        <div class="text-center">Price</div>
-        <div class="text-center">Quantity</div>
-        <div class="text-center">Shipping</div>
-        <div class="text-center">Subtotal</div>
-        <div class="text-right">Action</div>
+        <p class="text-start">Product Details</p>
+        <p class="text-center">Price</p>
+        <p class="text-center">Quantity</p>
+        <p class="text-center">Shipping</p>
+        <p class="text-center">Subtotal</p>
+        <p class="text-right">Action</p>
       </div>
 
       <!-- Строки данных -->
-      <ul class="py-[50px]">
+      <ul class="pt-[70px] pb-[100px]">
         <li
           v-if="pending"
           class="p-[20px] text-center text-[22px] leading-[26px]"
@@ -162,20 +162,28 @@ const arrayCartProduct = computed(() => {
             class="container xl:max-w-[1440px] bg-white text-black items-center"
           >
             <div
-              class="py-[50px] border-b border-[#BEBCBD] grid grid-cols-[1fr_160px_160px_160px_160px_160px]"
+              class="grid grid-cols-[1fr_195px_177px_224px_178px_135px]"
+              :class="{
+                'pt-[50px]': index,
+                'pb-[50px] border-b border-[#BEBCBD]':
+                  index !== arrayCartProduct.length - 1,
+              }"
             >
               <div class="flex justify-start gap-[20px]">
-                <div v-if="item.imgSrc">
+                <div
+                  v-if="item.imgSrc"
+                  class="h-[120px] overflow-hidden rounded-[10px]"
+                >
                   <img
                     :src="item.imgSrc"
                     :alt="item.name || ''"
-                    class="flex w-[105px] h-auto"
+                    class="flex w-[105px]"
                   />
                 </div>
 
                 <div class="flex flex-col gap-[9px]">
                   <b class="text-bold text-[18px] leading-[22px]">
-                    <!--                  Blue Flower Print Crop Top-->
+                    <!--   Blue Flower Print Crop Top-->
                     {{ item.name }}
                   </b>
 
@@ -193,21 +201,35 @@ const arrayCartProduct = computed(() => {
                   v-if="item.price"
                   class="text-bold text-[18px] leading-[22px]"
                 >
-                  ${{ item.price }}
+                  ${{ item.price }}.00
                 </b>
               </div>
 
               <div class="flex justify-center items-center">
                 <div
-                  class="flex flex-row gap-[25px] items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"
+                  class="flex flex-row gap-[16px] items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"
                 >
                   <button class="flex justify-center items-center py-[7px]">
-                    <span
-                      class="block border-t border-black block h-[1px] w-[10px] rounded-[10px]"
-                    />
+                    <svg
+                      width="11"
+                      height="2"
+                      viewBox="0 0 11 2"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.2412 1L1 1"
+                        stroke="#3C4242"
+                        stroke-width="1.03964"
+                        stroke-linecap="round"
+                      />
+                    </svg>
                   </button>
 
-                  <p v-if="item.count" class="font-medium text-black">
+                  <p
+                    v-if="item.count"
+                    class="font-medium text-black text-[12px] leading-[14px]"
+                  >
                     {{ item.count }}
                   </p>
 
@@ -245,12 +267,12 @@ const arrayCartProduct = computed(() => {
                     item.subtotal !== 'free' ?
                       item.price + item.subtotal
                     : item.price
-                  }}
+                  }}.00
                 </b>
               </div>
 
               <div class="flex justify-end items-center">
-                <button class="" aria-label="delete">
+                <button class="mr-[21px]" aria-label="delete">
                   <svg
                     width="17"
                     height="20"
