@@ -27,6 +27,7 @@ export const useProductsStore = defineStore('productsStore', () => {
     return products.value.find((item) => item.id === id)
   }
 
+  // TODO тут прям все зависит от гендера, функции повторяются, исправить!
   const womenProducts = computed(() => {
     if (products.value.length) {
       return products.value.filter((item) => {

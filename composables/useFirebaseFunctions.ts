@@ -79,13 +79,21 @@ export const useFirebaseFunctions = () => {
 
   type CallBack = () => void
 
-  function onAuthUser(callBackIfThereIsNoUser: CallBack) {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        useUserStore().user = user
-      } else {
-        callBackIfThereIsNoUser()
-      }
+  async function onAuthUser(callBackIfThereIsNoUser: CallBack = () => null) {
+    return new Promise((resolve, reject) => {
+      onAuthStateChanged(
+        auth,
+        (user) => {
+          if (user) {
+            useUserStore().user = user
+            resolve(user)
+          } else {
+            console.log('call back')
+            resolve(callBackIfThereIsNoUser())
+          }
+        },
+        (error) => reject(error),
+      )
     })
   }
 

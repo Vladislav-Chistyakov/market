@@ -14,4 +14,7 @@ export default defineNuxtConfig({
       sourcemap: true,
     },
   },
+  routeRules: {
+    '/cart': { ssr: false },
+  },
 })

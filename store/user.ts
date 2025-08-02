@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 
 export const useUserStore = defineStore('userStore', () => {
   const user: Ref<null | object> = ref(null)
+  const pendingGettingUser = ref(false)
   const isAuthorization = computed(() => !!user.value)
 
   const { getProducts } = useProductsStore()
@@ -28,5 +29,6 @@ export const useUserStore = defineStore('userStore', () => {
     user,
     userData,
     isAuthorization,
+    pendingGettingUser,
   }
 })

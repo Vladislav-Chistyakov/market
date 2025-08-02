@@ -5,9 +5,8 @@ import type { Ref } from 'vue'
 
 const { getCart } = useFirebaseFunctions()
 
-const onAuthState = useFirebaseFunctions().onAuthUser
 const getProductId = useFirebaseFunctions().getProductId
-const userStore = await useUserStore()
+const userStore = useUserStore()
 const pending = ref(false)
 
 type CartItem = {
@@ -56,6 +55,7 @@ async function getCartUser() {
     pending.value = false
   }
 }
+getCartUser()
 
 const arrayCartProduct = computed(() => {
   const arrCart = Object.values(cartUser)
@@ -78,7 +78,6 @@ const arrayCartProduct = computed(() => {
 
 <template>
   <div class="font-causten">
-    <button @click="getCartUser">1231212312</button>
     <div class="container xl:max-w-[1440px] py-[50px]">
       <div class="flex items-center gap-[15px] mb-[30px]">
         <nuxt-link
