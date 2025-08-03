@@ -13,6 +13,8 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
+  deleteField,
 } from 'firebase/firestore'
 import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
@@ -197,6 +199,22 @@ export const useFirebaseFunctions = () => {
     return {}
   }
 
+  async function removeProductFromCart(productId: string) {
+    try {
+      const uid = useUserStore()?.user?.uid
+      if (!uid) throw new Error('UID is not defined')
+      const userCartRef = doc(db, 'carts', uid)
+      await updateDoc(userCartRef, {
+        [productId]: deleteField(),
+      })
+      console.log(
+        `Поле ${productId} удалено из документа корзины пользователя ${uid}`,
+      )
+    } catch (error) {
+      console.error('Ошибка при удалении товара из поля:', error)
+    }
+  }
+
   return {
     db,
     auth,
@@ -205,6 +223,7 @@ export const useFirebaseFunctions = () => {
     getCart,
     getAllProducts,
     getProductId,
+    removeProductFromCart,
     onAuthUser,
     userRegistration,
     userSignIn,

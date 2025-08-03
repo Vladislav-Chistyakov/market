@@ -68,8 +68,8 @@ const arrayCartProduct = computed(() => {
       price: arrCart[index].price || null,
       imgSrc: item.images[0] || '',
       count: arrCart[index].countProductCart || null,
-      subtotal: item.subtotal || 'free',
-      productId: item.productId || '',
+      subtotal: item.subtotal,
+      id: `${item.id}-${arrCart[index].color}-${arrCart[index].size}` || '',
     }
   })
   return arr
