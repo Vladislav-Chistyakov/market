@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+import { useCartStore } from '~/store/cart'
+
+const cartStore = useCartStore()
 
 type Props = {
   item: {
@@ -32,7 +35,6 @@ const totalPrice = computed(() => {
     : (props.item.price * props.item.count).toFixed(2)
 })
 
-const removeProductFromCart = useFirebaseFunctions().removeProductFromCart
 // TODO написать функцию удаления продукта и получения cart обратно после успешного удаления
 </script>
 
@@ -142,7 +144,7 @@ const removeProductFromCart = useFirebaseFunctions().removeProductFromCart
         <button
           class="mr-[21px]"
           aria-label="delete"
-          @click.prevent="removeProductFromCart(item.id)"
+          @click.prevent="cartStore.removeCartProduct(item.id)"
         >
           <svg
             width="17"
