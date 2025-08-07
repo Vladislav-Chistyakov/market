@@ -7,6 +7,7 @@ const cartStore = useCartStore()
 type Props = {
   item: {
     id: string
+    productId: string
     imgSrc: string
     name: string
     color: string
@@ -25,17 +26,48 @@ const props = withDefaults(defineProps<Props>(), {
   numberItem: 0,
 })
 
+const productCount = ref(props.item.count)
+const pendingButtonCount = ref(false)
+
 const subtotal = computed(() => {
   return props.item.subtotal ? props.item.subtotal : 'free'
 })
 
 const totalPrice = computed(() => {
   return subtotal.value !== 'free' ?
-      (props.item.price * props.item.count + Number(subtotal.value)).toFixed(2)
-    : (props.item.price * props.item.count).toFixed(2)
+      (props.item.price * productCount.value + Number(subtotal.value)).toFixed(2)
+    : (props.item.price * productCount.value).toFixed(2)
 })
 
-// TODO написать функцию удаления продукта и получения cart обратно после успешного удаления
+const addProductToCart = async function () {
+  // Ставим pending на кнопку удаления одного товара из корзины
+  pendingButtonCount.value = true
+  // Добавляем еще один товар в корзину BD
+  await cartStore.addProductToCart(props.item.productId, props.item.color, props.item.size, props.item.price)
+    .then(() => {
+      // Усли успешно, то прибавляем один товар
+      productCount.value += 1
+    })
+    .finally(() => pendingButtonCount.value = false)
+}
+
+const removeOneItemFromCart = async function () {
+  // Проверка, если количества продукта больше одного
+  if (productCount.value > 1) {
+    // То ставим pending на кнопку удаления одного товара из корзины
+    pendingButtonCount.value = true
+    // Отправляем запрос в BD
+    await cartStore.removeOneItemFromCart(props.item.productId, props.item.color, props.item.size, props.item.price)
+      .then(() => {
+        // Усли успешно, то убираем один товар
+        productCount.value -= 1
+      })
+      .finally(() => pendingButtonCount.value = false)
+  } else {
+    // Иначе удаляем товар из корзины
+    await cartStore.removeCartProduct(props.item.id)
+  }
+}
 </script>
 
 <template>
@@ -84,7 +116,7 @@ const totalPrice = computed(() => {
         <div
           class="flex flex-row gap-[16px] items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"
         >
-          <button class="flex justify-center items-center py-[7px]">
+          <button @click="removeOneItemFromCart" :disabled="pendingButtonCount" class="flex justify-center items-center py-[7px] disabled:cursor-wait">
             <svg
               width="11"
               height="2"
@@ -102,13 +134,13 @@ const totalPrice = computed(() => {
           </button>
 
           <p
-            v-if="item.count"
+            v-if="productCount"
             class="font-medium text-black text-[12px] leading-[14px]"
           >
-            {{ item.count }}
+            {{ productCount }}
           </p>
 
-          <button class="flex items-center justify-center py-[2px]">
+          <button @click="addProductToCart" :disabled="pendingButtonCount" class="flex items-center justify-center py-[2px] disabled:cursor-wait">
             <svg
               width="11"
               height="12"

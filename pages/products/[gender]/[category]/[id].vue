@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
+import { useCartStore } from '~/store/cart'
 import type { Ref } from 'vue'
 
 const { getProductId, addToCart } = useFirebaseFunctions()
-
+const cartStore = useCartStore()
 const route = useRoute()
 
 const product: any = ref(null)
 const pending = ref(false)
-const pendingAddToCart = ref(false)
 
 try {
   pending.value = true
@@ -62,11 +62,9 @@ function activeColorButton(color: string) {
   : (form.value.color = color)
 }
 
-async function addCarts() {
+async function addProductToCart() {
   if (form.value.size && form.value.color) {
-    pendingAddToCart.value = true
-
-    await addToCart(
+    await cartStore.addProductToCart(
       product.value.id,
       form.value.color,
       form.value.size,
@@ -76,7 +74,6 @@ async function addCarts() {
         console.error('Error adding product to cart: ', err)
       })
       .finally(() => {
-        pendingAddToCart.value = false
         form.value.size = null
         form.value.color = null
       })
@@ -178,8 +175,8 @@ async function addCarts() {
 
         <div class="flex items-center gap-[25px] mb-[35px]">
           <button
-            @click.prevent="addCarts"
-            :disabled="!form.size || !form.color || pendingAddToCart"
+            @click.prevent="addProductToCart"
+            :disabled="!form.size || !form.color || cartStore.pendingCart"
             class="px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple disabled:opacity-40"
           >
             <img src="@/assets/images/pages/product/basket.svg" alt="basket" />
@@ -187,7 +184,7 @@ async function addCarts() {
             <span
               class="block font-causten font-semibold text-white text-[18px] leading-[18px]"
             >
-              {{ pendingAddToCart ? 'Loading...' : 'Add to cart' }}
+              {{ cartStore.pendingCart ? 'Loading...' : 'Add to cart' }}
             </span>
           </button>
 

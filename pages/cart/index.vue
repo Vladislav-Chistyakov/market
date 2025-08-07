@@ -9,12 +9,14 @@ const pending = ref(false)
 
 const pagePending = computed(() => pending.value || cartStore.pendingCart)
 
+// Получение корзины товаров
 const getCartUser = async function() {
-  pending.value = true
   await cartStore.getCartUser().finally(() => pending.value = false)
 }
+
 await getCartUser()
 
+// Получения списка товара для вывода в список
 const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
 </script>
 

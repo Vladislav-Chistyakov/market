@@ -149,27 +149,29 @@ export const useFirebaseFunctions = () => {
     }
   }
 
-  const addToCart = async (
+  const convertItemInCart = async (
     productId: string,
     productColor: string,
     productSize: string,
     productPrice: number,
+    actionOnProduct: 'add' | 'remove' = 'add',
   ) => {
     const uid = useUserStore()?.user?.uid
-
     if (!uid) throw new Error('UID is not defined')
     const cartRef = doc(db, 'carts', uid)
     const cartSnap = await getDoc(cartRef)
     if (cartSnap.exists()) {
       const dataProducts = cartSnap.data()
       const infoProductCart = { ...dataProducts }
-
-      // Ну и отправляем все данные на серв
+      // Ну и отправляем все данные в базу
       const keyProductCart = `${productId}-${productColor}-${productSize}`
+
       try {
         // добавление данных в стор
-        if (infoProductCart[keyProductCart]) {
+        if (infoProductCart[keyProductCart] && actionOnProduct === 'add') {
           infoProductCart[keyProductCart].countProductCart += 1
+        } else if (infoProductCart[keyProductCart] && actionOnProduct === 'remove') {
+          infoProductCart[keyProductCart].countProductCart -= 1
         } else {
           // Инача создаем новый по id продукта
           infoProductCart[keyProductCart] = {
@@ -219,7 +221,7 @@ export const useFirebaseFunctions = () => {
     db,
     auth,
     addProduct,
-    addToCart,
+    convertItemInCart,
     getCart,
     getAllProducts,
     getProductId,

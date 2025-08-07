@@ -1,4 +1,3 @@
-import { useProductsStore } from '~/store/products'
 import type { Ref } from 'vue'
 import { useUserStore } from '~/store/user'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
@@ -71,6 +70,7 @@ export const useCartStore = defineStore('cartStore', () => {
           count: arrCart[index]?.countProductCart || null,
           subtotal: item.subtotal,
           id: `${item.id}-${arrCart[index]?.color}-${arrCart[index]?.size}` || '',
+          productId: item.id
         }
       })
       return arr
@@ -89,9 +89,53 @@ export const useCartStore = defineStore('cartStore', () => {
       })
   }
 
+  const addProductToCart = async function(
+    productId: string,
+    color: string,
+    size: string,
+    price: number,
+    needPending: boolean = false
+  ) {
+    if (needPending) {
+      pendingCart.value = true
+    }
+    await useFirebaseFunctions().convertItemInCart(productId, color, size, price, 'add')
+      .catch((error) => {
+        console.error('Error addProductToCart: ', error)
+      })
+      .finally(() => {
+        if (needPending) {
+          pendingCart.value = false
+        }
+      })
+  }
+
+  const removeOneItemFromCart = async function(
+    productId: string,
+    color: string,
+    size: string,
+    price: number,
+    needPending: boolean = false
+  ) {
+    if (needPending) {
+      pendingCart.value = true
+    }
+    await useFirebaseFunctions().convertItemInCart(productId, color, size, price, 'remove')
+      .catch((error) => {
+        console.error('Error removeOneItemFromCart: ', error)
+      })
+      .finally(() => {
+        if (needPending) {
+          pendingCart.value = false
+        }
+      })
+  }
+
   return {
+    addProductToCart,
     getCartUser,
     removeCartProduct,
+    removeOneItemFromCart,
     arrayCartProduct,
     pendingCart,
   }
