@@ -8,6 +8,13 @@ const props = withDefaults(defineProps<Props>(), {
   pending: false,
   arrayCartProduct: () => [],
 })
+
+const shippingTotal = computed(() => {
+  return props.arrayCartProduct.reduce(
+    (accumulator, item) => accumulator + item.price,
+    0,
+  )
+})
 </script>
 
 <template>
@@ -15,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
     <div class="flex gap-[20px] justify-between font-causten">
       <div class="py-[29px]">
         <b class="block text-[24px] leading-[29px] text-black mb-[10px]">
-          Discount Codes
+          Discount Codes {{ shippingTotal }}
         </b>
 
         <p class="text-[16px] leading-[19px] text-[#807D7E] mb-[41px]">
