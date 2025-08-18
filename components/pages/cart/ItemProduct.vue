@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 import { useCartStore } from '~/store/cart'
 
 const cartStore = useCartStore()
@@ -44,10 +43,10 @@ const addProductToCart = async function () {
   pendingButtonCount.value = true
   // Добавляем еще один товар в корзину BD
   await cartStore.addProductToCart(props.item.productId, props.item.color, props.item.size, props.item.price)
-    .then(() => {
-      // Усли успешно, то прибавляем один товар
-      productCount.value += 1
-    })
+    // .then(() => {
+    //   // Усли успешно, то прибавляем один товар
+    //   productCount.value += 1
+    // })
     .finally(() => pendingButtonCount.value = false)
 }
 
@@ -58,10 +57,10 @@ const removeOneItemFromCart = async function () {
     pendingButtonCount.value = true
     // Отправляем запрос в BD
     await cartStore.removeOneItemFromCart(props.item.productId, props.item.color, props.item.size, props.item.price)
-      .then(() => {
-        // Усли успешно, то убираем один товар
-        productCount.value -= 1
-      })
+      // .then(() => {
+      //   // Усли успешно, то убираем один товар
+      //   productCount.value -= 1
+      // })
       .finally(() => pendingButtonCount.value = false)
   } else {
     // Иначе удаляем товар из корзины

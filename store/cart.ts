@@ -100,6 +100,7 @@ export const useCartStore = defineStore('cartStore', () => {
       pendingCart.value = true
     }
     await useFirebaseFunctions().convertItemInCart(productId, color, size, price, 'add')
+      .then(async () => getCartUser())
       .catch((error) => {
         console.error('Error addProductToCart: ', error)
       })
@@ -121,6 +122,7 @@ export const useCartStore = defineStore('cartStore', () => {
       pendingCart.value = true
     }
     await useFirebaseFunctions().convertItemInCart(productId, color, size, price, 'remove')
+      .then(async () => getCartUser())
       .catch((error) => {
         console.error('Error removeOneItemFromCart: ', error)
       })

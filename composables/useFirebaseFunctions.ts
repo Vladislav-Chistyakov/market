@@ -133,6 +133,7 @@ export const useFirebaseFunctions = () => {
   async function getProductId(productId: string): Promise<null | unknown> {
     try {
       console.log('получение продукта по id ', productId)
+      // TODO Решить вопрос с запросами на повторяющиеся id продукиа (кэш или useLazyAsyncData)
       const productRef = doc(db, 'products', productId)
       const productSnap = await getDoc(productRef)
 

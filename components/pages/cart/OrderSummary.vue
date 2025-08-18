@@ -9,11 +9,26 @@ const props = withDefaults(defineProps<Props>(), {
   arrayCartProduct: () => [],
 })
 
-const shippingTotal = computed(() => {
+const deliveryAmount = computed(() => {
   return props.arrayCartProduct.reduce(
-    (accumulator, item) => accumulator + item.price,
+    (accumulator, item) => {
+      return item.subtotal ? accumulator + item.subtotal : accumulator + 0
+    },
     0,
-  )
+  ).toFixed(2)
+})
+
+const amountWithoutDelivery = computed(() => {
+  return props.arrayCartProduct.reduce(
+    (accumulator, item) => {
+      return item.count > 1 ? accumulator + item.price * item.count : accumulator + item.price
+    },
+    0,
+  ).toFixed(2)
+})
+
+const fullAmount = computed(() => {
+  return (Number(amountWithoutDelivery.value) + Number(deliveryAmount.value)).toFixed(2)
 })
 </script>
 
@@ -22,7 +37,7 @@ const shippingTotal = computed(() => {
     <div class="flex gap-[20px] justify-between font-causten">
       <div class="py-[29px]">
         <b class="block text-[24px] leading-[29px] text-black mb-[10px]">
-          Discount Codes {{ shippingTotal }}
+          Discount Codes
         </b>
 
         <p class="text-[16px] leading-[19px] text-[#807D7E] mb-[41px]">
@@ -32,7 +47,11 @@ const shippingTotal = computed(() => {
         <div
           class="rounded-[10px] border border-[#BEBCBD] flex overflow-hidden w-fit mb-[37px]"
         >
-          <input :disabled="pending" class="disabled:opacity-40" />
+          <input
+            :disabled="pending"
+            class="disabled:opacity-40 focus:outline-none px-[12px] text-[16px] font-semibold leading-[19px]"
+          />
+
           <button
             :disabled="pending"
             class="disabled:opacity-40 bg-purple text-white text-[16px] font-semibold leading-[19px] px-[31px] py-[13px] border-l border-[#BEBCBD]"
@@ -59,21 +78,21 @@ const shippingTotal = computed(() => {
                 class="font-medium font-causten text-black text-[22px] leading-[26px]"
               >
                 <td>Sub Total</td>
-                <td>$513.00</td>
+                <td>${{ amountWithoutDelivery }}</td>
               </tr>
 
               <tr
                 class="font-medium font-causten text-black text-[22px] leading-[26px]"
               >
                 <td>Shipping</td>
-                <td>$50.00</td>
+                <td>${{ deliveryAmount }}</td>
               </tr>
 
               <tr
                 class="font-bold font-causten text-black text-[22px] leading-[26px]"
               >
                 <td>Grand Total</td>
-                <td>$563.00</td>
+                <td>${{ fullAmount }}</td>
               </tr>
             </tbody>
           </table>
