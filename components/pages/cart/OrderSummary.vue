@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRouter } from '#vue-router'
+
 type Props = {
   pending: boolean
   arrayCartProduct: Array<any>
@@ -30,6 +32,12 @@ const amountWithoutDelivery = computed(() => {
 const fullAmount = computed(() => {
   return (Number(amountWithoutDelivery.value) + Number(deliveryAmount.value)).toFixed(2)
 })
+
+const router = useRouter()
+
+function goToCreateOrderPage () {
+  router.push('/placing-an-order')
+}
 </script>
 
 <template>
@@ -102,7 +110,8 @@ const fullAmount = computed(() => {
 
         <div class="p-[50px] flex items-center justify-center">
           <button
-            :disabled="pending"
+            @click="goToCreateOrderPage"
+            :disabled="pending && arrayCartProduct.length"
             class="bg-purple text-white text-[18px] font-semibold leading-[22px] px-[33px] py-[12px] rounded-[8px] disabled:opacity-40"
           >
             Proceed To Checkout
