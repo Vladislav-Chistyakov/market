@@ -90,13 +90,8 @@ const form: Reactive<Form> = reactive({
 })
 
 const resetForm = function () {
-  // form.category = ''
   form.createdAt = ''
   form.images = ['', '', '']
-  // form.name = ''
-  // form.description = ''
-  // form.brand = ''
-  // form.gender = ''
   form.price = 0
   form.color = []
   form.size = []

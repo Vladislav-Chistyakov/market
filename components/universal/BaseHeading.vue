@@ -1,24 +1,31 @@
 <script setup lang="ts">
 type Props = {
   title?: string
-  decoration?: boolean
+  decoration?: boolean,
+  small?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   title: 'Title',
   decoration: true,
+  small: false,
 })
 </script>
 
 <template>
-  <h2 class="flex gap-[20px]">
+  <h2
+    class="flex"
+    :class="[small ? 'gap-[15px]' : 'gap-[20px]']"
+  >
     <span
       v-if="decoration"
-      class="block bg-purple h-[30px] w-[6px] rounded-[10px] mb-[2px]"
+      class="relative block bg-purple w-[6px] rounded-[10px] "
+      :class="[small ? 'bottom-[2px] h-[28px]' : 'h-[30px] mb-[2px]']"
     />
 
     <span
-      class="block font-core-sans-c font-semibold text-[34px] text-black leading-[34px]"
+      class="block font-core-sans-c font-semibold  text-black"
+      :class="[small ? 'text-[28px] leading-[28px]' : 'text-[34px] leading-[34px]']"
     >
       {{ title }}
     </span>
