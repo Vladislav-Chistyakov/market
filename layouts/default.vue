@@ -8,12 +8,10 @@ const route = useRoute()
   <div>
     <Header />
 
-    <main v-if="route.matched.length">
-      <NuxtPage v-if="route.matched.length" />
-    </main>
-
-    <main v-else>
-      <PagesError />
+    <main>
+      <slot name="main">
+        <NuxtPage />
+      </slot>
     </main>
 
     <Footer />
