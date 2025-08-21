@@ -1,5 +1,4 @@
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
-import { navigateTo } from '#app/composables/router'
 import { useUserStore } from '~/store/user'
 
 export default defineNuxtPlugin({

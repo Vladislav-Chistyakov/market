@@ -1,6 +1,6 @@
 import { useUserStore } from '@/store/user'
 
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
   if (import.meta.server) {
     console.log('Заход в миддвеваре server')
     return
@@ -15,8 +15,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
       }
     } catch (error) {
       console.error(error)
-      navigateTo('/authorization/sign-in')
-      console.log('navigation catch middleware')
+      return navigateTo('/authorization/sign-in', { redirectCode: 301 })
     }
   }
 })
