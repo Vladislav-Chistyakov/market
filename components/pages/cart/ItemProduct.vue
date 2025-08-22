@@ -13,7 +13,7 @@ type Props = {
     size: string
     price: number
     count: number
-    subtotal: number | string
+    shipping: number | string
   }
   lengthArrayNumber: number
   numberItem: number
@@ -28,13 +28,13 @@ const props = withDefaults(defineProps<Props>(), {
 const productCount = ref(props.item.count)
 const pendingButtonCount = ref(false)
 
-const subtotal = computed(() => {
-  return props.item.subtotal ? props.item.subtotal : 'free'
+const shipping = computed(() => {
+  return props.item.shipping ? props.item.shipping : 'free'
 })
 
 const totalPrice = computed(() => {
-  return subtotal.value !== 'free' ?
-      (props.item.price * productCount.value + Number(subtotal.value)).toFixed(2)
+  return shipping.value !== 'free' ?
+      (props.item.price * productCount.value + Number(shipping.value)).toFixed(2)
     : (props.item.price * productCount.value).toFixed(2)
 })
 
@@ -160,10 +160,10 @@ const removeOneItemFromCart = async function () {
 
       <div class="flex justify-center items-center">
         <p
-          v-if="subtotal"
+          v-if="shipping"
           class="uppercase font-bold text-[18px] leading-[22px] text-[#BEBCBD]"
         >
-          {{ subtotal }}
+          {{ shipping }}
         </p>
       </div>
 

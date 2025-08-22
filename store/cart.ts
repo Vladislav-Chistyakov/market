@@ -19,6 +19,21 @@ export const useCartStore = defineStore('cartStore', () => {
     key: string
   }
 
+  type ItemResultCart = {
+    name: string
+    color: string
+    size: string
+    price: number | null
+    imgSrc: any
+    count: number | null
+    shipping: number | string | undefined
+    id: string
+    productId: string
+  }
+
+  type ArrayResultCart = ItemResultCart[]
+
+
   type CartUser = {
     [productId: string]: CartItem
   }
@@ -60,7 +75,7 @@ export const useCartStore = defineStore('cartStore', () => {
   const arrayCartProduct = computed(() => {
     const arrCart = Object.values(cartUser)
     if (Array.isArray(products.value)) {
-      const arr = products.value.map((item: any, index: number) => {
+      const arr: ArrayResultCart = products.value.map((item: any, index: number) => {
         return {
           name: item.name || '',
           color: arrCart[index]?.color || '',
@@ -68,7 +83,7 @@ export const useCartStore = defineStore('cartStore', () => {
           price: arrCart[index]?.price || null,
           imgSrc: item.images[0] || '',
           count: arrCart[index]?.countProductCart || null,
-          subtotal: item.subtotal,
+          shipping: item.shipping,
           id: `${item.id}-${arrCart[index]?.color}-${arrCart[index]?.size}` || '',
           productId: item.id
         }

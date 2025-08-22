@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
 const deliveryAmount = computed(() => {
   return props.arrayCartProduct.reduce(
     (accumulator, item) => {
-      return item.subtotal ? accumulator + item.subtotal : accumulator + 0
+      return item.shipping ? accumulator + item.shipping : accumulator + 0
     },
     0,
   ).toFixed(2)

@@ -1,5 +1,6 @@
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 import { useUserStore } from '~/store/user'
+import { useCartStore } from '~/store/cart'
 
 export default defineNuxtPlugin({
   name: 'getting-user',
@@ -10,8 +11,10 @@ export default defineNuxtPlugin({
     userStore.pendingGettingUser = true
     await useFirebaseFunctions()
       .onAuthUser()
-      .then((resolve) => {
+      .then(async (resolve) => {
         console.log('resolve user: ', resolve)
+        const cartStore = useCartStore()
+        await cartStore.getCartUser()
       })
       .catch((err) => {
         console.error('reject user: ', err)
