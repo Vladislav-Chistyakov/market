@@ -14,22 +14,26 @@ enum Pages {
   <div
     class="lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto container pt-[23px]"
   >
-    <div class="grid grid-cols-[304px_1fr] gap-[50px]">
+    <div class="grid grid-cols-[294px_1fr] gap-[50px]">
       <div>
-        <UniversalBaseHeading title="Hello ${name}" class="mb-[10px]" />
+        <UniversalBaseHeading
+          title="Hello ${name}"
+          :small="true"
+          class="mb-[20px]"
+        />
 
         <p
-          class="font-core-sans-c text-[13px] leading-[15px] text-text-gray-200 mb-[30px]"
+          class="font-core-sans-c text-[13px] leading-[15px] text-text-gray-200 mb-[32px]"
         >
           Welcome to your Account
         </p>
 
-        <ul>
+        <ul class="flex flex-col gap-[9px]">
           <li>
             <NuxtLink
               :to="Pages.MyOrders"
               :disabled="Pages.MyOrders === route.path"
-              class="flex flex-row gap-[15px] border-l-2 border-white py-[11px] px-[35px]"
+              class="flex flex-row gap-[15px] border-l-2 border-white py-[12px] px-[35px]"
               :class="{ 'nuxt-link-active': Pages.MyOrders === route.path }"
             >
               <img
@@ -49,7 +53,7 @@ enum Pages {
             <NuxtLink
               :to="Pages.Wishlist"
               :disabled="Pages.Wishlist === route.path"
-              class="flex flex-row gap-[15px] border-l-2 border-white py-[11px] px-[35px]"
+              class="flex flex-row gap-[15px] border-l-2 border-white py-[12px] px-[35px]"
               :class="{ 'nuxt-link-active': Pages.Wishlist === route.path }"
             >
               <img
@@ -69,7 +73,7 @@ enum Pages {
             <NuxtLink
               :to="Pages.MyInfo"
               :disabled="Pages.MyInfo === route.path"
-              class="flex flex-row gap-[15px] border-l-2 border-white py-[11px] px-[35px]"
+              class="flex flex-row gap-[15px] border-l-2 border-white py-[12px] px-[35px]"
               :class="{ 'nuxt-link-active': Pages.MyInfo === route.path }"
             >
               <img src="@/assets/images/pages/my-account/user.svg" alt="user" />
@@ -84,7 +88,7 @@ enum Pages {
 
           <li>
             <button
-              class="w-full flex flex-row gap-[15px] border-l-2 border-white py-[11px] px-[35px]"
+              class="w-full flex flex-row gap-[15px] border-l-2 border-white py-[12px] px-[35px]"
             >
               <img
                 src="@/assets/images/pages/my-account/sign-out.svg"
