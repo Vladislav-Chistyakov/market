@@ -37,11 +37,12 @@
         interesting products on our Shop page.
       </p>
 
-      <button
+      <nuxt-link
+        to="/products/male"
         class="w-fit mx-auto bg-purple text-white p-[12px_48px] rounded-[8px] font-medium text-[18px] leading-[22px]"
       >
         Continue Shopping
-      </button>
+      </nuxt-link>
     </div>
   </div>
 </template>
