@@ -6,7 +6,7 @@ import CompletedList from '~/components/pages/my-account/wishlist/CompletedList.
 <template>
   <NuxtLayout name="my-account">
     <CompletedList />
-    <!--      <EmptyList />-->
+    <!--          <EmptyList />-->
   </NuxtLayout>
 </template>
 

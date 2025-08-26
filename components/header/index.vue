@@ -23,7 +23,8 @@
 
     <ul class="ml-auto flex flex-row items-center gap-3">
       <li>
-        <button
+        <nuxt-link
+          :to="'/my-account/wishlist'"
           class="h-[44px] w-[44px] rounded-[8px] bg-text-gray-50 p-1 flex items-center justify-center"
           aria-label="Wishlist"
         >
@@ -45,11 +46,12 @@
               stroke-linejoin="round"
             />
           </svg>
-        </button>
+        </nuxt-link>
       </li>
 
       <li>
-        <button
+        <nuxt-link
+          :to="'/authorization/sign-in'"
           class="h-[44px] w-[44px] rounded-[8px] bg-text-gray-50 p-1 flex items-center justify-center"
           aria-label="User"
         >
@@ -67,7 +69,7 @@
               stroke-linecap="round"
             />
           </svg>
-        </button>
+        </nuxt-link>
       </li>
 
       <li>
