@@ -3,7 +3,7 @@ import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 import { useCartStore } from '~/store/cart'
 import type { Ref } from 'vue'
 
-const { getProductId, addToCart } = useFirebaseFunctions()
+const { getProductId } = useFirebaseFunctions()
 const cartStore = useCartStore()
 const route = useRoute()
 
@@ -64,12 +64,13 @@ function activeColorButton(color: string) {
 
 async function addProductToCart() {
   if (form.value.size && form.value.color) {
-    await cartStore.addProductToCart(
-      product.value.id,
-      form.value.color,
-      form.value.size,
-      Number(product.value.price),
-    )
+    await cartStore
+      .addProductToCart(
+        product.value.id,
+        form.value.color,
+        form.value.size,
+        Number(product.value.price),
+      )
       .catch((err: any) => {
         console.error('Error adding product to cart: ', err)
       })

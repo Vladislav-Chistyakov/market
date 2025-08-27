@@ -31,33 +31,9 @@ const productsList = computed(() => {
           />
         </div>
 
-        <FilterCategoriesMenu :products-list="productsList" />
-
-        <!--        <ul class="border-b border-gray-border py-[31px]">-->
-        <!--          <li>-->
-        <!--            <nuxt-link-->
-        <!--              class="w-full flex items-center justify-between py-[9px] px-[30px]"-->
-        <!--              :class="{ 'bg-black': true }"-->
-        <!--            >-->
-        <!--              <p class="text-gray-400 text-[16px] leading-[18px]">Tops</p>-->
-
-        <!--              <svg-->
-        <!--                width="7"-->
-        <!--                height="13"-->
-        <!--                viewBox="0 0 7 13"-->
-        <!--                fill="none"-->
-        <!--                xmlns="http://www.w3.org/2000/svg"-->
-        <!--              >-->
-        <!--                <path-->
-        <!--                  d="M1 11.7415L5.73782 7.00373C6.08739 6.65416 6.08739 6.08739 5.73782 5.73782L1 1"-->
-        <!--                  stroke="#8A8989"-->
-        <!--                  stroke-width="1.8"-->
-        <!--                  stroke-linecap="round"-->
-        <!--                />-->
-        <!--              </svg>-->
-        <!--            </nuxt-link>-->
-        <!--          </li>-->
-        <!--        </ul>-->
+        <client-only>
+          <FilterCategoriesMenu :products-list="productsList" />
+        </client-only>
 
         <div class="border-b border-gray-border pb-[30px]">списко фильтров</div>
       </aside>

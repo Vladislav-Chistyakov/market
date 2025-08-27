@@ -31,7 +31,9 @@ const productsList = computed(() => {
           />
         </div>
 
-        <FilterCategoriesMenu :products-list="productsList" />
+        <client-only>
+          <FilterCategoriesMenu :products-list="productsList" />
+        </client-only>
 
         <div class="border-b border-gray-border pb-[30px]">списко фильтров</div>
       </aside>
