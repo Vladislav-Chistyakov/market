@@ -171,7 +171,10 @@ export const useFirebaseFunctions = () => {
         // добавление данных в стор
         if (infoProductCart[keyProductCart] && actionOnProduct === 'add') {
           infoProductCart[keyProductCart].countProductCart += 1
-        } else if (infoProductCart[keyProductCart] && actionOnProduct === 'remove') {
+        } else if (
+          infoProductCart[keyProductCart]
+          && actionOnProduct === 'remove'
+        ) {
           infoProductCart[keyProductCart].countProductCart -= 1
         } else {
           // Инача создаем новый по id продукта
@@ -191,12 +194,57 @@ export const useFirebaseFunctions = () => {
     }
   }
 
+  const changeStatusProductInWishlist = async (productId: string) => {
+    const uid = useUserStore()?.user?.uid
+    if (!uid) throw new Error('UID is not defined')
+    const wishlistRef = doc(db, 'wishlist', uid)
+    const wishlistSnap = await getDoc(wishlistRef)
+    if (wishlistSnap.exists()) {
+      const dataProducts = wishlistSnap.data()
+      const infoProductWishlist = { ...dataProducts }
+      // Ну и отправляем все данные в базу
+      const keyProductCart = productId
+
+      try {
+        // добавление данных в стор
+        if (infoProductWishlist[keyProductCart]) {
+          // TODO По теории если продукт есть, то мы его удаляем
+          console.log('продукт есть удаляем его')
+          await updateDoc(wishlistRef, {
+            [productId]: deleteField(),
+          })
+        } else {
+          // Инача создаем новый по id продукта
+          console.log('Создаем продукт')
+          infoProductWishlist[keyProductCart] = {
+            productId: productId,
+          }
+        }
+
+        await setDoc(doc(db, 'wishlist', uid), infoProductWishlist)
+      } catch (error) {
+        throw error
+      }
+    }
+  }
+
   const getCart = async (uid: string) => {
     if (!uid) throw new Error('UID is not defined')
     const cartRef = doc(db, 'carts', uid)
     const cartSnap = await getDoc(cartRef)
     if (cartSnap.exists()) {
       const dataProducts = cartSnap.data()
+      return dataProducts
+    }
+    return {}
+  }
+
+  const getWishlist = async (uid: string) => {
+    if (!uid) throw new Error('UID is not defined')
+    const wishlistRef = doc(db, 'wishlist', uid)
+    const wishlistSnap = await getDoc(wishlistRef)
+    if (wishlistSnap.exists()) {
+      const dataProducts = wishlistSnap.data()
       return dataProducts
     }
     return {}
@@ -223,7 +271,9 @@ export const useFirebaseFunctions = () => {
     auth,
     addProduct,
     convertItemInCart,
+    changeStatusProductInWishlist,
     getCart,
+    getWishlist,
     getAllProducts,
     getProductId,
     removeProductFromCart,

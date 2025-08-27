@@ -1,7 +1,9 @@
 import { useProductsStore } from '~/store/products'
 import type { Ref } from 'vue'
+import { useWishlistStore } from '~/store/wishlist'
 
 export const useUserStore = defineStore('userStore', () => {
+  const wishlistStore = useWishlistStore()
   const user: Ref<null | object> = ref(null)
   const pendingGettingUser = ref(false)
   const isAuthorization = computed(() => !!user.value)
@@ -19,6 +21,7 @@ export const useUserStore = defineStore('userStore', () => {
 
   watch(userData, async (newValue) => {
     if (newValue) {
+      await wishlistStore.getWishlistUser()
       await getProducts().finally(() =>
         console.log('Получили список продуктов'),
       )
