@@ -21,7 +21,9 @@ export const useUserStore = defineStore('userStore', () => {
 
   watch(userData, async (newValue) => {
     if (newValue) {
-      await wishlistStore.getWishlistUser()
+      await wishlistStore.getWishlistUser().then((res) => {
+        console.log('getWishlistUser ___ ', res)
+      })
       await getProducts().finally(() =>
         console.log('Получили список продуктов'),
       )

@@ -45,26 +45,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
     try {
       if (userStore.userData && userStore.userData.uid) {
         const data = await getWishlist(userStore.userData.uid)
-
-        // Удаляем старые ключи
-        for (const key in wishlistUser) {
-          delete wishlistUser[key]
-        }
-
-        // Добавляем новые
-        for (const key in data) {
-          wishlistUser[key] = data[key]
-          wishlistUser[key].key = key
-        }
-
-        const productIds = Object.values(wishlistUser).map(
-          (item) => item.productId,
-        )
-
-        const productRequests = productIds.map((id) => getProductId(id))
-
-        products.value = await Promise.all(productRequests)
-        console.log('products', products.value)
+        console.log('data', data)
       }
     } catch (error) {
       console.log('Error getWishlistUser', error)

@@ -1,11 +1,22 @@
 <script setup lang="ts">
+import { useWishlistStore } from '~/store/wishlist'
+
 type Props = {
   item: Object
 }
 
+const wishlistStore = useWishlistStore()
+
 withDefaults(defineProps<Props>(), {
   item: () => {},
 })
+
+const changeStatusProductWishlist = async function (productId: string) {
+  console.log('productId - ', productId)
+  await wishlistStore.changeProductToWishlist(productId).then(() => {
+    console.log('productId Сохранен в wishlist ', productId)
+  })
+}
 
 async function addProductToCart() {
   if (form.value.size && form.value.color) {
@@ -53,7 +64,7 @@ async function addProductToCart() {
         />
 
         <button
-          @click.prevent="console.log('1')"
+          @click.prevent="changeStatusProductWishlist(item.id)"
           class="h-[32px] w-[32px] bg-white absolute right-[20px] top-[26px] flex items-center justify-center rounded-full"
         >
           <svg
