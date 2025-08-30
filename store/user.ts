@@ -1,8 +1,11 @@
 import type { Ref } from 'vue'
+import { useCartStore } from '~/store/cart'
 import { useWishlistStore } from '~/store/wishlist'
 
 export const useUserStore = defineStore('userStore', () => {
+  const cartStore = useCartStore()
   const wishlistStore = useWishlistStore()
+
   const user: Ref<null | object> = ref(null)
   const pendingGettingUser = ref(false)
   const isAuthorization = computed(() => !!user.value)
@@ -18,8 +21,11 @@ export const useUserStore = defineStore('userStore', () => {
 
   watch(userData, async (newValue) => {
     if (newValue) {
+      await cartStore.getCartUser().then((res) => {
+        console.log('GET CART ___ ', res)
+      })
       await wishlistStore.getWishlistUser().then((res) => {
-        console.log('getWishlistUser ___ ', res)
+        console.log('GET WISHLIST ___ ', res)
       })
     }
   })
