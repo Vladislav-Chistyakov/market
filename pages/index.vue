@@ -3,6 +3,10 @@ import { useProductsStore } from '~/store/products'
 
 const productsStore = useProductsStore()
 
+if (productsStore.productsAll.length === 0) {
+  await productsStore.getProducts()
+}
+
 const menCategoriesList = computed(() => {
   return productsStore.listCategoriesProductsMen.length ?
       productsStore.listCategoriesProductsMen.slice(0, 8)

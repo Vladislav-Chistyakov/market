@@ -6,17 +6,6 @@ const { getAllProducts, getProductId } = useFirebaseFunctions()
 const pending = ref(false)
 const data = ref({})
 
-const getProducts = async () => {
-  try {
-    pending.value = true
-    data.value = await getAllProducts()
-  } catch (err) {
-    console.error('Ошибка получения списка:', err)
-  } finally {
-    pending.value = false
-  }
-}
-
 const getProduct = async (id: string) => {
   try {
     pending.value = true

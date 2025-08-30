@@ -40,12 +40,19 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
 
   const products: Ref<unknown> = ref([])
 
+  const arrayIdsProductsWishlist = computed(() => products)
+
   async function getWishlistUser() {
     pendingWishlist.value = true
     try {
       if (userStore.userData && userStore.userData.uid) {
         const data = await getWishlist(userStore.userData.uid)
-        console.log('data', data)
+        if (Array.isArray(products)) {
+          console.log('DATA GET WISHLIST', data)
+          Array.isArray(data) && data.length ?
+            products.splice(0, products.length, ...data)
+          : products.splice(0, products.length)
+        }
       }
     } catch (error) {
       console.log('Error getWishlistUser', error)
@@ -70,5 +77,6 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   return {
     getWishlistUser,
     changeProductToWishlist,
+    arrayIdsProductsWishlist,
   }
 })
