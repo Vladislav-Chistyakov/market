@@ -24,7 +24,7 @@ export const useUserStore = defineStore('userStore', () => {
       await cartStore.getCartUser().then((res) => {
         console.log('GET CART ___ ', res)
       })
-      await wishlistStore.getWishlistUser().then((res) => {
+      await wishlistStore.getWishlistIdsUser().then((res) => {
         console.log('GET WISHLIST ___ ', res)
       })
     }

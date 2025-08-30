@@ -3,7 +3,6 @@ import { useUserStore } from '~/store/user'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 export const useCartStore = defineStore('cartStore', () => {
-
   const { getCart } = useFirebaseFunctions()
 
   const getProductId = useFirebaseFunctions().getProductId
@@ -33,7 +32,6 @@ export const useCartStore = defineStore('cartStore', () => {
 
   type ArrayResultCart = ItemResultCart[]
 
-
   type CartUser = {
     [productId: string]: CartItem
   }
@@ -59,14 +57,15 @@ export const useCartStore = defineStore('cartStore', () => {
         }
 
         const productIds = Object.values(cartUser).map((item) => item.productId)
-
         const productRequests = productIds.map((id) => getProductId(id))
 
         products.value = await Promise.all(productRequests)
-        console.log('products', products.value)
+
+        return products.value
       }
     } catch (error) {
       console.log('Error getCartUser', error)
+      return undefined
     } finally {
       pendingCart.value = false
     }
@@ -75,27 +74,32 @@ export const useCartStore = defineStore('cartStore', () => {
   const arrayCartProduct = computed(() => {
     const arrCart = Object.values(cartUser)
     if (Array.isArray(products.value)) {
-      const arr: ArrayResultCart = products.value.map((item: any, index: number) => {
-        return {
-          name: item.name || '',
-          color: arrCart[index]?.color || '',
-          size: arrCart[index]?.size || '',
-          price: arrCart[index]?.price || null,
-          imgSrc: item.images[0] || '',
-          count: arrCart[index]?.countProductCart || null,
-          shipping: item.shipping,
-          id: `${item.id}-${arrCart[index]?.color}-${arrCart[index]?.size}` || '',
-          productId: item.id
-        }
-      })
+      const arr: ArrayResultCart = products.value.map(
+        (item: any, index: number) => {
+          return {
+            name: item.name || '',
+            color: arrCart[index]?.color || '',
+            size: arrCart[index]?.size || '',
+            price: arrCart[index]?.price || null,
+            imgSrc: item.images[0] || '',
+            count: arrCart[index]?.countProductCart || null,
+            shipping: item.shipping,
+            id:
+              `${item.id}-${arrCart[index]?.color}-${arrCart[index]?.size}`
+              || '',
+            productId: item.id,
+          }
+        },
+      )
       return arr
     }
     return []
   })
 
-  const removeCartProduct = async function(productId: string) {
+  const removeCartProduct = async function (productId: string) {
     pendingCart.value = true
-    await useFirebaseFunctions().removeProductFromCart(productId)
+    await useFirebaseFunctions()
+      .removeProductFromCart(productId)
       .then(async (result) => {
         await getCartUser()
       })
@@ -104,17 +108,18 @@ export const useCartStore = defineStore('cartStore', () => {
       })
   }
 
-  const addProductToCart = async function(
+  const addProductToCart = async function (
     productId: string,
     color: string,
     size: string,
     price: number,
-    needPending: boolean = false
+    needPending: boolean = false,
   ) {
     if (needPending) {
       pendingCart.value = true
     }
-    await useFirebaseFunctions().convertItemInCart(productId, color, size, price, 'add')
+    await useFirebaseFunctions()
+      .convertItemInCart(productId, color, size, price, 'add')
       .then(async () => getCartUser())
       .catch((error) => {
         console.error('Error addProductToCart: ', error)
@@ -126,17 +131,18 @@ export const useCartStore = defineStore('cartStore', () => {
       })
   }
 
-  const removeOneItemFromCart = async function(
+  const removeOneItemFromCart = async function (
     productId: string,
     color: string,
     size: string,
     price: number,
-    needPending: boolean = false
+    needPending: boolean = false,
   ) {
     if (needPending) {
       pendingCart.value = true
     }
-    await useFirebaseFunctions().convertItemInCart(productId, color, size, price, 'remove')
+    await useFirebaseFunctions()
+      .convertItemInCart(productId, color, size, price, 'remove')
       .then(async () => getCartUser())
       .catch((error) => {
         console.error('Error removeOneItemFromCart: ', error)

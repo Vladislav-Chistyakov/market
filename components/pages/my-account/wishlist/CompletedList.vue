@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+type Props = {
+  list: any[]
+}
+
+withDefaults(defineProps<Props>(), {
+  list: () => [],
+})
+</script>
 
 <template>
   <div class="font-causten text-black">
@@ -6,6 +14,8 @@
 
     <ul>
       <li
+        v-for="(item, index) in list"
+        :key="index"
         class="flex gap-[36px] items-center border-b border-[#EDEEF2] pb-[30px]"
       >
         <svg
@@ -24,6 +34,10 @@
           />
         </svg>
 
+        <pre>
+          {{ item }}
+        </pre>
+
         <img
           src="#"
           alt="item.name"
@@ -31,7 +45,9 @@
         />
 
         <div class="flex flex-col gap-[12px]">
-          <p class="mb-[5px] font-bold text-[22px] leading-[26px]">Clothes</p>
+          <p class="mb-[5px] font-bold text-[22px] leading-[26px]">
+            {{ item.name }}
+          </p>
 
           <p
             class="font-bold text-[22px] leading-[26px] flex gap-[2px] text-nowrap"

@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Reactive, Ref } from 'vue'
 import { useUserStore } from '~/store/user'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
@@ -7,6 +7,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
 
   const getProductId = useFirebaseFunctions().getProductId
   const userStore = useUserStore()
+
   const pendingWishlist = ref(false)
 
   type WishlistItem = {
@@ -32,30 +33,48 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   //
   // type ArrayResultCart = ItemResultCart[]
 
-  type WishlistUser = {
-    [productId: string]: WishlistItem
-  }
+  type WishlistUser = WishlistItem[]
 
-  let wishlistUser: WishlistUser = reactive({})
+  const wishlistUser: WishlistUser = reactive([])
 
-  const products: Ref<unknown> = ref([])
+  const productsIds: Reactive<unknown> = reactive([])
 
-  const arrayIdsProductsWishlist = computed(() => products)
-
-  async function getWishlistUser() {
+  // Получение id продуктов юзера
+  async function getWishlistIdsUser() {
     pendingWishlist.value = true
     try {
       if (userStore.userData && userStore.userData.uid) {
         const data = await getWishlist(userStore.userData.uid)
-        if (Array.isArray(products)) {
-          console.log('DATA GET WISHLIST', data)
+        if (Array.isArray(productsIds)) {
           Array.isArray(data) && data.length ?
-            products.splice(0, products.length, ...data)
-          : products.splice(0, products.length)
+            productsIds.splice(0, productsIds.length, ...data)
+          : productsIds.splice(0, productsIds.length)
         }
       }
+      return productsIds
     } catch (error) {
       console.log('Error getWishlistUser', error)
+      return undefined
+    } finally {
+      await getProductsFromWishlistIds()
+      pendingWishlist.value = false
+    }
+  }
+
+  // Получение данных продуктов из списка айдишников желаний юзера
+  async function getProductsFromWishlistIds() {
+    pendingWishlist.value = true
+    try {
+      if (Array.isArray(productsIds) && productsIds.length) {
+        const productRequests = productsIds.map((id) => getProductId(id))
+        await Promise.all(productRequests).then((res) => {
+          if (Array.isArray(res)) {
+            wishlistUser.splice(0, productsIds.length, ...(res as WishlistUser))
+          }
+        })
+      }
+    } catch (error) {
+      console.log('Error getProductsFromWishlistIds', error)
     } finally {
       pendingWishlist.value = false
     }
@@ -65,7 +84,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
     pendingWishlist.value = true
     await useFirebaseFunctions()
       .changeStatusProductInWishlist(productId)
-      .then(async () => getWishlistUser())
+      .then(async () => await getWishlistIdsUser())
       .catch((error) => {
         console.error('Error addProductToCart: ', error)
       })
@@ -75,8 +94,8 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   }
 
   return {
-    getWishlistUser,
+    wishlistUser,
+    getWishlistIdsUser,
     changeProductToWishlist,
-    arrayIdsProductsWishlist,
   }
 })
