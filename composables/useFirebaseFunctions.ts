@@ -226,12 +226,12 @@ export const useFirebaseFunctions = () => {
   }
 
   const getCart = async (uid: string) => {
+    console.log('GET CART')
     if (!uid) throw new Error('UID is not defined')
     const cartRef = doc(db, 'carts', uid)
     const cartSnap = await getDoc(cartRef)
     if (cartSnap.exists()) {
-      const dataProducts = cartSnap.data()
-      return dataProducts
+      return cartSnap.data()
     }
     return {}
   }

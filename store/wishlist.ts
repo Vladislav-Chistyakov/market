@@ -1,4 +1,4 @@
-import type { Reactive, Ref } from 'vue'
+import type { Reactive } from 'vue'
 import { useUserStore } from '~/store/user'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 

@@ -17,27 +17,6 @@ const changeStatusProductWishlist = async function (productId: string) {
     console.log('productId Сохранен в wishlist ', productId)
   })
 }
-
-async function addProductToCart() {
-  if (form.value.size && form.value.color) {
-    await cartStore
-      .addProductToCart(
-        product.value.id,
-        form.value.color,
-        form.value.size,
-        Number(product.value.price),
-      )
-      .catch((err: any) => {
-        console.error('Error adding product to cart: ', err)
-      })
-      .finally(() => {
-        form.value.size = null
-        form.value.color = null
-      })
-  } else {
-    alert('Заполните данные формы')
-  }
-}
 </script>
 
 <template>
