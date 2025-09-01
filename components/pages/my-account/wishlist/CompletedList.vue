@@ -1,6 +1,14 @@
 <script setup lang="ts">
+type EditedWishlistItem = {
+  id: string,
+  name: string,
+  price: number,
+  imageScr: string,
+  color: string
+}
+
 type Props = {
-  list: any[]
+  list: EditedWishlistItem[]
 }
 
 withDefaults(defineProps<Props>(), {
@@ -34,13 +42,9 @@ withDefaults(defineProps<Props>(), {
           />
         </svg>
 
-        <pre>
-          {{ item }}
-        </pre>
-
         <img
-          src="#"
-          alt="item.name"
+          :src="item.imageScr"
+          :alt="item.name"
           class="block h-[110px] min-w-[110px] rounded-[4px] overflow-hidden"
         />
 
@@ -53,7 +57,7 @@ withDefaults(defineProps<Props>(), {
             class="font-bold text-[22px] leading-[26px] flex gap-[2px] text-nowrap"
           >
             Color :
-            <span class="text-[#807D7E] font-light">Yellow</span>
+            <span class="text-[#807D7E] font-light">{{ item.color }}</span>
           </p>
 
           <p
@@ -71,6 +75,14 @@ withDefaults(defineProps<Props>(), {
 
           <nuxt-link
             class="w-fit bg-purple text-white p-[14px_28px] rounded-[8px] font-medium text-[18px] leading-[22px]"
+            :href="
+            '/products/'
+            + item.gender
+            + '/'
+            + item.category.toLowerCase()
+            + '/'
+            + item.id
+          "
           >
             Add to cart
           </nuxt-link>

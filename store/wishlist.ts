@@ -1,4 +1,4 @@
-import type { Reactive } from 'vue'
+import type { ComputedRef, Reactive } from 'vue'
 import { useUserStore } from '~/store/user'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
@@ -11,33 +11,48 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   const pendingWishlist = ref(false)
 
   type WishlistItem = {
-    color: string
+    color: string[]
     price: number
     countProductCart: number
     size: string
-    productId: string
+    images: string[]
+    name: string
+    id: string
     key: string
   }
-  //
-  // type ItemResultCart = {
-  //   name: string
-  //   color: string
-  //   size: string
-  //   price: number | null
-  //   imgSrc: any
-  //   count: number | null
-  //   shipping: number | string | undefined
-  //   id: string
-  //   productId: string
-  // }
-  //
-  // type ArrayResultCart = ItemResultCart[]
 
   type WishlistUser = WishlistItem[]
 
   const wishlistUser: WishlistUser = reactive([])
 
   const productsIds: Reactive<unknown> = reactive([])
+
+  type EditedWishlistItem = {
+    id: string,
+    name: string,
+    price: number,
+    imageScr: string,
+    color: string,
+    gender: string,
+    category: string,
+  }
+
+  const editedWishlistForPage: ComputedRef<EditedWishlistItem[]> = computed(() => {
+    if (wishlistUser.length) {
+      return wishlistUser.map((item) => {
+        return {
+          id: item.id || '',
+          name: item.name || '',
+          price: item.price || 0,
+          imageScr: item.images[0] || '',
+          color: item.color[0] || '',
+          gender: item.gender,
+          category: item.category,
+        }
+      })
+    }
+    return []
+  })
 
   // Получение id продуктов юзера
   async function getWishlistIdsUser() {
@@ -94,7 +109,9 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   }
 
   return {
+    pendingWishlist,
     wishlistUser,
+    editedWishlistForPage,
     getWishlistIdsUser,
     changeProductToWishlist,
   }

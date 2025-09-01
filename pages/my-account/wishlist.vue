@@ -5,13 +5,17 @@ import { useWishlistStore } from '~/store/wishlist'
 
 const wishlistStore = useWishlistStore()
 
-const list = computed(() => wishlistStore.wishlistUser)
+const list = computed(() => wishlistStore.editedWishlistForPage)
 </script>
 
 <template>
   <NuxtLayout name="my-account">
-    <template v-if="list && list.length">
+    <template v-if="list && list.length && !wishlistStore.pendingWishlist">
       <CompletedList :list="list" />
+    </template>
+
+    <template v-else-if="wishlistStore.pendingWishlist">
+      Loading...
     </template>
 
     <template v-else>
