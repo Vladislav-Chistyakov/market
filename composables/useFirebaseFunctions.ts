@@ -214,8 +214,14 @@ export const useFirebaseFunctions = () => {
       products = data.products || []
     }
 
-    // Добавляем новый productId в массив
-    products.push(productId)
+    // Проверяем, есть ли продукт в wishlist
+    if (products.includes(productId)) {
+      // если есть, то убираем его от туда
+      products = products.filter(item => item !== productId)
+    } else {
+      // Добавляем новый productId в wishlist, так как его там нет
+      products.push(productId)
+    }
 
     // Перезаписываем весь массив
     await setDoc(wishlistRef, { products })

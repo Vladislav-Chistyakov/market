@@ -2,35 +2,29 @@
 import { useWishlistStore } from '~/store/wishlist'
 
 type Props = {
-  item: Object
+  item: any
 }
 
 const wishlistStore = useWishlistStore()
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   item: () => {},
 })
 
 const changeStatusProductWishlist = async function (productId: string) {
-  console.log('productId - ', productId)
-  await wishlistStore.changeProductToWishlist(productId).then(() => {
-    console.log('productId Сохранен в wishlist ', productId)
-  })
+  await wishlistStore.changeProductToWishlist(productId)
 }
+
+const linkProductPage = computed(() => {
+  return `/products/${props.item?.gender}/${props.item.category.toLowerCase()}/${props.item?.id}`
+})
 </script>
 
 <template>
   <li class="font-causten pb-[26px]">
     <nuxt-link
       target="_blank"
-      :href="
-        '/products/'
-        + item.gender
-        + '/'
-        + item.category.toLowerCase()
-        + '/'
-        + item.id
-      "
+      :href="linkProductPage"
     >
       <div
         class="relative h-[370px] w-[281px] rounded-[12px] overflow-hidden mb-[30px]"
@@ -44,6 +38,7 @@ const changeStatusProductWishlist = async function (productId: string) {
 
         <button
           @click.prevent="changeStatusProductWishlist(item.id)"
+          :disabled="wishlistStore.pendingWishlist"
           class="h-[32px] w-[32px] bg-white absolute right-[20px] top-[26px] flex items-center justify-center rounded-full"
         >
           <svg
@@ -80,12 +75,13 @@ const changeStatusProductWishlist = async function (productId: string) {
           </p>
         </div>
 
-        <button
-          @click.prevent="console.log('1')"
-          class="text-center text-black p-[10px] bg-text-gray-50 font-bold text-[14px] leading-[16px] min-w-[82px] rounded-[8px]"
+        <nuxt-link
+          target="_blank"
+          :href="linkProductPage"
+          class="flex items-center justify-center text-center text-black p-[10px] bg-text-gray-50 font-bold text-[14px] leading-[16px] min-w-[82px] rounded-[8px]"
         >
-          ${{ item.price || 123 }}
-        </button>
+          ${{ item.price }}
+        </nuxt-link>
       </div>
     </nuxt-link>
   </li>
