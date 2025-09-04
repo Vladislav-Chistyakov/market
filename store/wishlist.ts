@@ -19,6 +19,8 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
     name: string
     id: string
     key: string
+    gender: string
+    category: string
   }
 
   type WishlistUser = WishlistItem[]
@@ -37,6 +39,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
     category: string,
   }
 
+  // Преобразование продуктов для отрисовки списка
   const editedWishlistForPage: ComputedRef<EditedWishlistItem[]> = computed(() => {
     if (wishlistUser.length) {
       return wishlistUser.map((item) => {
@@ -58,19 +61,25 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   async function getWishlistIdsUser() {
     pendingWishlist.value = true
     try {
+      // Если есть user
       if (userStore.userData && userStore.userData.uid) {
+        // Получаем список избранных продуктов юзера
         const data = await getWishlist(userStore.userData.uid)
+
+        // Если у нас есть список айдишников продуктов (старый)
         if (Array.isArray(productsIds)) {
-          Array.isArray(data) && data.length ?
+          // Если мы получили data в виде массива,
+          // то записываем в productsIds новый массив
+          // иначе оставляем как есть
+          Array.isArray(data) ?
             productsIds.splice(0, productsIds.length, ...data)
           : productsIds.splice(0, productsIds.length)
         }
       }
-      return productsIds
     } catch (error) {
       console.log('Error getWishlistUser', error)
-      return undefined
     } finally {
+      // Тут мы получаем данные продуктов из списка айдишников
       await getProductsFromWishlistIds()
       pendingWishlist.value = false
     }
@@ -80,13 +89,22 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   async function getProductsFromWishlistIds() {
     pendingWishlist.value = true
     try {
+      // Если у нас есть id продуктов
       if (Array.isArray(productsIds) && productsIds.length) {
+        // То мы создадим массим промисов для получения списка с информацией о продуктах
         const productRequests = productsIds.map((id) => getProductId(id))
+
+        // после получим каждый продукт
         await Promise.all(productRequests).then((res) => {
+          // Если список готов
           if (Array.isArray(res)) {
-            wishlistUser.splice(0, productsIds.length, ...(res as WishlistUser))
+            // Перезаписываем наш массив с продуктами
+            wishlistUser.splice(0, wishlistUser.length, ...(res as WishlistUser))
           }
         })
+      } else {
+        // Если айдишников нет в базе, то зануляем наш массив
+        wishlistUser.splice(0, wishlistUser.length)
       }
     } catch (error) {
       console.log('Error getProductsFromWishlistIds', error)
@@ -95,8 +113,11 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
     }
   }
 
+  // Смена статуса продукта в вишлисте с получением нового списка продуктов
   const changeProductToWishlist = async function (productId: string) {
     pendingWishlist.value = true
+
+    // Тут происходит смена статуса продукта в вишлисте
     await useFirebaseFunctions()
       .changeStatusProductInWishlist(productId)
       .then(async () => await getWishlistIdsUser())

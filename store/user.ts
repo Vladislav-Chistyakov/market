@@ -22,10 +22,10 @@ export const useUserStore = defineStore('userStore', () => {
   watch(userData, async (newValue) => {
     if (newValue) {
       await cartStore.getCartUser().then((res) => {
-        console.log('GET CART ___ ', res)
+        console.log('Получили список продуктов корзины', res)
       })
-      await wishlistStore.getWishlistIdsUser().then((res) => {
-        console.log('GET WISHLIST ___ ', res)
+      await wishlistStore.getWishlistIdsUser().then(() => {
+        console.log('Получили список wishlist')
       })
     }
   })

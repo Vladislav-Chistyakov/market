@@ -229,6 +229,7 @@ export const useFirebaseFunctions = () => {
         console.log('успех setDoc res', res)
       })
       .catch((error) => console.error('error setDoc', error))
+      .finally(() => console.log('set doc'))
   }
 
   const getCart = async (uid: string) => {

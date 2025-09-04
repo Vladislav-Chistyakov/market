@@ -1,36 +1,23 @@
 <script setup lang="ts">
 import { useWishlistStore } from '~/store/wishlist'
-
-type EditedWishlistItem = {
-  id: string,
-  name: string,
-  price: number,
-  imageScr: string,
-  color: string,
-  gender: string,
-  category: string,
-}
-
-// type Props = {
-//   list: EditedWishlistItem[]
-// }
-//
-// withDefaults(defineProps<Props>(), {
-//   list: () => [],
-// })
+import { useRoute } from '#vue-router'
 
 const wishlistStore = useWishlistStore()
+const route = useRoute()
 
 const list = computed(() => {
   console.log('11211', wishlistStore.editedWishlistForPage)
   return wishlistStore.editedWishlistForPage
 })
 
+const pendingList = computed(() => {
+  return wishlistStore.pendingWishlist
+})
+
 
 const changeStatusProductWishlist = async function (productId: string) {
   await wishlistStore.changeProductToWishlist(productId)
 }
-
 </script>
 
 <template>
@@ -38,14 +25,14 @@ const changeStatusProductWishlist = async function (productId: string) {
     <h1 class="mb-[58px] text-[29px] leading-[20px] font-semibold">Wishlist</h1>
 
     <client-only>
-      <ul class="flex flex-col gap-[30px]">
+      <ul class="flex flex-col gap-[30px]" :class="{ 'opacity-30' : pendingList }">
         <li
           v-for="(item, index) in list"
           :key="index + item.id"
           class="flex gap-[36px] items-center border-b border-[#EDEEF2] pb-[30px]"
         >
           {{ item.id }}
-          <button @click.prevent="changeStatusProductWishlist(item.id)" class="flex items-center justify-center">
+          <button @click.prevent="changeStatusProductWishlist(item.id)" :disabled="pendingList" class="flex items-center justify-center">
             <svg
               class="inline-block h-[22px] min-w-[22px]"
               width="22"
@@ -96,14 +83,8 @@ const changeStatusProductWishlist = async function (productId: string) {
 
               <nuxt-link
                 class="w-fit bg-purple text-white p-[14px_28px] rounded-[8px] font-medium text-[18px] leading-[22px]"
-                :href="
-                  '/products/'
-                  + item.gender
-                  + '/'
-                  + item.category.toLowerCase()
-                  + '/'
-                  + item.id
-                "
+                :class="{ 'cursor-default' : pendingList }"
+                :href="pendingList ? route.path : `/products/${item.gender}/${item.category.toLowerCase()}/${item.id}`"
               >
                 Add to cart
               </nuxt-link>

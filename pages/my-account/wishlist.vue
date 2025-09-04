@@ -10,17 +10,13 @@ const list = computed(() => wishlistStore.editedWishlistForPage)
 
 <template>
   <NuxtLayout name="my-account">
-<!--    <template v-if="list && list.length && !wishlistStore.pendingWishlist">-->
+    <template v-if="list && list.length">
       <CompletedList />
-<!--    </template>-->
-<!---->
-<!--    <template v-else-if="wishlistStore.pendingWishlist">-->
-<!--      Loading...-->
-<!--    </template>-->
-<!---->
-<!--    <template v-else>-->
-<!--      <EmptyList />-->
-<!--    </template>-->
+    </template>
+
+    <template v-else>
+      <EmptyList />
+    </template>
   </NuxtLayout>
 </template>
 
