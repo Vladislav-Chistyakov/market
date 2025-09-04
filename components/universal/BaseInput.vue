@@ -7,6 +7,7 @@ type Props = {
   placeholder: string
   type: 'email' | 'password' | 'text' | 'tel' | 'number',
   styleInput?: 'white' | 'gray'
+  errorStyle?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
@@ -14,7 +15,8 @@ withDefaults(defineProps<Props>(), {
   value: undefined,
   placeholder: 'placeholder',
   type: 'text',
-  styleInput: 'white'
+  styleInput: 'white',
+  errorStyle: false
 })
 </script>
 
@@ -33,6 +35,7 @@ withDefaults(defineProps<Props>(), {
         :class="{
           'border-[#F6F6F6] bg-[#F6F6F6] p-[16px_20px] placeholder:placeholder-[#807D7E]' : styleInput === 'gray',
           'border-black px-[19px] py-[20px] placeholder:placeholder-text-gray-200' : styleInput === 'white',
+          '!border-red' : errorStyle
           }"
         :disabled="disabled"
         :value="value"

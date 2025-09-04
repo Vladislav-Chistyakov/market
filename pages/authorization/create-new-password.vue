@@ -10,6 +10,9 @@ const oobCode = ref('')
 
 const router = useRouter()
 
+const errorMessage = ref('')
+const errorCode = ref('')
+
 onBeforeMount(() => {
   const route = useRoute()
   if (route?.query?.oobCode) {
@@ -42,15 +45,24 @@ async function createPassword() {
   pending.value = true
   await createNewPassword(oobCode.value, form.password)
     .then(() => {
+      errorMessage.value = ''
+      errorCode.value = ''
       passwordChangedSuccessfully.value = true
     })
     .catch((error) => {
       console.error(error)
 
       if (error.code) {
+        errorCode.value = error.code
         console.error(error.code)
         if (error.code === 'auth/invalid-action-code') {
           console.error('Неверный код для сброса пароля')
+          errorMessage.value = 'Неверный код для сброса пароля - перейдите на страницу сброса пароля для получения нового кода'
+        } else if (error.code === 'auth/weak-password') {
+          console.error('Ошибка - пароль короткий')
+          errorMessage.value = 'Ошибка - пароль короткий'
+        } else {
+          errorMessage.value = error.code
         }
       }
     })
@@ -71,6 +83,7 @@ async function createPassword() {
             :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
+            :error-style="!!errorMessage"
             :value="form.password"
             @update:value="form.password = $event"
           >
@@ -119,6 +132,7 @@ async function createPassword() {
             :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
+            :error-style="!!errorMessage"
             :value="form.duplicatePassword"
             @update:value="form.duplicatePassword = $event"
           >
@@ -131,16 +145,32 @@ async function createPassword() {
                 </span>
               </div>
             </template>
+
+            <template #error-message>
+              <span class="text-red tw-text-[14px]">
+                {{ errorMessage }}
+              </span>
+            </template>
           </UniversalBaseInput>
 
-          <button
-            type="button"
-            :disabled="pending"
-            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
-            @click="createPassword"
-          >
-            Reset Password
-          </button>
+          <div class="flex items-end gap-2 justify-between">
+            <button
+              type="button"
+              :disabled="pending"
+              class="px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+              @click="createPassword"
+            >
+              Reset Password
+            </button>
+
+            <NuxtLink
+              v-if="errorCode === 'auth/invalid-action-code'"
+              to="/authorization/reset-password"
+              class="block ml-auto w-fit text-black underline font-causten text-[16px] leading-[18px]"
+            >
+              Forget your password
+            </NuxtLink>
+          </div>
         </form>
 
         <div v-else>
@@ -151,7 +181,7 @@ async function createPassword() {
             <NuxtLink
               :class="{ 'pointer-events-none opacity-60': pending }"
               class="underline text-purple"
-              :to="pending ? null : '/authorization/sign-in'"
+              :to="pending ? '/authorization/create-new-password' : '/authorization/sign-in'"
             >
               authorization page!
             </NuxtLink>

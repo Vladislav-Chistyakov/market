@@ -11,6 +11,7 @@ const form = reactive({
 
 const pending = ref(false)
 const linkSentSuccessfully = ref(false)
+const errorMessage = ref('')
 
 const sendPasswordUserEmail = useFirebaseFunctions().updatePasswordUser
 
@@ -18,7 +19,8 @@ async function resetPassword() {
   pending.value = true
   await sendPasswordUserEmail(form.email)
     .then(() => {
-      console.log('Вышлена ссылка для сброса пароля на почту')
+      console.log('Выслана ссылка для сброса пароля на почту')
+      errorMessage.value = ''
       linkSentSuccessfully.value = true
     })
     .catch((error) => {
@@ -26,6 +28,7 @@ async function resetPassword() {
 
       if (error.code) {
         console.error(error.code)
+        errorMessage.value = error.code
       }
     })
     .finally(() => (pending.value = false))
@@ -46,6 +49,7 @@ async function resetPassword() {
             :placeholder="''"
             :type="'text'"
             :value="form.email"
+            :error-style="!!errorMessage"
             @update:value="form.email = $event"
           >
             <template #label>
@@ -53,6 +57,12 @@ async function resetPassword() {
                 class="text-black font-causten text-[18px] leading-5 mb-[10px]"
               >
                 Email
+              </span>
+            </template>
+
+            <template #error-message>
+              <span class="text-red tw-text-[14px]">
+                {{ errorMessage }}
               </span>
             </template>
           </UniversalBaseInput>

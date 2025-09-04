@@ -17,6 +17,8 @@ const form = reactive({
 
 const pending = ref(false)
 
+const errorMessage = ref('')
+
 const userRegistration = useFirebaseFunctions().userRegistration
 
 async function createAccount() {
@@ -25,6 +27,7 @@ async function createAccount() {
     .then((result) => {
       console.log(result)
       console.log('Успешное создание юзера')
+      errorMessage.value = ''
       router.push('/')
     })
     .catch((error) => {
@@ -32,18 +35,22 @@ async function createAccount() {
 
       if (error.code) {
         console.error('Ошибка создание юзера', error.code)
+        errorMessage.value = 'Ошибка создание юзера ' + error.code
       }
 
       if (error.code === 'auth/invalid-email') {
         console.error('Ошибка - неверный email')
+        errorMessage.value = 'Ошибка - неверный email'
       }
 
       if (error.code === 'auth/email-already-in-use') {
         console.error('Ошибка - email уже используется')
+        errorMessage.value = 'Ошибка - email уже используется'
       }
 
       if (error.code === 'auth / weak - password') {
-        console.error('Ошибка - паролькороткий')
+        console.error('Ошибка - пароль короткий')
+        errorMessage.value = 'Ошибка - пароль короткий'
       }
     })
     .finally(() => (pending.value = false))
@@ -93,6 +100,7 @@ async function createAccount() {
             :disabled="pending"
             :placeholder="'designer@gmail.com'"
             :type="'email'"
+            :error-style="!!errorMessage"
             :value="form.email"
             @update:value="form.email = $event"
           >
@@ -110,6 +118,7 @@ async function createAccount() {
             :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
+            :error-style="!!errorMessage"
             :value="form.password"
             @update:value="form.password = $event"
           >
@@ -150,6 +159,12 @@ async function createAccount() {
                   </span>
                 </button>
               </div>
+            </template>
+
+            <template #error-message>
+              <span class="text-red tw-text-[14px]">
+                {{ errorMessage }}
+              </span>
             </template>
           </UniversalBaseInput>
 

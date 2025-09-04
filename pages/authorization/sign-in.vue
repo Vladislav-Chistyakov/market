@@ -21,23 +21,24 @@ const pending = ref(false)
 
 const userSignIn = useFirebaseFunctions().userSignIn
 
+const errorMessage = ref('')
+
 async function loginYourAccount() {
   pending.value = true
   await userSignIn(form.nameOrEmail, form.password)
     .then((result) => {
       console.log(result)
+      errorMessage.value = ''
       console.log('Прошла успешная авторизация юзера')
       userStore.userData = result
-      // TODO Тут осуществялется переход на главную страницу после успешной авторизации
       router.push('/')
     })
     .catch((error) => {
       console.error(error)
 
       if (error.code === 'auth/invalid-credential') {
-        // TODO от сюда надо вывести ошибку, что юзер не прошел проверку
-        // отметить ошибку в поле ввода
-        console.error('Ошибка авторизации пользователя')
+        console.error('Введите верные данные для авторизации')
+        errorMessage.value = 'Введите верные данные для авторизации'
       }
     })
     .finally(() => (pending.value = false))
@@ -99,6 +100,7 @@ async function loginYourAccount() {
             :placeholder="''"
             :type="'text'"
             :value="form.nameOrEmail"
+            :error-style="!!errorMessage"
             @update:value="form.nameOrEmail = $event"
           >
             <template #label>
@@ -116,6 +118,7 @@ async function loginYourAccount() {
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
             :value="form.password"
+            :error-style="!!errorMessage"
             @update:value="form.password = $event"
           >
             <template #label>
@@ -155,6 +158,12 @@ async function loginYourAccount() {
                   </span>
                 </button>
               </div>
+            </template>
+
+            <template #error-message>
+              <span class="text-red tw-text-[14px]">
+                {{ errorMessage }}
+              </span>
             </template>
           </UniversalBaseInput>
 
