@@ -32,6 +32,8 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
 
   const productsIds: Reactive<unknown> = reactive([])
 
+  const countProductsWishlist = computed(() => productsIds.length)
+
   type EditedWishlistItem = {
     id: string,
     name: string,
@@ -144,6 +146,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
     updateWishlistProductIdStatus,
     wishlistAlreadyReceived,
     pendingWishlist,
+    countProductsWishlist,
     wishlistUser,
     editedWishlistForPage,
     getWishlistIdsUser,

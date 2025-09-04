@@ -5,8 +5,8 @@ import { useWishlistStore } from '~/store/wishlist'
 
 const wishlistStore = useWishlistStore()
 
-const list = computed(() => wishlistStore.editedWishlistForPage)
-
+// Стор не всегда успевает загрузится, чтобы не показывать что список пуст
+// При первой загрузке страницы пока стора еще нет, вывожу пустой див с фикс высотой
 const pendingList = computed(() => {
   if (!wishlistStore.wishlistAlreadyReceived) {
     return true
@@ -25,11 +25,11 @@ onMounted(async () => {
 
 <template>
   <NuxtLayout name="my-account">
-    <template v-if="list && list.length">
+    <template v-if="wishlistStore.countProductsWishlist">
       <CompletedList />
     </template>
 
-    <template v-else-if="!pendingList && list && list.length === 0">
+    <template v-else-if="!pendingList && wishlistStore.countProductsWishlist === 0">
       <EmptyList />
     </template>
 
