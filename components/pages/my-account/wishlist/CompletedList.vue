@@ -6,7 +6,6 @@ const wishlistStore = useWishlistStore()
 const route = useRoute()
 
 const list = computed(() => {
-  console.log('11211', wishlistStore.editedWishlistForPage)
   return wishlistStore.editedWishlistForPage
 })
 
@@ -21,7 +20,7 @@ const changeStatusProductWishlist = async function (productId: string) {
 </script>
 
 <template>
-  <div class="font-causten text-black">
+  <div class="font-causten text-black min-h-[656px]">
     <h1 class="mb-[58px] text-[29px] leading-[20px] font-semibold">Wishlist</h1>
 
     <client-only>
@@ -31,7 +30,6 @@ const changeStatusProductWishlist = async function (productId: string) {
           :key="index + item.id"
           class="flex gap-[36px] items-center border-b border-[#EDEEF2] pb-[30px]"
         >
-          {{ item.id }}
           <button @click.prevent="changeStatusProductWishlist(item.id)" :disabled="pendingList" class="flex items-center justify-center">
             <svg
               class="inline-block h-[22px] min-w-[22px]"
@@ -78,7 +76,7 @@ const changeStatusProductWishlist = async function (productId: string) {
             </div>
             <div class="flex gap-[50px] items-center justify-end">
               <p class="font-bold text-[22px] leading-[26px] text-[#807D7E]">
-                $100
+                ${{ item.price }}
               </p>
 
               <nuxt-link

@@ -8,6 +8,8 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   const getProductId = useFirebaseFunctions().getProductId
   const userStore = useUserStore()
 
+  const wishlistAlreadyReceived = ref(false)
+
   const pendingWishlist = ref(false)
 
   type WishlistItem = {
@@ -75,12 +77,17 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
             productsIds.splice(0, productsIds.length, ...data)
           : productsIds.splice(0, productsIds.length)
         }
+
+        if (!wishlistAlreadyReceived.value) {
+          wishlistAlreadyReceived.value = true
+        }
+
+        // Тут мы получаем данные продуктов из списка айдишников
+        await getProductsFromWishlistIds()
       }
     } catch (error) {
       console.log('Error getWishlistUser', error)
     } finally {
-      // Тут мы получаем данные продуктов из списка айдишников
-      await getProductsFromWishlistIds()
       pendingWishlist.value = false
     }
   }
@@ -130,6 +137,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   }
 
   return {
+    wishlistAlreadyReceived,
     pendingWishlist,
     wishlistUser,
     editedWishlistForPage,

@@ -6,6 +6,21 @@ import { useWishlistStore } from '~/store/wishlist'
 const wishlistStore = useWishlistStore()
 
 const list = computed(() => wishlistStore.editedWishlistForPage)
+
+const pendingList = computed(() => {
+  if (!wishlistStore.wishlistAlreadyReceived) {
+    return true
+  } else if (wishlistStore.wishlistAlreadyReceived) {
+    return false
+  }
+  return true
+})
+
+// Если мы заходим на страницу, еще раз получаем список продуктов
+// (проверка, вдруг добавили продукты на другой странице)
+onMounted(async () => {
+  await wishlistStore.getWishlistIdsUser()
+})
 </script>
 
 <template>
@@ -14,8 +29,12 @@ const list = computed(() => wishlistStore.editedWishlistForPage)
       <CompletedList />
     </template>
 
-    <template v-else>
+    <template v-else-if="!pendingList && list && list.length === 0">
       <EmptyList />
+    </template>
+
+    <template v-else>
+      <div class="min-h-[656px]" />
     </template>
   </NuxtLayout>
 </template>
