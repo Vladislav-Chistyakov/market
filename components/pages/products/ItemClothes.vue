@@ -18,6 +18,12 @@ const changeStatusProductWishlist = async function (productId: string) {
 const linkProductPage = computed(() => {
   return `/products/${props.item?.gender}/${props.item.category.toLowerCase()}/${props.item?.id}`
 })
+
+const productIsInUserWishlist = computed(() => {
+  return wishlistStore.productsIds.includes(props.item?.id)
+})
+
+const updateStatusProductId = computed(() => wishlistStore.updateWishlistProductIdStatus === props.item.id)
 </script>
 
 <template>
@@ -39,14 +45,15 @@ const linkProductPage = computed(() => {
         <button
           @click.prevent="changeStatusProductWishlist(item.id)"
           :disabled="wishlistStore.pendingWishlist"
-          class="h-[32px] w-[32px] bg-white absolute right-[20px] top-[26px] flex items-center justify-center rounded-full"
+          class="h-[32px] w-[32px] bg-white absolute right-[20px] top-[26px] flex items-center justify-center rounded-full active:scale-95 active:shadow-inner"
+          :class="{'scale-95 shadow-inner' : updateStatusProductId }"
         >
           <svg
             class="flex"
             width="16"
             height="15"
             viewBox="0 0 16 15"
-            fill="none"
+            :fill="productIsInUserWishlist ? 'red' : 'none'"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path

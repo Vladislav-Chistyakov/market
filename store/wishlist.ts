@@ -8,9 +8,10 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   const getProductId = useFirebaseFunctions().getProductId
   const userStore = useUserStore()
 
-  const wishlistAlreadyReceived = ref(false)
 
+  const wishlistAlreadyReceived = ref(false)
   const pendingWishlist = ref(false)
+  const updateWishlistProductIdStatus = ref('')
 
   type WishlistItem = {
     color: string[]
@@ -123,6 +124,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   // Смена статуса продукта в вишлисте с получением нового списка продуктов
   const changeProductToWishlist = async function (productId: string) {
     pendingWishlist.value = true
+    updateWishlistProductIdStatus.value = productId
 
     // Тут происходит смена статуса продукта в вишлисте
     await useFirebaseFunctions()
@@ -132,11 +134,14 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
         console.error('Error addProductToCart: ', error)
       })
       .finally(() => {
+        updateWishlistProductIdStatus.value = ''
         pendingWishlist.value = false
       })
   }
 
   return {
+    productsIds,
+    updateWishlistProductIdStatus,
     wishlistAlreadyReceived,
     pendingWishlist,
     wishlistUser,
