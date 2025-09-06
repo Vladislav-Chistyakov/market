@@ -22,6 +22,7 @@ const productsList = computed(() => {
     <div class="grid grid-cols-[295px_1fr] gap-[50px]">
       <ProductsMenuAside>
         <template #filter>
+          <FilterFeaturesMenu />
           <FilterCategoriesMenu />
         </template>
       </ProductsMenuAside>
