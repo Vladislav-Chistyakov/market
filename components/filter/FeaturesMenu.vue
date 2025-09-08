@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from '#vue-router'
 import RangeInput from '~/components/universal/RangeInput.vue'
+import AccordionContainer from '~/components/filter/AccordionContainer.vue'
 
 type Props = {
   title: string
@@ -56,15 +57,18 @@ onBeforeUnmount(() => console.log('КОМПОНЕНТ ФИЛЬТРОВ РАЗМ�
 </script>
 
 <template>
-  <div class="flex flex-col gap-5 py-5">
-    {{ minPrice }} + {{ maxPrice }}
-    <div class="px-[35px]">
-      <RangeInput @update:model-value="[minPrice, maxPrice] = $event" :min="priceOptions.minPrice" :max="priceOptions.maxPrice" :step="1" />
-    </div>
+  <div>
+    <AccordionContainer title="Price">
+      <template #default>
+        <RangeInput @update:model-value="[minPrice, maxPrice] = $event" :min="priceOptions.minPrice" :max="priceOptions.maxPrice" :step="1" />
+      </template>
+    </AccordionContainer>
 
-    <ul class="grid grid-cols-4 gap-5 items-center px-[35px]">
-      <li v-for="(color, indexColor) in allColors" :key="indexColor">
-        <button class="w-full flex flex-col gap-2 items-center">
+    <AccordionContainer title="Colors">
+      <template #default>
+        <ul class="grid grid-cols-4 gap-5 items-center">
+          <li v-for="(color, indexColor) in allColors" :key="indexColor">
+            <button class="w-full flex flex-col gap-2 items-center">
           <span
             class="h-[37px] w-full border rounded-xl"
             :style="{
@@ -72,25 +76,32 @@ onBeforeUnmount(() => console.log('КОМПОНЕНТ ФИЛЬТРОВ РАЗМ�
               borderColor: color === 'white' ? '#F4F1F1' : color,
             }"
           ></span>
-          <span>
+              <span>
             {{ color }}
           </span>
-        </button>
-      </li>
-    </ul>
+            </button>
+          </li>
+        </ul>
+      </template>
+    </AccordionContainer>
 
-    <ul class="grid grid-cols-3 gap-5 items-center px-[35px]">
-      <li v-for="size in allSizes" :key="size">
-        <button
-          class="w-full bg-transparent border border-[#CBC9CA] rounded-lg pt-[6px] pb-[7px] px-1 text-center"
-        >
+    <AccordionContainer title="Size">
+      <template #default>
+        <ul class="grid grid-cols-3 gap-5 items-center">
+          <li v-for="size in allSizes" :key="size">
+            <button
+              class="w-full bg-transparent border border-[#CBC9CA] rounded-lg pt-[6px] pb-[7px] px-1 text-center"
+            >
           <span
             class="font-causten text-[14px] leading-4 text-[#3C4242] font-semibold"
-            >{{ size }}</span
+          >{{ size }}</span
           >
-        </button>
-      </li>
-    </ul>
+            </button>
+          </li>
+        </ul>
+
+      </template>
+    </AccordionContainer>
   </div>
 </template>
 

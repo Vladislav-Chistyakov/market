@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <aside class="border-x border-gray-border max-h-fit">
+  <aside class="border-x border-b border-menu-gray max-h-[1700px] ">
     <div
-      class="flex items-center justify-between gap-[14px] p-[20px_30px_30px_30px] border-b border-gray-border font-semibold"
+      class="flex items-center justify-between gap-[14px] p-[20px_30px_30px_30px] border-b border-menu-gray font-semibold"
     >
       <h2 class="text-[22px] leading-[26px] text-text-gray-200">Filter</h2>
 
@@ -11,10 +11,8 @@
     </div>
 
     <client-only>
-      <slot name="filter" />
+      <slot name="filters" />
     </client-only>
-
-    <div class="border-b border-gray-border pb-[30px]">списко фильтров</div>
   </aside>
 </template>
 

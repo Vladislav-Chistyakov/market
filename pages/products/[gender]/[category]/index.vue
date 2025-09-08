@@ -2,6 +2,7 @@
 import { useProductsStore } from '~/store/products'
 import ListClothes from '~/components/pages/products/ListClothes.vue'
 import ProductsMenuAside from '~/components/pages/products/MenuAside.vue'
+import AccordionContainer from '~/components/filter/AccordionContainer.vue'
 
 const productsStore = useProductsStore()
 const route = useRoute()
@@ -21,9 +22,9 @@ const productsList = computed(() => {
   <div class="container xl:max-w-[1440px] font-causten">
     <div class="grid grid-cols-[295px_1fr] gap-[50px]">
       <ProductsMenuAside>
-        <template #filter>
-          <FilterFeaturesMenu :list="productsList" />
+        <template #filters>
           <FilterCategoriesMenu />
+          <FilterFeaturesMenu :list="productsList" />
         </template>
       </ProductsMenuAside>
 

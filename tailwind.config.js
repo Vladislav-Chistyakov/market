@@ -49,6 +49,7 @@ export default {
         brown: '#D67E3B',
         green: '#48BC4E',
         blue: '#345EFF',
+        'menu-gray': '#EAE9EA',
       },
     },
   },
