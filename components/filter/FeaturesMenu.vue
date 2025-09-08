@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from '#vue-router'
+import RangeInput from '~/components/universal/RangeInput.vue'
 
 type Props = {
   title: string
@@ -39,23 +40,38 @@ const allColors = computed(() => {
   return [...new Set(colors.map((c) => c.toLowerCase()))]
 })
 
+const priceOptions = computed(() => {
+  return {
+    minPrice: Math.min(...props.list.map(item => Number(item.price))) || 0,
+    maxPrice: Math.max(...props.list.map(item => Number(item.price))) || 0,
+  }
+})
+
+const minPrice = ref(priceOptions.value.minPrice)
+const maxPrice = ref(priceOptions.value.maxPrice)
+
 onMounted(() => console.log('Компонент фильтров отрисован'))
 
 onBeforeUnmount(() => console.log('КОМПОНЕНТ ФИЛЬТРОВ РАЗМОНТИРОВАН'))
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col gap-5 py-5">
+    {{ minPrice }} + {{ maxPrice }}
+    <div class="px-[35px]">
+      <RangeInput @update:model-value="[minPrice, maxPrice] = $event" :min="priceOptions.minPrice" :max="priceOptions.maxPrice" :step="1" />
+    </div>
+
     <ul class="grid grid-cols-4 gap-5 items-center px-[35px]">
       <li v-for="(color, indexColor) in allColors" :key="indexColor">
         <button class="w-full flex flex-col gap-2 items-center">
-          <div
+          <span
             class="h-[37px] w-full border rounded-xl"
             :style="{
               backgroundColor: color,
               borderColor: color === 'white' ? '#F4F1F1' : color,
             }"
-          ></div>
+          ></span>
           <span>
             {{ color }}
           </span>
