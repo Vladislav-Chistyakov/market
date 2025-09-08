@@ -1,10 +1,12 @@
 <script setup lang="ts">
 type Props = {
-  title: string
+  title: string,
+  borderBottomActive: boolean
 }
 
 withDefaults(defineProps<Props>(), {
-  title: ''
+  title: '',
+  borderBottomActive: true
 })
 
 const openAccordion = ref(true)
@@ -24,7 +26,7 @@ const openAccordion = ref(true)
       </button>
     </div>
 
-    <div class="px-[16px] xl:px-[36px]" :class="{ 'border-b border-menu-gray' : openAccordion }">
+    <div class="px-[16px] xl:px-[36px]" :class="{ 'border-b border-menu-gray' : openAccordion && borderBottomActive }">
       <Transition>
         <div v-if="openAccordion" class="py-10">
           <slot />

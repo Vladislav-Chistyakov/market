@@ -2,6 +2,7 @@
 import { useRoute } from '#vue-router'
 import RangeInput from '~/components/universal/RangeInput.vue'
 import AccordionContainer from '~/components/filter/AccordionContainer.vue'
+import type { Ref } from 'vue'
 
 type Props = {
   title: string
@@ -17,7 +18,7 @@ const route = useRoute()
 
 const isGender = computed(() => route.params.gender)
 
-const sizeOrder = ['xs', 's', 'm', 'l', 'xl', 'xxl']
+const sizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
 const allSizes = computed(() => {
   // Собираем все размеры в один массив
@@ -34,7 +35,6 @@ const allColors = computed(() => {
   // Собираем все цвета в один массив
 
   const colors = props.list.flatMap((item) => {
-    console.log('item', item)
     return item.color
   })
 
@@ -51,6 +51,23 @@ const priceOptions = computed(() => {
 const minPrice = ref(priceOptions.value.minPrice)
 const maxPrice = ref(priceOptions.value.maxPrice)
 
+const sizes: Ref<string[]> = ref([])
+
+const colors: Ref<string[]> = ref([])
+
+function changeColorFilters (color: string) {
+  colors.value = colors.value.includes(color)
+    ? colors.value.filter(c => c !== color)
+    : [...colors.value, color]
+}
+
+function changeSizesFilters (size: string) {
+  sizes.value = sizes.value.includes(size)
+    ? sizes.value.filter(c => c !== size)
+    : [...sizes.value, size]
+}
+
+
 onMounted(() => console.log('Компонент фильтров отрисован'))
 
 onBeforeUnmount(() => console.log('КОМПОНЕНТ ФИЛЬТРОВ РАЗМОНТИРОВАН'))
@@ -58,48 +75,56 @@ onBeforeUnmount(() => console.log('КОМПОНЕНТ ФИЛЬТРОВ РАЗМ�
 
 <template>
   <div>
+    <pre>
+      {{ priceOptions }}
+      {{ colors }}
+      {{ sizes }}
+    </pre>
+
+    <!-- Цена   -->
     <AccordionContainer title="Price">
       <template #default>
         <RangeInput @update:model-value="[minPrice, maxPrice] = $event" :min="priceOptions.minPrice" :max="priceOptions.maxPrice" :step="1" />
       </template>
     </AccordionContainer>
 
+    <!-- Цвета  -->
     <AccordionContainer title="Colors">
       <template #default>
         <ul class="grid grid-cols-4 gap-5 items-center">
           <li v-for="(color, indexColor) in allColors" :key="indexColor">
-            <button class="w-full flex flex-col gap-2 items-center">
-          <span
-            class="h-[37px] w-full border rounded-xl"
-            :style="{
-              backgroundColor: color,
-              borderColor: color === 'white' ? '#F4F1F1' : color,
-            }"
-          ></span>
+            <button @click="changeColorFilters(color)" class="w-full flex flex-col gap-2 items-center">
+              <span
+                class="h-[37px] w-full border rounded-xl"
+                :class="{'ring-2' : colors.includes(color)}"
+                :style="{
+                  backgroundColor: color,
+                  borderColor: color === 'white' ? '#F4F1F1' : color,
+                }"
+              />
               <span>
-            {{ color }}
-          </span>
+                {{ color }}
+              </span>
             </button>
           </li>
         </ul>
       </template>
     </AccordionContainer>
 
-    <AccordionContainer title="Size">
+    <!-- Размеры  -->
+    <AccordionContainer title="Size" :border-bottom-active="false">
       <template #default>
         <ul class="grid grid-cols-3 gap-5 items-center">
           <li v-for="size in allSizes" :key="size">
             <button
+              @click="changeSizesFilters(size)"
               class="w-full bg-transparent border border-[#CBC9CA] rounded-lg pt-[6px] pb-[7px] px-1 text-center"
+              :class="{'ring-2' : sizes.includes(size)}"
             >
-          <span
-            class="font-causten text-[14px] leading-4 text-[#3C4242] font-semibold"
-          >{{ size }}</span
-          >
+              <span class="font-causten text-[14px] leading-4 text-[#3C4242] font-semibold">{{ size }}</span>
             </button>
           </li>
         </ul>
-
       </template>
     </AccordionContainer>
   </div>
