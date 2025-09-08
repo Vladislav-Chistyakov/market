@@ -23,7 +23,13 @@ const modules = [Pagination, Scrollbar]
     >
       <swiper-slide class="text-white">
         <div
-          class="pl-[193px] pt-[140px] pb-[132px] bg-[url('@/assets/images/pages/main/hero/hero-one.jpeg')] bg-cover bg-no-repeat h-full"
+          class="
+            pl-[40px] pt-[40px] pb-[32px]
+            image-hero-one
+            bg-[url('@/assets/images/pages/main/hero/hero-one.jpeg')]
+            bg-position-left bg-cover bg-no-repeat h-full
+            xl:bg-cover xl:pl-[193px] xl:pt-[140px] xl:pb-[132px] xl:bg-position-top
+          "
         >
           <b
             class="block text-white font-core-sans-c text-[32px] leading-[38px] font-medium mb-[40px]"
@@ -90,6 +96,10 @@ const modules = [Pagination, Scrollbar]
     .swiper-pagination-bullet {
       margin: 0 1px;
     }
+  }
+
+  .image-hero-one {
+    //background-position: left bottom;
   }
 
   .swiper-pagination-bullet {
