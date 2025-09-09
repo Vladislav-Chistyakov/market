@@ -24,6 +24,12 @@ function changeFilters(newFilteredList: any[]) {
   isFilteredList.value = newFilteredList.length === 0
   list.value = newFilteredList
 }
+
+watch(productsList, (newValue, oldValue) => {
+  if (!oldValue.length && newValue.length) {
+    list.value = newValue
+  }
+})
 </script>
 
 <template>

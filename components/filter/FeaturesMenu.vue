@@ -199,16 +199,18 @@ const runFilters = function () {
 }
 
 onMounted(() => {
-  // Изначально смотрим есть ли уже фильтры в пути query
-  writeFiltersFromQueryParams()
-  // После этого запускаем фильтры (если есть в пути)
-  if (
-    route.query.colors
-    || route.query.sizes
-    || route.query.minPrice
-    || route.query.maxPrice
-  ) {
-    runFilters()
+  if (props.list.length) {
+    // Изначально смотрим есть ли уже фильтры в пути query
+    writeFiltersFromQueryParams()
+    // После этого запускаем фильтры (если есть в пути)
+    if (
+      route.query.colors
+      || route.query.sizes
+      || route.query.minPrice
+      || route.query.maxPrice
+    ) {
+      runFilters()
+    }
   }
 })
 </script>
