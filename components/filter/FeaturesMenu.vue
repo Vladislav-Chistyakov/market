@@ -122,18 +122,18 @@ const runFilters = function () {
     (item) => item.price >= minPrice.value && item.price <= maxPrice.value,
   )
   //
-  // if (colors.value.length) {
-  //   list = list.filter((item) => {
-  //     if (Array.isArray(item.colors)) {
-  //       for (const color of item.colors) {
-  //         if (colors.value.includes(color)) {
-  //           return true
-  //         }
-  //       }
-  //       return false
-  //     }
-  //   })
-  // }
+  if (colors.value.length) {
+    list = list.filter((item) => {
+      if (Array.isArray(item.color)) {
+        for (const colorItem of item.color) {
+          if (colors.value.includes(colorItem)) {
+            return true
+          }
+        }
+        return false
+      }
+    })
+  }
   //
   // if (sizes.value.length) {
   //   list = list.filter((item) => {
