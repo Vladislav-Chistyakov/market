@@ -2,7 +2,6 @@
 import { useProductsStore } from '~/store/products'
 import ListClothes from '~/components/pages/products/ListClothes.vue'
 import ProductsMenuAside from '~/components/pages/products/MenuAside.vue'
-import AccordionContainer from '~/components/filter/AccordionContainer.vue'
 
 const productsStore = useProductsStore()
 const route = useRoute()
@@ -16,6 +15,15 @@ const productsList = computed(() => {
     return productsStore.products || []
   }
 })
+
+const list = ref(productsList.value)
+
+const isFilteredList = ref(false)
+
+function changeFilters(newFilteredList: any[]) {
+  isFilteredList.value = newFilteredList.length === 0
+  list.value = newFilteredList
+}
 </script>
 
 <template>
@@ -24,11 +32,22 @@ const productsList = computed(() => {
       <ProductsMenuAside>
         <template #filters>
           <FilterCategoriesMenu />
-          <FilterFeaturesMenu :list="productsList" />
+          <FilterFeaturesMenu
+            :list="productsList"
+            @change-filters="changeFilters"
+          />
         </template>
       </ProductsMenuAside>
 
-      <ListClothes :list="productsList" title="Products" class="mt-[33px]" />
+      <div>
+        <ListClothes :list="list" title="Products" class="mt-[33px]" />
+        <div
+          v-if="isFilteredList"
+          class="text-[20px] text-center pt-20 w-full text-black font-core-sans-c"
+        >
+          По этим фильтрам список пуст
+        </div>
+      </div>
     </div>
   </div>
 </template>

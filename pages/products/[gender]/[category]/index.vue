@@ -2,7 +2,6 @@
 import { useProductsStore } from '~/store/products'
 import ListClothes from '~/components/pages/products/ListClothes.vue'
 import ProductsMenuAside from '~/components/pages/products/MenuAside.vue'
-import AccordionContainer from '~/components/filter/AccordionContainer.vue'
 
 const productsStore = useProductsStore()
 const route = useRoute()
@@ -21,8 +20,7 @@ const list = ref(productsList.value)
 
 const isFilteredList = ref(false)
 
-function changeFilters(newFilteredList: any) {
-  console.log('смена фильтров _______________', newFilteredList)
+function changeFilters(newFilteredList: any[]) {
   isFilteredList.value = newFilteredList.length === 0
   list.value = newFilteredList
 }

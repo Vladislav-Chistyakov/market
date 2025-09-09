@@ -68,6 +68,14 @@ function changeColorFilters(color: string) {
     colors.value.includes(color) ?
       colors.value.filter((c) => c !== color)
     : [...colors.value, color]
+
+  router.replace({
+    query: {
+      ...route.query,
+      colors: colors.value,
+    },
+  })
+
   runFilters()
 }
 
@@ -77,6 +85,13 @@ function changeSizesFilters(size: string) {
     sizes.value.includes(size) ?
       sizes.value.filter((c) => c !== size)
     : [...sizes.value, size]
+
+  router.replace({
+    query: {
+      ...route.query,
+      sizes: sizes.value,
+    },
+  })
   runFilters()
 }
 
@@ -84,6 +99,14 @@ function changeSizesFilters(size: string) {
 function changeMinMaxPriceFilters(event: [number, number]) {
   minPrice.value = event[0]
   maxPrice.value = event[1]
+
+  router.replace({
+    query: {
+      ...route.query,
+      minPrice: minPrice.value,
+      maxPrice: maxPrice.value,
+    },
+  })
   runFilters()
 }
 
@@ -128,20 +151,6 @@ function priceFilters(list: any[]) {
 // фильтр по размеру
 function sizeFilters(list: any[]) {
   return list.filter((item) => {
-    if (Array.isArray(item.color)) {
-      for (const colorItem of item.color) {
-        if (colors.value.includes(colorItem)) {
-          return true
-        }
-      }
-      return false
-    }
-  })
-}
-
-// фильтр по цвету
-function colorFilters(list: any[]) {
-  return list.filter((item) => {
     if (Array.isArray(item.size)) {
       for (const sizeItem of item.size) {
         if (sizes.value.includes(sizeItem)) {
@@ -153,8 +162,23 @@ function colorFilters(list: any[]) {
   })
 }
 
+// фильтр по цвету
+function colorFilters(list: any[]) {
+  return list.filter((item) => {
+    if (Array.isArray(item.color)) {
+      for (const colorItem of item.color) {
+        if (colors.value.includes(colorItem)) {
+          return true
+        }
+      }
+      return false
+    }
+  })
+}
+
+// Запуск фильтров
 const runFilters = function () {
-  console.log('runFilters Запуск фильтров !!!!!')
+  // берем весь список продуктов
   let list = [...props.list]
 
   // фильтруем по цене
@@ -175,39 +199,22 @@ const runFilters = function () {
 }
 
 onMounted(() => {
-  console.log('Компонент фильтров отрисован')
-  if (route.query.filers) {
-    console.log('Filters активны и есть в пути')
-  } else {
-    router.replace({
-      query: {
-        ...route.query,
-        filters: 'active',
-        sizes: ['S'],
-        colors: ['blue'],
-        minPrice: 0,
-        maxPrice: 100,
-      },
-    })
-    console.log('Фильтров нет, давай поставим фильтры')
-
-    writeFiltersFromQueryParams()
+  // Изначально смотрим есть ли уже фильтры в пути query
+  writeFiltersFromQueryParams()
+  // После этого запускаем фильтры (если есть в пути)
+  if (
+    route.query.colors
+    || route.query.sizes
+    || route.query.minPrice
+    || route.query.maxPrice
+  ) {
     runFilters()
   }
 })
-
-onBeforeUnmount(() => console.log('КОМПОНЕНТ ФИЛЬТРОВ РАЗМОНТИРОВАН'))
 </script>
 
 <template>
   <div>
-    <pre>
-      minPrice - {{ minPrice }}
-      maxPrice - {{ maxPrice }}
-      {{ colors }}
-      {{ sizes }}
-    </pre>
-
     <!-- Цена   -->
     <AccordionContainer title="Price">
       <template #default>
@@ -215,6 +222,8 @@ onBeforeUnmount(() => console.log('КОМПОНЕНТ ФИЛЬТРОВ РАЗМ�
           @update:model-value="changeMinMaxPriceFilters"
           :min="minPriceFilters"
           :max="maxPriceFilters"
+          :min-value="minPrice"
+          :max-value="maxPrice"
           :step="1"
         />
       </template>
