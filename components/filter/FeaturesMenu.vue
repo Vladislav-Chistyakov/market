@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useRoute } from '#vue-router'
+import { useRoute, useRouter } from '#vue-router'
 import RangeInput from '~/components/universal/RangeInput.vue'
 import AccordionContainer from '~/components/filter/AccordionContainer.vue'
 import type { Ref } from 'vue'
 
 type Props = {
-  title: string
+  title?: string
   list: any[]
 }
 
@@ -14,7 +14,13 @@ const props = withDefaults(defineProps<Props>(), {
   list: () => [],
 })
 
+const emit = defineEmits(['change-filters'])
+
+const router = useRouter()
 const route = useRoute()
+const isFiltersActive = ref(false)
+
+const listFilters = ref(props.list)
 
 const isGender = computed(() => route.params.gender)
 
@@ -41,6 +47,7 @@ const allColors = computed(() => {
   return [...new Set(colors.map((c) => c.toLowerCase()))]
 })
 
+// Вывод первоначальной минимальной и максимальной цены из списка товаров
 const priceOptions = computed(() => {
   return {
     minPrice: Math.min(...props.list.map(item => Number(item.price))) || 0,
@@ -48,27 +55,114 @@ const priceOptions = computed(() => {
   }
 })
 
+
 const minPrice = ref(priceOptions.value.minPrice)
 const maxPrice = ref(priceOptions.value.maxPrice)
-
 const sizes: Ref<string[]> = ref([])
-
 const colors: Ref<string[]> = ref([])
 
+// Смена цвета в фильтрах
 function changeColorFilters (color: string) {
   colors.value = colors.value.includes(color)
     ? colors.value.filter(c => c !== color)
     : [...colors.value, color]
 }
 
+// Смена размера в фильтрах
 function changeSizesFilters (size: string) {
   sizes.value = sizes.value.includes(size)
     ? sizes.value.filter(c => c !== size)
     : [...sizes.value, size]
 }
 
+// Запись фильтров из query params
+function writeFiltersFromQueryParams () {
+  // из цветов
+  if (route.query.colors?.length) {
+    if (Array.isArray(route.query.colors)) {
+      colors.value = [...route.query.colors] as string[]
+    } else {
+      colors.value.push(route.query.colors)
+    }
+  }
 
-onMounted(() => console.log('Компонент фильтров отрисован'))
+  // из размеров
+  if (route.query.sizes?.length) {
+    if (Array.isArray(route.query.sizes)) {
+      sizes.value = [...route.query.sizes] as string[]
+    } else {
+      sizes.value.push(route.query.sizes)
+    }
+  }
+
+  // Запись минимальной цены
+  if (Number(route.query.minPrice) >= 0) {
+    minPrice.value = Number(route.query.minPrice)
+  }
+
+  // Запись максимальной цены
+  if (Number(route.query.maxPrice) >= 0) {
+    maxPrice.value = Number(route.query.maxPrice)
+  }
+}
+
+const runFilters = function() {
+  let list = [...props.list]
+  // if (minPrice.value && maxPrice.value) {
+  //   list = list.filter((item) => item.price >= minPrice.value && item.price <= maxPrice.value)
+  // }
+  //
+  // if (colors.value.length) {
+  //   list = list.filter((item) => {
+  //     if (Array.isArray(item.colors)) {
+  //       for (const color of item.colors) {
+  //         if (colors.value.includes(color)) {
+  //           return true
+  //         }
+  //       }
+  //       return false
+  //     }
+  //   })
+  // }
+  //
+  // if (sizes.value.length) {
+  //   list = list.filter((item) => {
+  //     if (Array.isArray(item.sizes)) {
+  //       for (const size of item.sizes) {
+  //         if (sizes.value.includes(size)) {
+  //           return true
+  //         }
+  //       }
+  //       return false
+  //     }
+  //   })
+  // }
+  console.log('runFilters Запуск фильтров !!!!!')
+  return list
+}
+
+onMounted(() => {
+  console.log('Компонент фильтров отрисован')
+  if (route.query.filers) {
+    console.log('Filters активны и есть в пути')
+  } else {
+    router.replace({
+      query: {
+        ...route.query,
+        filters: 'active',
+        sizes: ['S'],
+        colors: ['blue'],
+        minPrice: 0,
+        maxPrice: 100,
+      },
+    })
+    console.log('Фильтров нет, давай поставим фильтры')
+
+    writeFiltersFromQueryParams()
+    listFilters.value = runFilters()
+    emit('change-filters', listFilters.value)
+  }
+})
 
 onBeforeUnmount(() => console.log('КОМПОНЕНТ ФИЛЬТРОВ РАЗМОНТИРОВАН'))
 </script>

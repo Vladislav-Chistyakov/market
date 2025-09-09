@@ -1,7 +1,7 @@
 <script setup lang="ts">
 type Props = {
   title: string,
-  borderBottomActive: boolean
+  borderBottomActive?: boolean
 }
 
 withDefaults(defineProps<Props>(), {

@@ -16,6 +16,12 @@ const productsList = computed(() => {
     return productsStore.products || []
   }
 })
+
+const list = ref(productsList.value)
+
+function changeFilters(event: any) {
+  console.log('Происзошла смена фильтро _______________', event)
+}
 </script>
 
 <template>
@@ -24,11 +30,11 @@ const productsList = computed(() => {
       <ProductsMenuAside>
         <template #filters>
           <FilterCategoriesMenu />
-          <FilterFeaturesMenu :list="productsList" />
+          <FilterFeaturesMenu :list="list" @change-filters="changeFilters" />
         </template>
       </ProductsMenuAside>
 
-      <ListClothes :list="productsList" title="Products" class="mt-[33px]" />
+      <ListClothes :list="list" title="Products" class="mt-[33px]" />
     </div>
   </div>
 </template>
