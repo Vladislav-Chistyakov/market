@@ -19,22 +19,37 @@ const productsList = computed(() => {
 
 const list = ref(productsList.value)
 
-function changeFilters(event: any) {
-  console.log('Происзошла смена фильтро _______________', event)
+const isFilteredList = ref(false)
+
+function changeFilters(newFilteredList: any) {
+  console.log('смена фильтров _______________', newFilteredList)
+  isFilteredList.value = newFilteredList.length === 0
+  list.value = newFilteredList
 }
 </script>
 
 <template>
-  <div class="container xl:max-w-[1440px] font-causten">
+  <div class="font-core-sans-c container xl:max-w-[1440px] font-causten">
     <div class="grid grid-cols-[295px_1fr] gap-[50px]">
       <ProductsMenuAside>
         <template #filters>
           <FilterCategoriesMenu />
-          <FilterFeaturesMenu :list="list" @change-filters="changeFilters" />
+          <FilterFeaturesMenu
+            :list="productsList"
+            @change-filters="changeFilters"
+          />
         </template>
       </ProductsMenuAside>
 
-      <ListClothes :list="list" title="Products" class="mt-[33px]" />
+      <div>
+        <ListClothes :list="list" title="Products" class="mt-[33px]" />
+        <div
+          v-if="isFilteredList"
+          class="text-[20px] text-center pt-20 w-full text-black"
+        >
+          По этим фильтрам список пуст
+        </div>
+      </div>
     </div>
   </div>
 </template>
