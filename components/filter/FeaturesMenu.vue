@@ -118,12 +118,16 @@ const runFilters = function () {
   console.log('runFilters Запуск фильтров !!!!!')
 
   let list = [...props.list]
+
+  // фильтр по цене
   list = list.filter(
     (item) => item.price >= minPrice.value && item.price <= maxPrice.value,
   )
-  //
+
+  // фильтр по цвету
   if (colors.value.length) {
     list = list.filter((item) => {
+      console.log('ITEM ', item)
       if (Array.isArray(item.color)) {
         for (const colorItem of item.color) {
           if (colors.value.includes(colorItem)) {
@@ -134,22 +138,24 @@ const runFilters = function () {
       }
     })
   }
-  //
-  // if (sizes.value.length) {
-  //   list = list.filter((item) => {
-  //     if (Array.isArray(item.sizes)) {
-  //       for (const size of item.sizes) {
-  //         if (sizes.value.includes(size)) {
-  //           return true
-  //         }
-  //       }
-  //       return false
-  //     }
-  //   })
-  // }
+
+  // фильтр по размеру
+  if (sizes.value.length) {
+    list = list.filter((item) => {
+      if (Array.isArray(item.size)) {
+        for (const sizeItem of item.size) {
+          if (sizes.value.includes(sizeItem)) {
+            return true
+          }
+        }
+        return false
+      }
+    })
+  }
   emit('change-filters', list)
 }
 
+// Создание первоначальных значений для фильтра цены
 const minPriceFilters = ref(
   Math.min(...props.list.map((item) => Number(item.price))) || 0,
 )
