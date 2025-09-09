@@ -18,15 +18,19 @@ const emit = defineEmits(['change-filters'])
 
 const router = useRouter()
 const route = useRoute()
-const isFiltersActive = ref(false)
 
-const listFilters = ref(props.list)
+// Создание первоначальных значений для фильтра цены
+const minPriceFilters = ref(
+  Math.min(...props.list.map((item) => Number(item.price))) || 0,
+)
+const maxPriceFilters = ref(
+  Math.max(...props.list.map((item) => Number(item.price))) || 0,
+)
 
-const isGender = computed(() => route.params.gender)
-
-const sizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
-
+// Создаем фильтр по размеру
 const allSizes = computed(() => {
+  const sizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
   // Собираем все размеры в один массив
   const sizes = props.list.flatMap((item) => item.size)
 
@@ -37,9 +41,9 @@ const allSizes = computed(() => {
   return unique.sort((a, b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b))
 })
 
+// Создаем фильтр по цвету
 const allColors = computed(() => {
   // Собираем все цвета в один массив
-
   const colors = props.list.flatMap((item) => {
     return item.color
   })
@@ -47,14 +51,14 @@ const allColors = computed(() => {
   return [...new Set(colors.map((c) => c.toLowerCase()))]
 })
 
-// Вывод первоначальной минимальной и максимальной цены из списка товаров
-
+// Создание фильтра по цене мин и макс
 const minPrice = ref(
   Math.min(...props.list.map((item) => Number(item.price))) || 0,
 )
 const maxPrice = ref(
   Math.max(...props.list.map((item) => Number(item.price))) || 0,
 )
+
 const sizes: Ref<string[]> = ref([])
 const colors: Ref<string[]> = ref([])
 
@@ -114,54 +118,61 @@ function writeFiltersFromQueryParams() {
   }
 }
 
-const runFilters = function () {
-  console.log('runFilters Запуск фильтров !!!!!')
-
-  let list = [...props.list]
-
-  // фильтр по цене
-  list = list.filter(
+// фильтр по цене
+function priceFilters(list: any[]) {
+  return list.filter(
     (item) => item.price >= minPrice.value && item.price <= maxPrice.value,
   )
-
-  // фильтр по цвету
-  if (colors.value.length) {
-    list = list.filter((item) => {
-      console.log('ITEM ', item)
-      if (Array.isArray(item.color)) {
-        for (const colorItem of item.color) {
-          if (colors.value.includes(colorItem)) {
-            return true
-          }
-        }
-        return false
-      }
-    })
-  }
-
-  // фильтр по размеру
-  if (sizes.value.length) {
-    list = list.filter((item) => {
-      if (Array.isArray(item.size)) {
-        for (const sizeItem of item.size) {
-          if (sizes.value.includes(sizeItem)) {
-            return true
-          }
-        }
-        return false
-      }
-    })
-  }
-  emit('change-filters', list)
 }
 
-// Создание первоначальных значений для фильтра цены
-const minPriceFilters = ref(
-  Math.min(...props.list.map((item) => Number(item.price))) || 0,
-)
-const maxPriceFilters = ref(
-  Math.max(...props.list.map((item) => Number(item.price))) || 0,
-)
+// фильтр по размеру
+function sizeFilters(list: any[]) {
+  return list.filter((item) => {
+    if (Array.isArray(item.color)) {
+      for (const colorItem of item.color) {
+        if (colors.value.includes(colorItem)) {
+          return true
+        }
+      }
+      return false
+    }
+  })
+}
+
+// фильтр по цвету
+function colorFilters(list: any[]) {
+  return list.filter((item) => {
+    if (Array.isArray(item.size)) {
+      for (const sizeItem of item.size) {
+        if (sizes.value.includes(sizeItem)) {
+          return true
+        }
+      }
+      return false
+    }
+  })
+}
+
+const runFilters = function () {
+  console.log('runFilters Запуск фильтров !!!!!')
+  let list = [...props.list]
+
+  // фильтруем по цене
+  list = priceFilters(list)
+
+  // по цвету
+  if (colors.value.length) {
+    list = colorFilters(list)
+  }
+
+  // по размеру
+  if (sizes.value.length) {
+    list = sizeFilters(list)
+  }
+
+  // отправляем отфильтрованный массив родителю
+  emit('change-filters', list)
+}
 
 onMounted(() => {
   console.log('Компонент фильтров отрисован')
