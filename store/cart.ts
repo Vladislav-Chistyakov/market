@@ -9,6 +9,8 @@ export const useCartStore = defineStore('cartStore', () => {
   const userStore = useUserStore()
   const pendingCart = ref(false)
 
+  const discount = ref(0)
+
   type CartItem = {
     color: string
     price: number
@@ -154,11 +156,63 @@ export const useCartStore = defineStore('cartStore', () => {
       })
   }
 
+  function useCouponDiscount(useDiscount: number) {
+    discount.value = useDiscount
+  }
+
+  const saving = computed(() => {
+    if (discount.value) {
+      return Number(subtotalProducts.value) * discount.value
+    }
+    return 0
+  })
+
+  const totalCountProducts = computed(() => {
+    return arrayCartProduct.value.reduce((accumulator, item) => {
+      return item.count ? accumulator + item.count : accumulator + 0
+    }, 0)
+  })
+
+  const subtotalProducts = computed(() => {
+    return arrayCartProduct.value
+      .reduce((accumulator, item) => {
+        return item.count && item.price ?
+            accumulator + item.count * item.price
+          : accumulator + 0
+      }, 0)
+      .toFixed(2)
+  })
+
+  const shippingAmount = computed(() => {
+    return arrayCartProduct.value
+      .reduce((accumulator, item) => {
+        return item.shipping ?
+            accumulator + Number(item.shipping)
+          : accumulator + 0
+      }, 0)
+      .toFixed(2)
+  })
+
+  const fullAmount = computed(() => {
+    return (
+      Number(subtotalProducts.value)
+      - saving.value
+      + Number(shippingAmount.value)
+    ).toFixed(2)
+  })
+
   return {
+    discount,
+    saving,
+    totalCountProducts,
+    subtotalProducts,
+    shippingAmount,
+    fullAmount,
     addProductToCart,
     getCartUser,
     removeCartProduct,
     removeOneItemFromCart,
+    useCouponDiscount,
     arrayCartProduct,
     pendingCart,
   }
