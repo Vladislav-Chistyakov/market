@@ -163,7 +163,8 @@ export const useCartStore = defineStore('cartStore', () => {
 
   const saving = computed(() => {
     if (discountCoupon.value && discountCoupon.value.discount) {
-      return Number(subtotalProducts.value) * discountCoupon.value.discount
+      const raw = Number(subtotalProducts.value) * discountCoupon.value.discount
+      return Number(raw.toFixed(2))
     }
     return 0
   })
