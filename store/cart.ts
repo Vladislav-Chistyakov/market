@@ -86,7 +86,7 @@ export const useCartStore = defineStore('cartStore', () => {
             price: arrCart[index]?.price || null,
             imgSrc: item.images[0] || '',
             count: arrCart[index]?.countProductCart || null,
-            shipping: item.shipping,
+            shipping: item.shipping || null,
             id:
               `${item.id}-${arrCart[index]?.color}-${arrCart[index]?.size}`
               || '',

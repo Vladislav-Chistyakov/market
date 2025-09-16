@@ -20,6 +20,7 @@ import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
 import { useUserStore } from '~/store/user'
 import { runTransaction } from '@firebase/database'
+import { useCartStore } from '~/store/cart'
 
 export const useFirebaseFunctions = () => {
   const firebaseConfig = useFirebaseConfig()
@@ -29,6 +30,8 @@ export const useFirebaseFunctions = () => {
 
   auth.languageCode = 'ru'
 
+  // Функции работа с юзером
+  // ****************************   ************************************
   async function userRegistration(email: string, password: string) {
     let user = null
     await createUserWithEmailAndPassword(auth, email, password)
@@ -91,7 +94,6 @@ export const useFirebaseFunctions = () => {
             useUserStore().user = user
             resolve(user)
           } else {
-            console.log('call back')
             resolve(callBackIfThereIsNoUser())
           }
         },
@@ -99,7 +101,10 @@ export const useFirebaseFunctions = () => {
       )
     })
   }
+  // *******************************************************************
 
+  // Работа с продуктами
+  // ****************************   ************************************
   async function addProduct(product: Record<string, unknown>) {
     const productWithDate = {
       ...product,
@@ -150,6 +155,35 @@ export const useFirebaseFunctions = () => {
       throw error
     }
   }
+  // *******************************************************************
+
+  // Работа с CART (Корзина)
+  // ****************************   ************************************
+  const getCart = async (uid: string) => {
+    if (!uid) throw new Error('UID is not defined')
+    const cartRef = doc(db, 'carts', uid)
+    const cartSnap = await getDoc(cartRef)
+    if (cartSnap.exists()) {
+      return cartSnap.data()
+    }
+    return {}
+  }
+
+  async function removeProductFromCart(productId: string) {
+    try {
+      const uid = useUserStore()?.user?.uid
+      if (!uid) throw new Error('UID is not defined')
+      const userCartRef = doc(db, 'carts', uid)
+      await updateDoc(userCartRef, {
+        [productId]: deleteField(),
+      })
+      console.log(
+        `Поле ${productId} удалено из документа корзины пользователя ${uid}`,
+      )
+    } catch (error) {
+      console.error('Ошибка при удалении товара из поля:', error)
+    }
+  }
 
   const convertItemInCart = async (
     productId: string,
@@ -195,6 +229,23 @@ export const useFirebaseFunctions = () => {
     }
   }
 
+  async function removeAllProductFromCart() {
+    try {
+      const uid = useUserStore()?.user?.uid
+      if (!uid) throw new Error('UID is not defined')
+
+      const userCartRef = doc(db, 'carts', uid)
+      await setDoc(userCartRef, {}) // записываем пустой объект
+
+      console.log(`Корзина пользователя ${uid} очищена (документ остался)`)
+    } catch (error) {
+      console.error('Ошибка при очистке корзины:', error)
+    }
+  }
+  // *******************************************************************
+
+  // Работа с wishlist (список желаемого)
+  // ****************************   ************************************
   const changeStatusProductInWishlist = async (productId: string) => {
     // Получение uid юзера
     const uid = useUserStore()?.user?.uid
@@ -217,7 +268,7 @@ export const useFirebaseFunctions = () => {
     // Проверяем, есть ли продукт в wishlist
     if (products.includes(productId)) {
       // если есть, то убираем его от туда
-      products = products.filter(item => item !== productId)
+      products = products.filter((item) => item !== productId)
     } else {
       // Добавляем новый productId в wishlist, так как его там нет
       products.push(productId)
@@ -232,17 +283,6 @@ export const useFirebaseFunctions = () => {
       .finally(() => console.log('set doc'))
   }
 
-  const getCart = async (uid: string) => {
-    console.log('GET CART')
-    if (!uid) throw new Error('UID is not defined')
-    const cartRef = doc(db, 'carts', uid)
-    const cartSnap = await getDoc(cartRef)
-    if (cartSnap.exists()) {
-      return cartSnap.data()
-    }
-    return {}
-  }
-
   const getWishlist = async (uid: string) => {
     // Проверяем на наличии id юзера
     if (!uid) throw new Error('UID is not defined')
@@ -253,32 +293,56 @@ export const useFirebaseFunctions = () => {
 
     // Извлечение списка продуктов вишлиста из БД
     if (wishlistSnap.exists()) {
-      const dataWishlistProducts =  wishlistSnap.data()
+      const dataWishlistProducts = wishlistSnap.data()
       return dataWishlistProducts.products || []
     }
     // Если
     return []
   }
+  // *******************************************************************
 
-  async function removeProductFromCart(productId: string) {
+  // Работа с orders (Заказы)
+  // ****************************   ************************************
+  const getOrders = async (uid: string) => {
+    if (!uid) throw new Error('UID is not defined')
+    const ordersRef = doc(db, 'orders', uid)
+    const ordersSnap = await getDoc(ordersRef)
+    if (ordersSnap.exists()) {
+      return ordersSnap.data()
+    }
+    return {}
+  }
+
+  const createOrder = async (dataOrder: any) => {
+    // Получение uid юзера
+    const uid = useUserStore()?.user?.uid
+    const arrayProducts = useCartStore()?.arrayCartProduct
+
+    // Если юзера нет, выкидываем ошибку
+    if (!uid) throw new Error('UID is not defined')
+
+    console.log('test', dataOrder)
+
     try {
-      const uid = useUserStore()?.user?.uid
-      if (!uid) throw new Error('UID is not defined')
-      const userCartRef = doc(db, 'carts', uid)
-      await updateDoc(userCartRef, {
-        [productId]: deleteField(),
-      })
-      console.log(
-        `Поле ${productId} удалено из документа корзины пользователя ${uid}`,
+      const docRef = await addDoc(
+        collection(db, 'orders', uid, 'orderList'),
+        dataOrder,
       )
+      await removeAllProductFromCart()
+      return docRef.id
     } catch (error) {
-      console.error('Ошибка при удалении товара из поля:', error)
+      console.log('err', error)
+      throw error
     }
   }
+
+  // *******************************************************************
 
   return {
     db,
     auth,
+    getOrders,
+    createOrder,
     addProduct,
     convertItemInCart,
     changeStatusProductInWishlist,

@@ -1,11 +1,25 @@
 <script setup lang="ts">
 import { useCartStore } from '~/store/cart'
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 const cartStore = useCartStore()
 
-function updateDataOrderPage(event: any) {
-  console.log('updateDataOrderPage', event)
-  console.log('order', cartStore.arrayCartProduct)
+async function updateDataOrderPage(event: any) {
+  const data = {
+    userInfo: event,
+    products: cartStore.arrayCartProduct,
+    createdAt: new Date().toISOString(),
+    totalPrice: cartStore.fullAmount,
+  }
+
+  await useFirebaseFunctions()
+    .createOrder(data)
+    .then((res) => {
+      console.log('RESULTAT', res)
+    })
+    .catch((error) => {
+      console.log('ERROR createOrderFunction', error)
+    })
 }
 </script>
 
