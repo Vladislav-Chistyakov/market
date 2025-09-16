@@ -19,8 +19,6 @@ import {
 import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
 import { useUserStore } from '~/store/user'
-import { runTransaction } from '@firebase/database'
-import { useCartStore } from '~/store/cart'
 
 export const useFirebaseFunctions = () => {
   const firebaseConfig = useFirebaseConfig()
@@ -303,25 +301,36 @@ export const useFirebaseFunctions = () => {
 
   // Работа с orders (Заказы)
   // ****************************   ************************************
-  const getOrders = async (uid: string) => {
+  const getOrders = async () => {
+    // Получение uid юзера
+    const uid = useUserStore()?.user?.uid
+
+    // Если юзера нет, выкидываем ошибку
     if (!uid) throw new Error('UID is not defined')
-    const ordersRef = doc(db, 'orders', uid)
-    const ordersSnap = await getDoc(ordersRef)
-    if (ordersSnap.exists()) {
-      return ordersSnap.data()
+
+    try {
+      const querySnapshot = await getDocs(
+        collection(db, 'orders', uid, 'orderList'),
+      )
+
+      const orders = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+
+      return orders
+    } catch (error) {
+      console.error('Ошибка при получении продуктов:', error)
+      throw error
     }
-    return {}
   }
 
   const createOrder = async (dataOrder: any) => {
     // Получение uid юзера
     const uid = useUserStore()?.user?.uid
-    const arrayProducts = useCartStore()?.arrayCartProduct
 
     // Если юзера нет, выкидываем ошибку
     if (!uid) throw new Error('UID is not defined')
-
-    console.log('test', dataOrder)
 
     try {
       const docRef = await addDoc(
@@ -331,11 +340,9 @@ export const useFirebaseFunctions = () => {
       await removeAllProductFromCart()
       return docRef.id
     } catch (error) {
-      console.log('err', error)
       throw error
     }
   }
-
   // *******************************************************************
 
   return {

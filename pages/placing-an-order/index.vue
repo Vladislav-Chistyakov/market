@@ -14,9 +14,6 @@ async function updateDataOrderPage(event: any) {
 
   await useFirebaseFunctions()
     .createOrder(data)
-    .then((res) => {
-      console.log('RESULTAT', res)
-    })
     .catch((error) => {
       console.log('ERROR createOrderFunction', error)
     })
