@@ -94,12 +94,12 @@ onMounted(() => {
           </div>
         </div>
 
-        <button
-          :disabled="pendingComponent"
+        <nuxt-link
+          to="/products/male/"
           class="disabled:opacity-40 bg-white rounded-[8px] border border-[#BEBCBD] text-black text-[16px] font-semibold leading-[19px] px-[49px] py-[11px]"
         >
           Continue Shopping
-        </button>
+        </nuxt-link>
       </div>
 
       <div class="bg-[#F3F3F3] max-w-[465px] w-full">
