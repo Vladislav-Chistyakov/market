@@ -20,7 +20,7 @@ export default defineEventHandler((event) => {
     const result = couponsList.find((coupon) => {
       return usedCoupon === coupon.name
     })
-    return result?.discount || 0
+    return result || null
   }
 
   return couponCheck()

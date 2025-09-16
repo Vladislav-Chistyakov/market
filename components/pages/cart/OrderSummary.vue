@@ -44,6 +44,13 @@ async function checkCoupon() {
       .finally(() => (pendingDiscount.value = false))
   }
 }
+
+onMounted(() => {
+  if (cartStore.discountCoupon && cartStore.discountCoupon.name) {
+    coupon.value = cartStore.discountCoupon.name
+    usedCoupon.value = true
+  }
+})
 </script>
 
 <template>
@@ -64,13 +71,13 @@ async function checkCoupon() {
           >
             <input
               v-model="coupon"
-              :disabled="pendingComponent || usedCoupon || !!cartStore.discount"
+              :disabled="pendingComponent || usedCoupon"
               class="disabled:opacity-40 focus:outline-none px-[12px] text-[16px] font-semibold leading-[19px]"
             />
 
             <button
               @click="checkCoupon"
-              :disabled="pendingComponent || usedCoupon || !!cartStore.discount"
+              :disabled="pendingComponent || usedCoupon"
               class="disabled:opacity-40 bg-purple text-white text-[16px] font-semibold leading-[19px] px-[31px] py-[13px] border-l border-[#BEBCBD]"
             >
               Apply Coupon

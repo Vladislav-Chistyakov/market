@@ -9,7 +9,8 @@ export const useCartStore = defineStore('cartStore', () => {
   const userStore = useUserStore()
   const pendingCart = ref(false)
 
-  const discount = ref(0)
+  const discountCoupon: Ref<null | { name: string; discount: number }> =
+    ref(null)
 
   type CartItem = {
     color: string
@@ -156,13 +157,13 @@ export const useCartStore = defineStore('cartStore', () => {
       })
   }
 
-  function useCouponDiscount(useDiscount: number) {
-    discount.value = useDiscount
+  function useCouponDiscount(useDiscount: { name: string; discount: number }) {
+    discountCoupon.value = useDiscount
   }
 
   const saving = computed(() => {
-    if (discount.value) {
-      return Number(subtotalProducts.value) * discount.value
+    if (discountCoupon.value && discountCoupon.value.discount) {
+      return Number(subtotalProducts.value) * discountCoupon.value.discount
     }
     return 0
   })
@@ -202,7 +203,7 @@ export const useCartStore = defineStore('cartStore', () => {
   })
 
   return {
-    discount,
+    discountCoupon,
     saving,
     totalCountProducts,
     subtotalProducts,
