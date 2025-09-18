@@ -62,10 +62,14 @@ async function createAccount() {
     title="Sign Up"
     description="Sign up for free to access to in any of our products"
   >
+    <template #image>
+      <div class="background" />
+    </template>
+
     <template #default>
-      <div class="pb-8 pt-[50px]">
+      <div class="pt-4 pb-12 xl:pb-8 xl:pt-[50px]">
         <button
-          class="mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          class="mb-3 xl:mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
         >
           <img
             src="@/assets/images/pages/authorization/icon/google.svg"
@@ -73,14 +77,14 @@ async function createAccount() {
           />
 
           <span
-            class="font-causten font-medium text-[22px] leading-[24px] text-purple"
+            class="font-causten font-medium text-[16px] leading-[18px] xl:text-[22px] xl:leading-[24px] text-purple"
           >
             Continue With Google
           </span>
         </button>
 
         <button
-          class="mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          class="mb-5 xl:mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
         >
           <img
             src="@/assets/images/pages/authorization/icon/twitter.svg"
@@ -88,7 +92,7 @@ async function createAccount() {
           />
 
           <span
-            class="font-causten font-medium text-[22px] leading-[24px] text-purple"
+            class="font-causten font-medium text-[16px] leading-[18px] xl:text-[22px] xl:leading-[24px] text-purple"
           >
             Continue With Twitter
           </span>
@@ -96,7 +100,7 @@ async function createAccount() {
 
         <form>
           <UniversalBaseInput
-            class="mb-[30px]"
+            class="mb-4 xl:mb-[30px]"
             :disabled="pending"
             :placeholder="'designer@gmail.com'"
             :type="'email'"
@@ -114,7 +118,7 @@ async function createAccount() {
           </UniversalBaseInput>
 
           <UniversalBaseInput
-            class="mb-[10px]"
+            class="mb-4 xl:mb-[10px]"
             :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
@@ -169,7 +173,7 @@ async function createAccount() {
           </UniversalBaseInput>
 
           <button
-            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px]  gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
             type="button"
             :disabled="pending"
             @click="createAccount"
@@ -184,7 +188,7 @@ async function createAccount() {
             <NuxtLink
               :class="{ 'pointer-events-none opacity-60': pending }"
               class="underline"
-              :to="pending ? null : '/authorization/sign-in'"
+              :to="pending ? '/authorization/sign-up' : '/authorization/sign-in'"
             >
               Log in
             </NuxtLink>
@@ -192,18 +196,45 @@ async function createAccount() {
         </form>
       </div>
     </template>
-
-    <template #image>
-      <div class="background" />
-    </template>
   </PagesAuthorisationPageWrapper>
 </template>
 
 <style scoped>
 .background {
   @apply bg-[url(@/assets/images/pages/authorization/background/bg-two.jpg)] bg-no-repeat;
-  @apply w-full min-h-[956px];
-  background-size: 695px auto;
-  background-position: left top 0;
+  @apply w-full min-h-[342px];
+  background-size: 100% auto;
+  background-position: center top -24px;
 }
+
+@media screen and (min-width: 576px) {
+  .background {
+    @apply w-full min-h-[456px];
+    background-size: 695px auto;
+    background-position: center top -40px;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .background {
+    background-size: 100% auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .background {
+    @apply w-auto min-h-[686px];
+    background-size: 695px auto;
+    background-position: center top -20px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .background {
+    @apply w-auto min-h-[956px];
+    background-size: 695px auto;
+    background-position: left top 0;
+  }
+}
+
 </style>
