@@ -13,6 +13,8 @@ const router = useRouter()
 const errorMessage = ref('')
 const errorCode = ref('')
 
+
+// TODO Настроить вход на страницу только с middleware
 onBeforeMount(() => {
   const route = useRoute()
   if (route?.query?.oobCode) {
@@ -23,9 +25,10 @@ onBeforeMount(() => {
     } else {
       console.log('oobCode', oobCode.value)
     }
-  } else {
-    router.push('/')
   }
+  // else {
+  //   router.push('/')
+  // }
 })
 
 const statusHidePassword = ref(false)
@@ -76,10 +79,10 @@ async function createPassword() {
     description="Your new password must be different from previous used passwords."
   >
     <template #default>
-      <div class="pb-8 pt-[30px]">
+      <div class="pt-4 pb-12 xl:pb-8 xl:pt-[50px]">
         <form v-if="!passwordChangedSuccessfully">
           <UniversalBaseInput
-            class="mb-[10px]"
+            class="mb-4 xl:mb-[30px]"
             :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
@@ -128,7 +131,7 @@ async function createPassword() {
           </UniversalBaseInput>
 
           <UniversalBaseInput
-            class="mb-[10px]"
+            class="mb-4 xl:mb-[10px]"
             :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
@@ -157,7 +160,7 @@ async function createPassword() {
             <button
               type="button"
               :disabled="pending"
-              class="px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+              class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px]  gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
               @click="createPassword"
             >
               Reset Password
@@ -199,8 +202,47 @@ async function createPassword() {
 <style scoped>
 .background {
   @apply bg-[url(@/assets/images/pages/authorization/background/bg-four.jpg)] bg-no-repeat;
-  @apply w-full min-h-[956px];
-  background-size: 695px auto;
-  background-position: left top 0;
+  @apply w-full min-h-[458px];
+  background-size: 100% auto;
+  background-position: center top -20px;
+}
+
+@media screen and (min-width: 576px) {
+  .background {
+    @apply w-full min-h-[670px];
+    background-size: 695px auto;
+    background-position: left top 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .background {
+    @apply w-full min-h-[770px];
+    background-size: 800px auto;
+    background-position: center top -40px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .background {
+    @apply w-auto min-h-[686px];
+    background-size: 500px auto;
+    background-position: left top;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .background {
+    background-size: 700px auto;
+    background-position: left top -20px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .background {
+    @apply w-full min-h-[956px];
+    background-size: 695px auto;
+    background-position: left top 0;
+  }
 }
 </style>

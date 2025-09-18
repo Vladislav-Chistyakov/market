@@ -41,10 +41,10 @@ async function resetPassword() {
     description="Enter your email and we'll send you a link to reset your password."
   >
     <template #default>
-      <div class="pb-8 pt-[30px]">
+      <div class="pt-4 pb-12 xl:pb-8 xl:pt-[50px]">
         <form v-if="!linkSentSuccessfully">
           <UniversalBaseInput
-            class="mb-[30px]"
+            class="mb-4 xl:mb-[30px]"
             :disabled="pending"
             :placeholder="''"
             :type="'text'"
@@ -70,7 +70,7 @@ async function resetPassword() {
           <button
             type="button"
             :disabled="pending"
-            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px]  gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
             @click="resetPassword"
           >
             Send
@@ -122,8 +122,49 @@ async function resetPassword() {
 <style scoped>
 .background {
   @apply bg-[url(@/assets/images/pages/authorization/background/bg-three.jpg)] bg-no-repeat;
-  @apply w-full min-h-[956px];
-  background-size: auto 956px;
-  background-position: right -331px top 0;
+  @apply w-full min-h-[208px];
+  background-size: 100% auto;
+  background-position: center top 0;
+}
+
+
+
+@media screen and (min-width: 576px) {
+  .background {
+    @apply w-full min-h-[456px];
+    background-size: 695px auto;
+    background-position: left top 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .background {
+    background-size: 930px auto;
+    background-position: left -30px top 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .background {
+    @apply w-auto min-h-[686px];
+    background-size: 1050px auto;
+    background-position: left -284px top -20px;
+  }
+}
+
+
+@media screen and (min-width: 1280px) {
+  .background {
+    background-position: left -204px top -20px;
+  }
+}
+
+
+@media screen and (min-width: 1440px) {
+  .background {
+    @apply w-full min-h-[956px];
+    background-size: auto 956px;
+    background-position: right -331px top 0;
+  }
 }
 </style>
