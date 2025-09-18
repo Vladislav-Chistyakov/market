@@ -69,6 +69,7 @@ async function createAccount() {
     <template #default>
       <div class="pt-4 pb-12 xl:pb-8 xl:pt-[50px]">
         <button
+          disabled
           class="mb-3 xl:mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
         >
           <img
@@ -84,6 +85,7 @@ async function createAccount() {
         </button>
 
         <button
+          disabled
           class="mb-5 xl:mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
         >
           <img
@@ -215,7 +217,7 @@ async function createAccount() {
   }
 }
 
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 768px) {
   .background {
     background-size: 100% auto;
   }

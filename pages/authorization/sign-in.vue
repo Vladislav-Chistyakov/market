@@ -47,10 +47,15 @@ async function loginYourAccount() {
 
 <template>
   <PagesAuthorisationPageWrapper title="Sign In Page">
+    <template #image>
+      <div class="background" />
+    </template>
+
     <template #default>
-      <div class="pb-8">
+      <div class="pt-4 pb-12 xl:pb-8 xl:pt-[50px]">
         <button
-          class="mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          class="mb-3 xl:mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          disabled
           type="button"
         >
           <img
@@ -59,14 +64,15 @@ async function loginYourAccount() {
           />
 
           <span
-            class="font-causten font-medium text-[22px] leading-[24px] text-purple"
+            class="font-causten font-medium text-[16px] leading-[18px] xl:text-[22px] xl:leading-[24px] text-purple"
           >
             Continue With Google
           </span>
         </button>
 
         <button
-          class="mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          class="mb-5 xl:mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          disabled
           type="button"
         >
           <img
@@ -75,13 +81,13 @@ async function loginYourAccount() {
           />
 
           <span
-            class="font-causten font-medium text-[22px] leading-[24px] text-purple"
+            class="font-causten font-medium text-[16px] leading-[18px] xl:text-[22px] xl:leading-[24px] text-purple"
           >
             Continue With Twitter
           </span>
         </button>
 
-        <div class="flex gap-[24px] items-center mb-[50px]">
+        <div class="flex gap-[24px] items-center mb-4 xl:mb-[50px]">
           <div class="w-full bg-gray-300-opacity-25 h-[1px]" />
 
           <p
@@ -95,7 +101,7 @@ async function loginYourAccount() {
 
         <form>
           <UniversalBaseInput
-            class="mb-[30px]"
+            class="mb-4 xl:mb-[30px]"
             :disabled="pending"
             :placeholder="''"
             :type="'text'"
@@ -113,7 +119,7 @@ async function loginYourAccount() {
           </UniversalBaseInput>
 
           <UniversalBaseInput
-            class="mb-[10px]"
+            class="mb-4 xl:mb-[10px]"
             :disabled="pending"
             :placeholder="''"
             :type="statusHidePassword ? 'text' : 'password'"
@@ -169,13 +175,13 @@ async function loginYourAccount() {
 
           <NuxtLink
             to="/authorization/reset-password"
-            class="block ml-auto w-fit text-black underline font-causten text-[16px] leading-[18px]"
+            class="block mb-4 xl:mb-0 ml-auto w-fit text-black underline font-causten text-[16px] leading-[18px]"
           >
             Forget your password
           </NuxtLink>
 
           <button
-            class="mb-[10px] px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px]  gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
             type="button"
             :disabled="pending"
             @click="loginYourAccount"
@@ -190,7 +196,7 @@ async function loginYourAccount() {
             <NuxtLink
               :class="{ 'pointer-events-none opacity-60': pending }"
               class="underline"
-              :to="pending ? null : '/authorization/sign-up'"
+              :to="pending ? '/authorization/sign-in' : '/authorization/sign-up'"
             >
               Sign up
             </NuxtLink>
@@ -198,18 +204,47 @@ async function loginYourAccount() {
         </form>
       </div>
     </template>
-
-    <template #image>
-      <div class="background" />
-    </template>
   </PagesAuthorisationPageWrapper>
 </template>
 
 <style scoped>
 .background {
   @apply bg-[url(@/assets/images/pages/authorization/background/bg-one.jpg)] bg-no-repeat;
-  @apply w-full min-h-[956px];
-  background-size: auto 956px;
-  background-position: right -331px top 0;
+  @apply w-full min-h-[238px];
+  background-size: 100% auto;
+  background-position: center top 0;
 }
+
+
+@media screen and (min-width: 576px) {
+  .background {
+    @apply w-full min-h-[456px];
+    background-size: 695px auto;
+    background-position: left top 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .background {
+    background-size: 930px auto;
+    background-position: left -30px top 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .background {
+    @apply w-auto min-h-[686px];
+    background-size: 1050px auto;
+    background-position: left -234px top -20px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .background {
+    @apply w-full min-h-[956px];
+    background-size: auto 956px;
+    background-position: right -331px top 0;
+  }
+}
+
 </style>
