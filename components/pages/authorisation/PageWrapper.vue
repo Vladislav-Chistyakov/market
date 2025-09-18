@@ -8,7 +8,7 @@ defineProps<Props>()
 
 <template>
   <div
-    class="grid grid-cols-[695px_1fr] gap-[78px] container pl-0 xl:max-w-[1440px]"
+    class="flex flex-col xl:grid xl:grid-cols-[695px_1fr] xl:pl-0 gap-[78px] container px-0 xl:max-w-[1440px]"
   >
     <section>
       <slot name="image" />
