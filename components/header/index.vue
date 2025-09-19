@@ -2,7 +2,7 @@
 
 <template>
   <header
-    class="container flex flex-row items-center border-b border-solid border-b-gray-border xl:max-w-[1440px] py-[14px] xl:py-[32px]"
+    class="container flex flex-row items-center justify-between lg:gap-[76px] border-b border-solid border-b-gray-border xl:max-w-[1440px] py-[14px] xl:py-[32px]"
   >
     <nuxt-link to="/">
       <picture>
@@ -11,7 +11,7 @@
     </nuxt-link>
 
     <label
-      class="flex gap-[12px] item-center ml-[163px] min-w-[184px] bg-gray-50 rounded-[8px] px-[48px] py-[12px]"
+      class="hidden lg:flex gap-[12px] item-center ml-auto min-w-[184px] bg-gray-50 rounded-[8px] px-[48px] py-[12px]"
     >
       <img src="@/assets/images/header/search.svg" alt="search" />
       <input
@@ -21,7 +21,7 @@
       />
     </label>
 
-    <ul class="ml-auto flex flex-row items-center gap-3">
+    <ul class="flex flex-row items-center gap-3">
       <li>
         <nuxt-link
           :to="'/my-account/wishlist'"

@@ -1,11 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <template>
-  <footer class="bg-black pt-[74px] pb-[60px] xl:max-w-[1440px] mx-auto">
+  <footer class="bg-black py-6 md:py-9 lg:pt-[50px] lg:pb-[50px] xl:pt-[74px] xl:pb-[60px] xl:max-w-[1440px] mx-auto">
     <div
-      class="container xl:max-w-[1220px] mb-[41px] grid grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-[80px] gap-y-[10px]"
+      class="container xl:max-w-[1220px] mb-[41px] flex flex-wrap md:gap-12 lg:grid lg:grid-cols-[auto_1fr] lg:gap-x-[50px] xl:grid-rows-[auto_auto] xl:grid-cols-[auto_1fr] xl:gap-x-[80px] xl:gap-y-[10px]"
     >
-      <ul class="grid grid-cols-3 gap-[50px]">
+      <!--  Блоки Help, Company, More Info      -->
+      <ul class="w-full flex flex-wrap gap-8 sm:flex-row sm:justify-between sm:gap-4 lg:grid lg:grid-cols-3 lg:gap-[50px]">
         <li>
           <b
             class="block font-causten font-bold text-text-gray-50 text-[28px] leading-[32px] mb-[39px]"
@@ -121,7 +123,8 @@
         </li>
       </ul>
 
-      <div>
+      <!-- Блок Location      -->
+      <div class="">
         <b
           class="block font-causten font-bold text-text-gray-50 text-[28px] leading-[32px] mb-[39px]"
         >
@@ -149,7 +152,8 @@
         </ul>
       </div>
 
-      <ul class="flex items-center gap-[9px] items-end pl-[8px] pb-[7px]">
+      <!-- Социальнаые сети     -->
+      <ul class="w-full flex items-end md:flex-1 lg:flex-auto lg:w-fit md:items-end md:justify-end lg:items-end xl:items-center gap-[9px] lg:pl-[8px] lg:pb-[7px]">
         <li>
           <nuxt-link>
             <img src="@/assets/images/footer/social/fac.svg" alt="facebook" />
@@ -175,14 +179,15 @@
         </li>
       </ul>
 
+      <!--  Блок скачать приложение через store  -->
       <div>
         <strong
-          class="block mb-[35px] font-causten font-bold text-text-gray-50 text-[28px] leading-[32px]"
+          class="block mb-3 md:mb-5 lg:mb-6 xl:mb-9 font-causten font-bold text-text-gray-50 text-[28px] leading-8"
         >
           Download The App
         </strong>
 
-        <ul class="flex items-center gap-[21px] pl-[4px]">
+        <ul class=" flex items-center gap-5 pl-1">
           <li class="flex">
             <button>
               <img
@@ -204,7 +209,9 @@
     <hr class="border-gray-border pb-[24px] xl:max-w-[1220px] mx-auto" />
 
     <div class="container xl:max-w-[1220px] pr-[62px]">
+      <!--  Кнопка раскрытия аккардиона    -->
       <button
+        disabled
         class="w-full flex flex-row justify-between items-center font-causten text-white text-center font-bold text-[28px] leading-[32px]"
       >
         <span> Popular Categories </span>
@@ -216,7 +223,7 @@
     <hr class="border-gray-border mt-[28px] xl:max-w-[1220px] mx-auto" />
 
     <b
-      class="block container xl:max-w-[1220px] pt-[44px] block font-causten text-white text-center font-bold text-[18px] leading-[22px]"
+      class="block mt-6 container xl:max-w-[1220px] md:pt-[44px] font-causten text-white text-center font-bold text-[18px] leading-[22px]"
     >
       Copyright © 2023 Euphoria Folks Pvt Ltd. All rights reserved.
     </b>
