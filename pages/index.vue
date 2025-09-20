@@ -40,6 +40,6 @@ const womenCategoriesList = computed(() => {
 
     <PagesMainBrands class="mb-[134px]" />
 
-    <!--    <PagesMainReviews class="mb-[68px]" />-->
+    <PagesMainReviews class="mb-[68px]" />
   </div>
 </template>
