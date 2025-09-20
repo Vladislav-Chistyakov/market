@@ -12,22 +12,30 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div class="container xl:max-w-[1440px]">
-    <UniversalBaseHeading :title="title" class="mb-[68px]" />
+    <div class="flex justify-center md:block">
+      <UniversalBaseHeading :title="title" class="mb-[68px]" />
+    </div>
 
-    <ul class="grid grid-cols-4 gap-[50px]">
-      <li v-for="(item, index) in list" :key="index">
+    <ul
+      class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[30px] xl:gap-[50px]"
+    >
+      <li
+        v-for="(item, index) in list"
+        :key="index"
+        class="flex justify-center"
+      >
         <nuxt-link
           target="_blank"
           :href="'/products/' + item.gender + '/' + item.category.toLowerCase()"
         >
           <div
-            class="h-[393px] w-[270px] rounded-[10px] overflow-hidden mb-[15px]"
+            class="h-[393px] md:w-full lg:w-[270px] rounded-[10px] overflow-hidden mb-[15px]"
           >
             <img
               v-if="item.images && item.images[0]"
               :src="item.images[0]"
               :alt="item.name"
-              class="object-right object-cover h-[inherit]"
+              class="object-right object-cover h-[inherit] md:w-full"
             />
           </div>
 
