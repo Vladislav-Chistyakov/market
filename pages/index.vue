@@ -20,7 +20,7 @@ const womenCategoriesList = computed(() => {
   <div>
     <PagesMainHero />
 
-    <!--    <PagesMainPromotions class="mb-[72px]" />-->
+    <PagesMainPromotions class="mb-[72px]" />
 
     <!--    <PagesMainCompanyGoal class="mb-[80px]" />-->
 

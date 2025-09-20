@@ -10,9 +10,9 @@ const modules = [Pagination, Scrollbar]
 </script>
 
 <template>
-  <div class="hero mb-[130px]">
+  <div class="hero mb-[30px] md:mb-[60px] xl:mb-[130px]">
     <swiper
-      class="container xl:max-w-[1440px] h-[716px]"
+      class="container xl:max-w-[1440px] h-fit xl:h-[716px]"
       :slides-per-view="1"
       :space-between="0"
       :modules="modules"
