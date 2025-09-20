@@ -20,26 +20,26 @@ const womenCategoriesList = computed(() => {
   <div>
     <PagesMainHero />
 
-    <PagesMainPromotions class="mb-[72px]" />
+    <!--    <PagesMainPromotions class="mb-[72px]" />-->
 
-    <PagesMainCompanyGoal class="mb-[80px]" />
+    <!--    <PagesMainCompanyGoal class="mb-[80px]" />-->
 
-    <PagesMainCategories
-      v-if="menCategoriesList.length"
-      title="Categories For Men"
-      :list="menCategoriesList"
-      class="mb-[94px]"
-    />
+    <!--    <PagesMainCategories-->
+    <!--      v-if="menCategoriesList.length"-->
+    <!--      title="Categories For Men"-->
+    <!--      :list="menCategoriesList"-->
+    <!--      class="mb-[94px]"-->
+    <!--    />-->
 
-    <PagesMainCategories
-      v-if="womenCategoriesList.length"
-      title="Categories For Woman"
-      :list="womenCategoriesList"
-      class="mb-[94px]"
-    />
+    <!--    <PagesMainCategories-->
+    <!--      v-if="womenCategoriesList.length"-->
+    <!--      title="Categories For Woman"-->
+    <!--      :list="womenCategoriesList"-->
+    <!--      class="mb-[94px]"-->
+    <!--    />-->
 
-    <PagesMainBrands class="mb-[134px]" />
+    <!--    <PagesMainBrands class="mb-[134px]" />-->
 
-    <PagesMainReviews class="mb-[68px]" />
+    <!--    <PagesMainReviews class="mb-[68px]" />-->
   </div>
 </template>

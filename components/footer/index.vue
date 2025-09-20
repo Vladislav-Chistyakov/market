@@ -1,13 +1,16 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <footer class="bg-black py-6 md:py-9 lg:pt-[50px] lg:pb-[50px] xl:pt-[74px] xl:pb-[60px] xl:max-w-[1440px] mx-auto">
+  <footer
+    class="bg-black py-6 md:py-9 lg:pt-[50px] lg:pb-[50px] xl:pt-[74px] xl:pb-[60px] xl:max-w-[1440px] mx-auto"
+  >
     <div
-      class="container xl:max-w-[1220px] mb-[41px] flex flex-wrap md:gap-12 lg:grid lg:grid-cols-[auto_1fr] lg:gap-x-[50px] xl:grid-rows-[auto_auto] xl:grid-cols-[auto_1fr] xl:gap-x-[80px] xl:gap-y-[10px]"
+      class="container xl:max-w-[1220px] mb-[41px] flex flex-wrap gap-12 lg:grid lg:grid-cols-[auto_1fr] lg:gap-x-[50px] xl:grid-rows-[auto_auto] xl:grid-cols-[auto_1fr] xl:gap-x-[80px] xl:gap-y-[10px]"
     >
       <!--  Блоки Help, Company, More Info      -->
-      <ul class="w-full flex flex-wrap gap-8 sm:flex-row sm:justify-between sm:gap-4 lg:grid lg:grid-cols-3 lg:gap-[50px]">
+      <ul
+        class="w-full flex flex-wrap gap-8 sm:flex-row sm:justify-between sm:gap-4 lg:grid lg:grid-cols-3 lg:gap-[50px]"
+      >
         <li>
           <b
             class="block font-causten font-bold text-text-gray-50 text-[28px] leading-[32px] mb-[39px]"
@@ -153,7 +156,9 @@
       </div>
 
       <!-- Социальнаые сети     -->
-      <ul class="w-full flex items-end md:flex-1 lg:flex-auto lg:w-fit md:items-end md:justify-end lg:items-end xl:items-center gap-[9px] lg:pl-[8px] lg:pb-[7px]">
+      <ul
+        class="w-full flex items-end md:flex-1 lg:flex-auto lg:w-fit md:items-end md:justify-end lg:items-end xl:items-center gap-[9px] lg:pl-[8px] lg:pb-[7px]"
+      >
         <li>
           <nuxt-link>
             <img src="@/assets/images/footer/social/fac.svg" alt="facebook" />
@@ -187,7 +192,7 @@
           Download The App
         </strong>
 
-        <ul class=" flex items-center gap-5 pl-1">
+        <ul class="flex items-center gap-5 pl-1">
           <li class="flex">
             <button>
               <img

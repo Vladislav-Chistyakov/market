@@ -1,9 +1,7 @@
 <script setup lang="ts">
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination, Scrollbar } from 'swiper/modules'
 
-// Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
@@ -23,34 +21,28 @@ const modules = [Pagination, Scrollbar]
     >
       <swiper-slide class="text-white">
         <div
-          class="
-            pl-[40px] pt-[40px] pb-[32px]
-            image-hero-one
-            bg-[url('@/assets/images/pages/main/hero/hero-one.jpeg')]
-            bg-position-left bg-cover bg-no-repeat h-full
-            xl:bg-cover xl:pl-[193px] xl:pt-[140px] xl:pb-[132px] xl:bg-position-top
-          "
+          class="pl-[40px] pt-[40px] pb-[32px] image-hero-one bg-[url('@/assets/images/pages/main/hero/hero-one.jpeg')] bg-position-left bg-cover bg-no-repeat xl:h-full xl:bg-cover xl:pl-[193px] xl:pt-[140px] xl:pb-[132px] xl:bg-position-top"
         >
           <b
-            class="block text-white font-core-sans-c text-[32px] leading-[38px] font-medium mb-[40px]"
+            class="block text-white font-core-sans-c text-[20px] leading-6 xl:text-[32px] xl:leading-[38px] font-medium mb-[40px]"
           >
             T-shirt / Tops
           </b>
 
           <h1
-            class="max-w-[440px] text-white font-core-sans-c text-[78px] leading-[94px] font-extrabold mb-[40px]"
+            class="max-w-[440px] text-white font-core-sans-c text-[28px] leading-8 xl:text-[78px] xl:leading-[94px] font-extrabold mb-[40px]"
           >
             Summer Value Pack
           </h1>
 
           <p
-            class="text-white font-core-sans-c text-[32px] leading-[48px] font-medium mb-[40px]"
+            class="text-white font-core-sans-c text-[20px] leading-6 xl:text-[32px] xl:leading-[48px] font-medium mb-[40px]"
           >
             cool / colorful / comfy
           </p>
 
           <button
-            class="block bg-white rounded-[8px] px-[72px] py-[16px] text-text-black font-causten text-[24px] font-bold"
+            class="block bg-white rounded-[8px] px-8 py-4 xl:px-[72px] xl:py-[16px] text-text-black font-causten text-[20px] leading-6 xl:text-[24px] xl:leading-7 font-bold"
           >
             Shop Now
           </button>
@@ -59,28 +51,28 @@ const modules = [Pagination, Scrollbar]
 
       <swiper-slide class="text-white">
         <div
-          class="pl-[193px] pt-[140px] pb-[132px] bg-[url('@/assets/images/pages/main/hero/hero-two.jpeg')] bg-cover bg-no-repeat h-full"
+          class="pl-[40px] pt-[40px] pb-[32px] xl:pl-[193px] xl:pt-[140px] xl:pb-[132px] bg-[url('@/assets/images/pages/main/hero/hero-two.jpeg')] bg-cover bg-no-repeat xl:h-full"
         >
           <b
-            class="block text-white font-core-sans-c text-[32px] leading-[38px] font-medium mb-[40px]"
+            class="block text-white font-core-sans-c text-[20px] leading-6 xl:text-[32px] xl:leading-[38px] font-medium mb-[40px]"
           >
             T-shirt / Tops
           </b>
 
           <h2
-            class="max-w-[440px] text-white font-core-sans-c text-[78px] leading-[94px] font-extrabold mb-[40px]"
+            class="max-w-[440px] text-white font-core-sans-c text-[28px] leading-8 xl:text-[78px] xl:leading-[94px] font-extrabold mb-[40px]"
           >
             Summer Value Pack
           </h2>
 
           <p
-            class="text-white font-core-sans-c text-[32px] leading-[48px] font-medium mb-[40px]"
+            class="text-white font-core-sans-c text-[20px] leading-6 xl:text-[32px] xl:leading-[48px] font-medium mb-[40px]"
           >
             cool / colorful / comfy
           </p>
 
           <button
-            class="block bg-white rounded-[8px] px-[72px] py-[16px] text-text-black font-causten text-[24px] font-bold"
+            class="block bg-white rounded-[8px] px-8 py-4 xl:px-[72px] xl:py-[16px] text-text-black font-causten text-[20px] leading-6 xl:text-[24px] xl:leading-7 font-bold"
           >
             Shop Now
           </button>
