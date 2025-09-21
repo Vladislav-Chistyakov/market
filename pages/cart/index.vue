@@ -348,7 +348,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
         />
       </div>
 
-      <PagesCartOrderSummary :pending="pagePending" />
+      <!--      <PagesCartOrderSummary :pending="pagePending" />-->
     </div>
   </div>
 </template>

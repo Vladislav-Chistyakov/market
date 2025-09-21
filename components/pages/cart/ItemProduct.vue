@@ -34,7 +34,9 @@ const shipping = computed(() => {
 
 const totalPrice = computed(() => {
   return shipping.value !== 'free' ?
-      (props.item.price * productCount.value + Number(shipping.value)).toFixed(2)
+      (props.item.price * productCount.value + Number(shipping.value)).toFixed(
+        2,
+      )
     : (props.item.price * productCount.value).toFixed(2)
 })
 
@@ -42,12 +44,18 @@ const addProductToCart = async function () {
   // Ставим pending на кнопку удаления одного товара из корзины
   pendingButtonCount.value = true
   // Добавляем еще один товар в корзину BD
-  await cartStore.addProductToCart(props.item.productId, props.item.color, props.item.size, props.item.price)
+  await cartStore
+    .addProductToCart(
+      props.item.productId,
+      props.item.color,
+      props.item.size,
+      props.item.price,
+    )
     // .then(() => {
     //   // Усли успешно, то прибавляем один товар
     //   productCount.value += 1
     // })
-    .finally(() => pendingButtonCount.value = false)
+    .finally(() => (pendingButtonCount.value = false))
 }
 
 const removeOneItemFromCart = async function () {
@@ -56,12 +64,18 @@ const removeOneItemFromCart = async function () {
     // То ставим pending на кнопку удаления одного товара из корзины
     pendingButtonCount.value = true
     // Отправляем запрос в BD
-    await cartStore.removeOneItemFromCart(props.item.productId, props.item.color, props.item.size, props.item.price)
+    await cartStore
+      .removeOneItemFromCart(
+        props.item.productId,
+        props.item.color,
+        props.item.size,
+        props.item.price,
+      )
       // .then(() => {
       //   // Усли успешно, то убираем один товар
       //   productCount.value -= 1
       // })
-      .finally(() => pendingButtonCount.value = false)
+      .finally(() => (pendingButtonCount.value = false))
   } else {
     // Иначе удаляем товар из корзины
     await cartStore.removeCartProduct(props.item.id)
@@ -70,15 +84,9 @@ const removeOneItemFromCart = async function () {
 </script>
 
 <template>
-  <li class="container xl:max-w-[1440px] bg-white text-black items-center">
-    <div
-      class="grid grid-cols-[1fr_195px_177px_224px_178px_135px]"
-      :class="{
-        'pt-[50px]': numberItem,
-        'pb-[50px] border-b border-[#BEBCBD]':
-          numberItem !== lengthArrayNumber - 1,
-      }"
-    >
+  <tr>
+    <!-- Product Details -->
+    <td class="py-[50px]">
       <div class="flex justify-start gap-[20px]">
         <div
           v-if="item.imgSrc"
@@ -87,7 +95,7 @@ const removeOneItemFromCart = async function () {
           <img
             :src="item.imgSrc"
             :alt="item.name || ''"
-            class="flex w-[105px]"
+            class="flex w-[105px] min-w-[105px]"
           />
         </div>
 
@@ -97,25 +105,35 @@ const removeOneItemFromCart = async function () {
           </b>
 
           <ul
-            class="flex flex-col gap-[5px] text-[14px] leading-[17px] text-[#807D7E]"
+            class="flex flex-col gap-[5px] text-[14px] leading-[17px] text-[#807D7E] decoration-0"
           >
             <li v-if="item.color">Color: {{ item.color }}</li>
             <li v-if="item.size">Size: {{ item.size }}</li>
           </ul>
         </div>
       </div>
+    </td>
 
+    <!-- Price -->
+    <td>
       <div class="flex justify-center items-center">
         <b v-if="item.price" class="text-bold text-[18px] leading-[22px]">
           ${{ item.price.toFixed(2) }}
         </b>
       </div>
+    </td>
 
+    <!-- Quantity -->
+    <td>
       <div class="flex justify-center items-center">
         <div
           class="flex flex-row gap-[16px] items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"
         >
-          <button @click="removeOneItemFromCart" :disabled="pendingButtonCount" class="flex justify-center items-center py-[7px] disabled:cursor-wait">
+          <button
+            @click="removeOneItemFromCart"
+            :disabled="pendingButtonCount"
+            class="flex justify-center items-center py-[7px] disabled:cursor-wait"
+          >
             <svg
               width="11"
               height="2"
@@ -139,7 +157,11 @@ const removeOneItemFromCart = async function () {
             {{ productCount }}
           </p>
 
-          <button @click="addProductToCart" :disabled="pendingButtonCount" class="flex items-center justify-center py-[2px] disabled:cursor-wait">
+          <button
+            @click="addProductToCart"
+            :disabled="pendingButtonCount"
+            class="flex items-center justify-center py-[2px] disabled:cursor-wait"
+          >
             <svg
               width="11"
               height="12"
@@ -157,7 +179,10 @@ const removeOneItemFromCart = async function () {
           </button>
         </div>
       </div>
+    </td>
 
+    <!-- Shipping -->
+    <td>
       <div class="flex justify-center items-center">
         <p
           v-if="shipping"
@@ -166,11 +191,17 @@ const removeOneItemFromCart = async function () {
           {{ shipping }}
         </p>
       </div>
+    </td>
 
+    <!-- Subtotal -->
+    <td>
       <div class="flex justify-center items-center">
         <b class="text-bold text-[18px] leading-[22px]"> ${{ totalPrice }} </b>
       </div>
+    </td>
 
+    <!-- Action -->
+    <td>
       <div class="flex justify-end items-center">
         <button
           class="mr-[21px]"
@@ -191,8 +222,8 @@ const removeOneItemFromCart = async function () {
           </svg>
         </button>
       </div>
-    </div>
-  </li>
+    </td>
+  </tr>
 </template>
 
 <style scoped></style>
