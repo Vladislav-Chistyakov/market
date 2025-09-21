@@ -23,17 +23,16 @@ const productIsInUserWishlist = computed(() => {
   return wishlistStore.productsIds.includes(props.item?.id)
 })
 
-const updateStatusProductId = computed(() => wishlistStore.updateWishlistProductIdStatus === props.item.id)
+const updateStatusProductId = computed(
+  () => wishlistStore.updateWishlistProductIdStatus === props.item.id,
+)
 </script>
 
 <template>
-  <li class="font-causten pb-[26px]">
-    <nuxt-link
-      target="_blank"
-      :href="linkProductPage"
-    >
+  <li class="w-fit font-causten 2xl:pb-[26px]">
+    <nuxt-link target="_blank" :href="linkProductPage">
       <div
-        class="relative h-[370px] w-[281px] rounded-[12px] overflow-hidden mb-[30px]"
+        class="relative 2xl:h-[370px] 2xl:w-[281px] rounded-[12px] overflow-hidden mb-[30px]"
       >
         <img
           v-if="item.images && item.images[0]"
@@ -46,7 +45,7 @@ const updateStatusProductId = computed(() => wishlistStore.updateWishlistProduct
           @click.prevent="changeStatusProductWishlist(item.id)"
           :disabled="wishlistStore.pendingWishlist"
           class="h-[32px] w-[32px] bg-white absolute right-[20px] top-[26px] flex items-center justify-center rounded-full active:scale-95 active:shadow-inner"
-          :class="{'scale-95 shadow-inner' : updateStatusProductId }"
+          :class="{ 'scale-95 shadow-inner': updateStatusProductId }"
         >
           <svg
             class="flex"

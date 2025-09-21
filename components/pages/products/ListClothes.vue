@@ -15,7 +15,10 @@ withDefaults(defineProps<Props>(), {
 <template>
   <div class="mb-[30px]">
     <client-only>
-      <ul v-if="list" class="flex flex-wrap flex-row gap-[24px]">
+      <ul
+        v-if="list"
+        class="grid sm:grid-cols-2 2xl:grid-cols-[1fr_1fr_1fr] gap-[24px]"
+      >
         <ItemClothes v-for="(item, index) in list" :key="index" :item="item" />
       </ul>
 

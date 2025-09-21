@@ -34,7 +34,9 @@ watch(productsList, (newValue, oldValue) => {
 
 <template>
   <div class="container xl:max-w-[1440px] font-causten">
-    <div class="grid grid-cols-[295px_1fr] gap-[50px]">
+    <div
+      class="grid lg:grid-cols-[245px_1fr] xl:grid-cols-[295px_1fr] gap-8 xl:gap-[50px]"
+    >
       <ProductsMenuAside>
         <template #filters>
           <FilterCategoriesMenu />
