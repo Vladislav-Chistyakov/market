@@ -87,7 +87,7 @@ async function addProductToCart() {
 <template>
   <div>
     <div
-      class="grid grid-cols-2 lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto mb-[100px]"
+      class="grid lg:grid-cols-2 lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto mb-[100px]"
     >
       <div
         class="container bg-[#F6F6F6] pr-0 grid grid-cols-[auto_1fr] items-center"
@@ -95,7 +95,7 @@ async function addProductToCart() {
         <PagesProductSlider :images="images" />
       </div>
 
-      <div class="container pl-[74px] pt-[87px]">
+      <div class="container pt-10 xl:pl-[74px] xl:pt-[87px]">
         <p class="text-[12px] font-semibold mb-[12px]">
           This website is a non-commercial student project. All product images
           belong to Lamoda or their respective brands. Used for educational and
@@ -174,11 +174,11 @@ async function addProductToCart() {
           </ul>
         </div>
 
-        <div class="flex items-center gap-[25px] mb-[35px]">
+        <div class="flex items-center gap-4 lg:gap-6 mb-[35px]">
           <button
             @click.prevent="addProductToCart"
             :disabled="!form.size || !form.color || cartStore.pendingCart"
-            class="px-[39px] py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple disabled:opacity-40"
+            class="px-6 lg:px-10 py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple disabled:opacity-40"
           >
             <img src="@/assets/images/pages/product/basket.svg" alt="basket" />
 
@@ -199,7 +199,9 @@ async function addProductToCart() {
 
         <hr class="border-gray-border mb-[35px]" />
 
-        <ul class="grid grid-cols-2 gap-x-[68px] gap-y-[20px]">
+        <ul
+          class="grid grid-rows-1 sm:grid-cols-2 sm:gap-x-5 lg:gap-x-[68px] gap-y-5"
+        >
           <li class="flex items-center gap-[15px]">
             <div
               class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
