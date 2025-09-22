@@ -341,7 +341,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
         </div>
       </div>
 
-      <div class="mx-auto xl:max-w-[1440px]">
+      <div class="mx-auto overflow-x-scroll xl:max-w-[1440px]">
         <PagesCartListProducts
           :array-cart-product="arrayCartProduct"
           :pending="pagePending"
