@@ -14,7 +14,7 @@ enum Pages {
   <div
     class="lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto container pt-[23px]"
   >
-    <div class="grid grid-cols-[294px_1fr] gap-[50px]">
+    <div class="grid grid-cols-1 lg:grid-cols-[294px_1fr] gap-[50px]">
       <div>
         <UniversalBaseHeading
           title="Hello ${name}"
