@@ -54,8 +54,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container xl:max-w-[1440px] bg-[#F6F6F6]">
-    <div class="flex gap-[20px] justify-between font-causten">
+  <div class="container max-w-full xl:max-w-[1440px] bg-[#F6F6F6]">
+    <div class="flex flex-col lg:flex-row gap-5 justify-between font-causten">
       <div class="py-[29px]">
         <b class="block text-[24px] leading-[29px] text-black mb-[10px]">
           Discount Codes
@@ -102,7 +102,7 @@ onMounted(() => {
         </nuxt-link>
       </div>
 
-      <div class="bg-[#F3F3F3] max-w-[465px] w-full">
+      <div class="bg-[#F3F3F3] lg:max-w-[465px] w-full">
         <div
           class="flex items-center justify-center px-[10px] pt-[39px] pb-[50px]"
         >
