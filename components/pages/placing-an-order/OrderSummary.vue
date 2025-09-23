@@ -24,7 +24,7 @@ const cartStore = useCartStore()
               v-if="item.imgSrc"
               :src="item.imgSrc"
               :alt="item.name"
-              class="block h-[63px] w-[63px] rounded-[4px] overflow-hidden"
+              class="block h-auto w-[63px] rounded-[4px] overflow-hidden"
             />
 
             <div class="">

@@ -90,16 +90,18 @@ async function submitForm() {
 
 <template>
   <div>
-    <b class="block text-[24px] leading-[26px] font-bold text-black mb-[56px]">
+    <b
+      class="block text-[24px] leading-[26px] font-bold text-black mb-6 md:mb-[56px]"
+    >
       Billing Details pending - {{ pending }}
     </b>
 
     <form
       @submit.prevent="submitForm"
-      class="grid grid-cols-2 gap-x-[38px] gap-y-[29px]"
+      class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-6 gap-x-[38px] gap-y-[29px]"
     >
       <!--  Имя    -->
-      <div>
+      <div class="2xl:col-span-3">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -129,7 +131,7 @@ async function submitForm() {
       </div>
 
       <!--  Фамиля    -->
-      <div>
+      <div class="2xl:col-span-3">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -159,7 +161,7 @@ async function submitForm() {
       </div>
 
       <!--   Страна   -->
-      <div>
+      <div class="2xl:col-span-3">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -189,7 +191,7 @@ async function submitForm() {
       </div>
 
       <!--   Название компании   -->
-      <div>
+      <div class="2xl:col-span-3">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -209,7 +211,7 @@ async function submitForm() {
       </div>
 
       <!--  Адрес    -->
-      <div>
+      <div class="2xl:col-span-3">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -239,7 +241,7 @@ async function submitForm() {
       </div>
 
       <!--  Суит    -->
-      <div>
+      <div class="2xl:col-span-3">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -259,7 +261,7 @@ async function submitForm() {
       </div>
 
       <!--  Город    -->
-      <div>
+      <div class="2xl:col-span-2">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -289,7 +291,7 @@ async function submitForm() {
       </div>
 
       <!--  Штат - край - область    -->
-      <div>
+      <div class="2xl:col-span-2">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -319,7 +321,7 @@ async function submitForm() {
       </div>
 
       <!--  Почтовый код    -->
-      <div>
+      <div class="2xl:col-span-2">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -349,7 +351,7 @@ async function submitForm() {
       </div>
 
       <!--   Телефон   -->
-      <div>
+      <div class="2xl:col-span-3">
         <UniversalBaseInput
           :disabled="pending"
           type="text"
@@ -378,11 +380,13 @@ async function submitForm() {
         </UniversalBaseInput>
       </div>
 
-      <button
-        class="bg-purple block w-fit p-[13px_20px] rounded-[8px] text-white text-[18px] font-causten font-light"
-      >
-        Continue to delivery
-      </button>
+      <div class="2xl:col-span-6">
+        <button
+          class="bg-purple block w-fit p-[13px_20px] rounded-[8px] text-white text-[18px] font-causten font-light"
+        >
+          Continue to delivery
+        </button>
+      </div>
     </form>
   </div>
 </template>

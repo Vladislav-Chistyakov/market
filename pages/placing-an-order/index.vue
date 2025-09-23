@@ -76,7 +76,9 @@ async function updateDataOrderPage(event: any) {
 
     <UniversalBaseHeading title="Check Out" class="mb-[20px]" :small="true" />
 
-    <div class="grid gap-x-[38px] gap-y-[43px] grid-cols-[1fr_400px]">
+    <div
+      class="flex gap-6 flex-col-reverse md:grid md:gap-x-[38px] md:gap-y-[43px] md:grid-cols-[1fr_400px]"
+    >
       <PagesPlacingAnOrderFormCreateOrder @submit-form="updateDataOrderPage" />
 
       <client-only>

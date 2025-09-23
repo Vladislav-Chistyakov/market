@@ -24,10 +24,10 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
   <div class="font-causten">
     <div
       v-if="arrayCartProduct.length === 0"
-      class="flex justify-center items-center flex-col container xl:max-w-[1440px] bg-[#F6F6F6] py-[105px]"
+      class="flex justify-center items-center flex-col container xl:max-w-[1440px] bg-[#F6F6F6] py-12 lg:py-[105px]"
     >
       <svg
-        class="mb-[50px]"
+        class="max-w-[310px] mb-8 lg:mb-[50px]"
         width="448"
         height="328"
         viewBox="0 0 448 328"
@@ -269,13 +269,13 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
 
       <div class="flex flex-col">
         <p
-          class="text-center font-core-sans-c font-semibold text-[34px] leading-[36px] text-[#000000] mb-[11px]"
+          class="text-center font-core-sans-c font-semibold text-[22px] leading-[24px] lg:text-[34px] lg:leading-[36px] text-[#000000] mb-[11px]"
         >
           Your cart is empty and sad :(
         </p>
 
         <span
-          class="text-center font-core-sans-c font-normal text-[16px] leading-[18px] text-[#807D7E] mb-[50px]"
+          class="text-center font-core-sans-c font-normal text-[12px] leading-4 lg:text-[16px] lg:leading-[18px] text-[#807D7E] mb-6 lg:mb-[50px]"
         >
           Add something to make it happy!
         </span>
