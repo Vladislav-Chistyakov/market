@@ -30,18 +30,22 @@ const generateDate = computed(() => {
 
 <template>
   <li class="flex flex-col gap-[30px]">
-    <div class="bg-[#F6F6F6] py-7 px-12 rounded-lg">
-      <div class="mb-4">
-        <span class="text-[#3C4242] text-xl font-semibold"> Order id: </span>
+    <div class="bg-[#F6F6F6] py-7 px-4 sm:px-12 rounded-lg">
+      <div class="mb-4 flex justify-center gap-1 items-center sm:block">
+        <span class="text-[#3C4242] text-[14px] lg:text-xl font-semibold">
+          Order id:
+        </span>
 
-        <b class="text-[#3C4242] text-[22px] font-semibold">
+        <b class="text-[#3C4242] text-[16px] lg:text-[22px] font-semibold">
           {{ item.id }}
         </b>
       </div>
 
-      <div class="flex flex-col gap-2">
-        <div class="flex flex-row items-center justify-between gap-5">
-          <div class="flex gap-0.5 items-center">
+      <div class="flex flex-col gap-5 xl:gap-2">
+        <div
+          class="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-5"
+        >
+          <div class="flex flex-col sm:flex-row gap-0.5 items-center">
             <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
               Order Date :
             </p>
@@ -53,7 +57,7 @@ const generateDate = computed(() => {
             </span>
           </div>
 
-          <div class="flex gap-0.5 items-center">
+          <div class="flex flex-col sm:flex-row gap-0.5 items-center">
             <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
               Order Status :
             </p>
@@ -63,8 +67,10 @@ const generateDate = computed(() => {
           </div>
         </div>
 
-        <div class="flex flex-row items-center justify-between gap-5">
-          <div class="flex gap-0.5 items-center">
+        <div
+          class="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-5"
+        >
+          <div class="flex flex-col sm:flex-row gap-0.5 items-center">
             <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
               Estimated Delivery Date :
             </p>
@@ -73,7 +79,7 @@ const generateDate = computed(() => {
             </span>
           </div>
 
-          <div class="flex gap-0.5 items-center">
+          <div class="flex flex-col sm:flex-row gap-0.5 items-center">
             <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
               Payment Method :
             </p>
@@ -96,7 +102,7 @@ const generateDate = computed(() => {
             v-if="product.imgSrc"
             :src="product.imgSrc"
             :alt="product.name || ''"
-            class="block h-28 w-28 rounded-[4px] overflow-hidden"
+            class="block h-auto w-28 rounded-[4px] overflow-hidden"
           />
 
           <div class="flex flex-col">
