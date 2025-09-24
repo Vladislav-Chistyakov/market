@@ -26,6 +26,7 @@
       </span>
 
       <nuxt-link
+        to="/products/female"
         class="ml-[4px] font-core-sans-c font-bold text-[20px] text-white leading-[30px] border-b border-white"
       >
         Explore Items
@@ -54,6 +55,7 @@
       </span>
 
       <nuxt-link
+        to="/products/female"
         class="font-core-sans-c font-bold text-[20px] text-white leading-[30px] border-b border-white"
       >
         Explore Items

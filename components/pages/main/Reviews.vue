@@ -166,5 +166,10 @@ function listStar(starsNumber: number): StarsStatus {
     height: 8px;
     width: 8px;
   }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
 }
 </style>
