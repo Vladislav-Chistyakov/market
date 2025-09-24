@@ -352,7 +352,7 @@ async function submitForm() {
 
       <!--   Телефон   -->
       <div class="2xl:col-span-3">
-        <UniversalBaseInput
+        <UniversalPhoneInput
           :disabled="pending"
           type="text"
           placeholder="Phone"
@@ -377,7 +377,7 @@ async function submitForm() {
               </p>
             </div>
           </template>
-        </UniversalBaseInput>
+        </UniversalPhoneInput>
       </div>
 
       <div class="2xl:col-span-6">
