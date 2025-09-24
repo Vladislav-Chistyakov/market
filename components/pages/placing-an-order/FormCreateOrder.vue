@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import type { Reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required, helpers } from '@vuelidate/validators'
+import { required, helpers, minLength, maxLength } from '@vuelidate/validators'
 
 const emit = defineEmits(['submit-form'])
 
 const pending = ref(false)
 
+type StringAndNull = string | null
+
 type Form = {
-  name: string | null
-  lastName: string | null
-  countryAndRegion: string | null
-  companyName?: string | null
-  streetAddress: string | null
-  aptSuiteUnit?: string | null
-  city: string | null
-  state: string | null
-  postalCode: string | null
-  phone: string | null
+  name: StringAndNull
+  lastName: StringAndNull
+  countryAndRegion: StringAndNull
+  companyName?: StringAndNull | undefined
+  streetAddress: StringAndNull
+  aptSuiteUnit?: StringAndNull | undefined
+  city: StringAndNull
+  state: StringAndNull
+  postalCode: StringAndNull
+  phone: StringAndNull
 }
 
 const form: Reactive<Form> = reactive({
@@ -60,28 +62,22 @@ const rules = {
   },
   phone: {
     required: helpers.withMessage('Fill in the phone field', required),
+    minLength: helpers.withMessage('Phone must be 11 digits', minLength(11)),
+    maxLength: helpers.withMessage('Phone must be 11 digits', maxLength(11)),
   },
 }
 
 const v$ = useVuelidate(rules, form)
 
 const resetForm = function () {
-  form.name = null
-  form.lastName = null
-  form.countryAndRegion = null
-  form.companyName = null
-  form.streetAddress = null
-  form.aptSuiteUnit = null
-  form.city = null
-  form.state = null
-  form.postalCode = null
-  form.phone = null
+  ;(Object.keys(form) as (keyof Form)[]).forEach((key) => {
+    form[key] = null
+  })
 }
 
 async function submitForm() {
   pending.value = true
   if (await v$.value.$validate()) {
-    console.log('submitForm', form)
     emit('submit-form', form)
   }
   pending.value = false
