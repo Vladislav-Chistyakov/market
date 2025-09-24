@@ -15,6 +15,7 @@
     >
       <img src="@/assets/images/header/search.svg" alt="search" />
       <input
+        disabled
         type="text"
         class="outline-none placeholder-text-gray-200 max-w-[120px] bg-gray-50 rounded-[8px] font-causten font-medium text-[18px] leading-[22px] text-text-gray-200"
         placeholder="Search"

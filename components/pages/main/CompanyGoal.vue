@@ -25,11 +25,12 @@
           wear range - Comfortable & Affordable fashion 24/7
         </p>
 
-        <button
+        <nuxt-link
+          to="/products/female"
           class="py-[12px] px-[42px] bg-white rounded-[8px] text-text-black text-[18px] leading-[22px] font-semibold"
         >
           Shop Now
-        </button>
+        </nuxt-link>
       </div>
     </div>
 

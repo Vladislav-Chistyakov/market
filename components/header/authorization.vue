@@ -21,6 +21,7 @@ const isSignUp = computed(() => route.path.includes('sign-up'))
     >
       <img src="@/assets/images/header/search.svg" alt="search" />
       <input
+        disabled
         type="text"
         class="outline-none placeholder-text-gray-200 max-w-[120px] bg-gray-50 rounded-[8px] font-causten font-medium text-[18px] leading-[22px] text-text-gray-200"
         placeholder="Search"
@@ -31,8 +32,12 @@ const isSignUp = computed(() => route.path.includes('sign-up'))
       <li>
         <nuxt-link
           :to="'/authorization/sign-in'"
-          :class="[isSignIn ? 'bg-purple border-purple text-white' : 'bg-transparent text-purple border-[#3C4242]']"
-          class=" py-1 px-3 lg:py-3 lg:px-12 border rounded-[8px] leading-[22px] text-[18px] font-causten font-medium hover:bg-purple hover:border-purple hover:text-white"
+          :class="[
+            isSignIn ?
+              'bg-purple border-purple text-white'
+            : 'bg-transparent text-purple border-[#3C4242]',
+          ]"
+          class="py-1 px-3 lg:py-3 lg:px-12 border rounded-[8px] leading-[22px] text-[18px] font-causten font-medium hover:bg-purple hover:border-purple hover:text-white"
         >
           Login
         </nuxt-link>
@@ -41,8 +46,12 @@ const isSignUp = computed(() => route.path.includes('sign-up'))
       <li>
         <nuxt-link
           :to="'/authorization/sign-up'"
-          :class="[isSignUp ? 'bg-purple border-purple text-white' : 'bg-transparent text-purple border-[#3C4242]']"
-          class=" py-1 px-3 lg:py-3 lg:px-12 border rounded-[8px] leading-[22px] text-[18px] font-causten font-medium hover:bg-purple hover:border-purple hover:text-white"
+          :class="[
+            isSignUp ?
+              'bg-purple border-purple text-white'
+            : 'bg-transparent text-purple border-[#3C4242]',
+          ]"
+          class="py-1 px-3 lg:py-3 lg:px-12 border rounded-[8px] leading-[22px] text-[18px] font-causten font-medium hover:bg-purple hover:border-purple hover:text-white"
         >
           Sign Up
         </nuxt-link>
@@ -51,6 +60,4 @@ const isSignUp = computed(() => route.path.includes('sign-up'))
   </header>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
