@@ -82,10 +82,24 @@ async function addProductToCart() {
     alert('Заполните данные формы')
   }
 }
+
+const productInformation = computed(() => {
+  if (product.value.information && product.value.information.length) {
+    const chunkSize = 3
+    const result: { label: string; value: string }[][] = []
+
+    for (let i = 0; i < product.value.information.length; i += chunkSize) {
+      result.push(product.value.information.slice(i, i + chunkSize))
+    }
+
+    return result
+  }
+  return []
+})
 </script>
 
 <template>
-  <div>
+  <div class="pb-8 lg:pb-20">
     <div
       class="grid lg:grid-cols-2 lg:max-w-[1024px] xl:max-w-[1440px] lg:mx-auto mb-[100px]"
     >
@@ -104,14 +118,14 @@ async function addProductToCart() {
 
         <h2
           v-if="product && product.name"
-          class="font-core-sans-c font-semibold text-[34px] leading-[40px] text-black mb-[24px]"
+          class="font-core-sans-c font-semibold text-[34px] leading-[40px] text-black mb-6"
         >
           {{ product.name }}
         </h2>
 
         <div class="mb-[34px]">
           <p
-            class="font-causten font-semibold text-[18px] leading-[18px] text-black mb-[24px]"
+            class="font-causten font-semibold text-[18px] leading-[18px] text-black mb-6"
           >
             Select size
           </p>
@@ -134,7 +148,7 @@ async function addProductToCart() {
 
         <div v-if="colors.length" class="mb-[34px]">
           <p
-            class="font-causten font-semibold text-[18px] leading-[18px] text-black mb-[24px]"
+            class="font-causten font-semibold text-[18px] leading-[18px] text-black mb-6"
           >
             Colours Available
           </p>
@@ -175,26 +189,31 @@ async function addProductToCart() {
         </div>
 
         <div class="flex items-center gap-4 lg:gap-6 mb-[35px]">
-          <button
-            @click.prevent="addProductToCart"
-            :disabled="!form.size || !form.color || cartStore.pendingCart"
-            class="px-6 lg:px-10 py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple disabled:opacity-40"
-          >
-            <img src="@/assets/images/pages/product/basket.svg" alt="basket" />
-
-            <span
-              class="block font-causten font-semibold text-white text-[18px] leading-[18px]"
+          <client-only>
+            <button
+              @click.prevent="addProductToCart"
+              :disabled="!form.size || !form.color || cartStore.pendingCart"
+              class="px-6 lg:px-10 py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple disabled:opacity-40"
             >
-              {{ cartStore.pendingCart ? 'Loading...' : 'Add to cart' }}
-            </span>
-          </button>
+              <img
+                src="@/assets/images/pages/product/basket.svg"
+                alt="basket"
+              />
 
-          <button
-            v-if="product && product.price"
-            class="px-[39px] py-[13px] text-black font-causten font-bold text-[18px] leading-[18px] rounded border border-black"
-          >
-            ${{ product.price }}
-          </button>
+              <span
+                class="block font-causten font-semibold text-white text-[18px] leading-[18px]"
+              >
+                {{ cartStore.pendingCart ? 'Loading...' : 'Add to cart' }}
+              </span>
+            </button>
+
+            <button
+              v-if="product && product.price"
+              class="px-[39px] py-[13px] text-black font-causten font-bold text-[18px] leading-[18px] rounded border border-black"
+            >
+              ${{ product.price }}
+            </button>
+          </client-only>
         </div>
 
         <hr class="border-gray-border mb-[35px]" />
@@ -266,113 +285,65 @@ async function addProductToCart() {
       <UniversalBaseHeading title="Product Description" class="mb-[30px]" />
 
       <div>
-        <div>
-          <p v-if="product && product.description">
+        <div class="md:max-w-[620px]">
+          <p
+            v-if="product && product.description"
+            class="font-causten text-[16px] leading-6 text-[#807D7E] font-normal mb-8"
+          >
             {{ product.description }}
           </p>
 
-          <table>
-            <thead>
-              <tr>
-                <th />
-                <th />
-                <th />
-              </tr>
-            </thead>
+          <div
+            class="w-full md:w-fit bg-[#FAFAFA] py-1 rounded-lg overflow-hidden"
+          >
+            <table v-if="productInformation.length" class="w-full md:w-fit">
+              <thead>
+                <tr>
+                  <th />
+                  <th />
+                  <th />
+                </tr>
+              </thead>
 
-            <tbody>
-              <tr>
-                <td class="">
-                  <span
-                    class="block text-text-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
+              <tbody>
+                <tr
+                  v-for="(row, rowIndex) in productInformation"
+                  :key="rowIndex"
+                  :class="{
+                    'border-b border-[#E2E1E2]':
+                      rowIndex !== productInformation.length - 1,
+                  }"
+                >
+                  <td
+                    v-for="(item, colIndex) in row"
+                    :key="colIndex"
+                    class="px-[14px] md:px-[50px]"
+                    :class="[
+                      colIndex !== row.length - 1 ?
+                        'border-r border-[#E2E1E2]'
+                      : '',
+                      rowIndex === 0 ? 'pt-2 md:pt-[17px]' : 'pt-3 md:pt-6',
+                      rowIndex === productInformation.length - 1 ?
+                        'pb-2 md:pb-[17px]'
+                      : 'pb-3 md:pb-6',
+                    ]"
                   >
-                    Fabric
-                  </span>
-
-                  <p
-                    class="text-black font-causten font-medium text-4 leading-4"
-                  >
-                    Bio-washed Cotton
-                  </p>
-                </td>
-
-                <td class="">
-                  <span
-                    class="block text-text-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
-                  >
-                    Pattern
-                  </span>
-
-                  <p
-                    class="text-black font-causten font-medium text-4 leading-4"
-                  >
-                    Printed
-                  </p>
-                </td>
-
-                <td class="">
-                  <span
-                    class="block text-text-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
-                  >
-                    Fit
-                  </span>
-
-                  <p
-                    class="text-black font-causten font-medium text-4 leading-4"
-                  >
-                    Regular-fit
-                  </p>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="">
-                  <span
-                    class="block text-text-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
-                  >
-                    Neck
-                  </span>
-
-                  <p
-                    class="text-black font-causten font-medium text-4 leading-4"
-                  >
-                    Round Neck
-                  </p>
-                </td>
-
-                <td class="">
-                  <span
-                    class="block text-text-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
-                  >
-                    Sleeve
-                  </span>
-
-                  <p
-                    class="text-black font-causten font-medium text-4 leading-4"
-                  >
-                    Half-sleeves
-                  </p>
-                </td>
-
-                <td class="">
-                  <span
-                    class="block text-text-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
-                  >
-                    Style
-                  </span>
-
-                  <p
-                    class="text-black font-causten font-medium text-4 leading-4"
-                  >
-                    Casual Wear
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    <span
+                      class="block text-text-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
+                    >
+                      {{ item.label }}
+                    </span>
+                    <p
+                      class="text-black font-causten font-medium text-4 leading-4"
+                    >
+                      {{ item.value }}
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-
-        <div>video</div>
       </div>
     </div>
   </div>
