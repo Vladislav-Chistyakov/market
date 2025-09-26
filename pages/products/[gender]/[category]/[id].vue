@@ -63,24 +63,29 @@ function activeColorButton(color: string) {
 }
 
 async function addProductToCart() {
-  if (form.value.size && form.value.color) {
-    await cartStore
-      .addProductToCart(
-        product.value.id,
-        form.value.color,
-        form.value.size,
-        Number(product.value.price),
-      )
-      .catch((err: any) => {
-        console.error('Error adding product to cart: ', err)
-      })
-      .finally(() => {
-        form.value.size = null
-        form.value.color = null
-      })
-  } else {
-    alert('Заполните данные формы')
+  pending.value = true
+  if (userAuthorizationCheck()) {
+    if (form.value.size && form.value.color) {
+      await cartStore
+        .addProductToCart(
+          product.value.id,
+          form.value.color,
+          form.value.size,
+          Number(product.value.price),
+        )
+        .catch((err: any) => {
+          console.error('Error adding product to cart: ', err)
+        })
+        .finally(() => {
+          form.value.size = null
+          form.value.color = null
+        })
+    } else {
+      alert('Заполните данные для выбора товара')
+    }
   }
+
+  pending.value = false
 }
 
 const productInformation = computed(() => {
@@ -134,6 +139,7 @@ const productInformation = computed(() => {
             <li v-for="(size, indexSize) in sizes" :key="indexSize">
               <button
                 @click="activeSizeButton(size)"
+                :disabled="pending"
                 :class="{
                   'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
                     form.size === size,
@@ -158,6 +164,7 @@ const productInformation = computed(() => {
               <button
                 v-if="color === 'white'"
                 @click="activeColorButton(color)"
+                :disabled="pending"
                 :class="{
                   'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
                     form.color === color,
@@ -172,6 +179,7 @@ const productInformation = computed(() => {
               <button
                 v-else
                 @click="activeColorButton(color)"
+                :disabled="pending"
                 class="flex w-fit p-[3px] border rounded-full"
                 :class="{
                   'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
@@ -192,7 +200,9 @@ const productInformation = computed(() => {
           <client-only>
             <button
               @click.prevent="addProductToCart"
-              :disabled="!form.size || !form.color || cartStore.pendingCart"
+              :disabled="
+                !form.size || !form.color || cartStore.pendingCart || pending
+              "
               class="px-6 lg:px-10 py-[13px] flex items-center gap-[12px] bg-purple rounded border border-purple disabled:opacity-40"
             >
               <img
@@ -207,12 +217,12 @@ const productInformation = computed(() => {
               </span>
             </button>
 
-            <button
+            <div
               v-if="product && product.price"
               class="px-[39px] py-[13px] text-black font-causten font-bold text-[18px] leading-[18px] rounded border border-black"
             >
               ${{ product.price }}
-            </button>
+            </div>
           </client-only>
         </div>
 
