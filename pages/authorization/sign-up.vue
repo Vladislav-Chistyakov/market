@@ -3,7 +3,7 @@ import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 import { useRouter } from '#vue-router'
 
 definePageMeta({
-  middleware: 'authorization',
+  layout: 'authorization',
 })
 
 const router = useRouter()
@@ -175,7 +175,7 @@ async function createAccount() {
           </UniversalBaseInput>
 
           <button
-            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px]  gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px] gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
             type="button"
             :disabled="pending"
             @click="createAccount"
@@ -190,7 +190,9 @@ async function createAccount() {
             <NuxtLink
               :class="{ 'pointer-events-none opacity-60': pending }"
               class="underline"
-              :to="pending ? '/authorization/sign-up' : '/authorization/sign-in'"
+              :to="
+                pending ? '/authorization/sign-up' : '/authorization/sign-in'
+              "
             >
               Log in
             </NuxtLink>
@@ -238,5 +240,4 @@ async function createAccount() {
     background-position: left top 0;
   }
 }
-
 </style>

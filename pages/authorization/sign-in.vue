@@ -7,7 +7,7 @@ const router = useRouter()
 const userStore = useUserStore()
 
 definePageMeta({
-  middleware: 'authorization',
+  layout: 'authorization',
 })
 
 const statusHidePassword = ref(false)
@@ -181,7 +181,7 @@ async function loginYourAccount() {
           </NuxtLink>
 
           <button
-            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px]  gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px] gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
             type="button"
             :disabled="pending"
             @click="loginYourAccount"
@@ -196,7 +196,9 @@ async function loginYourAccount() {
             <NuxtLink
               :class="{ 'pointer-events-none opacity-60': pending }"
               class="underline"
-              :to="pending ? '/authorization/sign-in' : '/authorization/sign-up'"
+              :to="
+                pending ? '/authorization/sign-in' : '/authorization/sign-up'
+              "
             >
               Sign up
             </NuxtLink>
@@ -214,7 +216,6 @@ async function loginYourAccount() {
   background-size: 100% auto;
   background-position: center top 0;
 }
-
 
 @media screen and (min-width: 576px) {
   .background {
@@ -246,5 +247,4 @@ async function loginYourAccount() {
     background-position: right -331px top 0;
   }
 }
-
 </style>

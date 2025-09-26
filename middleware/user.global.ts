@@ -9,9 +9,23 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   if (import.meta.client) {
     console.log('Заход в миддвеваре client')
     try {
-      if (!useUserStore().user && !useUserStore().pendingGettingUser) {
-        abortNavigation()
-        console.log('abort navigation')
+      const userStore = useUserStore()
+
+      if (userStore.isAuthorization) return
+
+      // страницы, куда можно без авторизации
+      const publicRoutes = ['/', '/authorization', '/products']
+      const isPublic =
+        to.path === '/'
+        || to.path.startsWith('/authorization')
+        || to.path.startsWith('/products')
+
+      if (!isPublic) {
+        return navigateTo('/authorization/sign-in')
+      }
+
+      if (!isPublic) {
+        return navigateTo('/authorization/sign-in')
       }
     } catch (error) {
       console.error(error)

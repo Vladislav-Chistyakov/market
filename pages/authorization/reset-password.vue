@@ -2,7 +2,7 @@
 import { useFirebaseFunctions } from '@/composables/useFirebaseFunctions'
 
 definePageMeta({
-  middleware: 'authorization',
+  layout: 'authorization',
 })
 
 const form = reactive({
@@ -70,7 +70,7 @@ async function resetPassword() {
           <button
             type="button"
             :disabled="pending"
-            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px]  gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+            class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px] gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
             @click="resetPassword"
           >
             Send
@@ -127,8 +127,6 @@ async function resetPassword() {
   background-position: center top 0;
 }
 
-
-
 @media screen and (min-width: 576px) {
   .background {
     @apply w-full min-h-[456px];
@@ -152,13 +150,11 @@ async function resetPassword() {
   }
 }
 
-
 @media screen and (min-width: 1280px) {
   .background {
     background-position: left -204px top -20px;
   }
 }
-
 
 @media screen and (min-width: 1440px) {
   .background {

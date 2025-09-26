@@ -3,7 +3,7 @@ import { useRoute, useRouter } from '#vue-router'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 definePageMeta({
-  middleware: 'authorization',
+  layout: 'authorization',
 })
 
 const oobCode = ref('')
@@ -12,7 +12,6 @@ const router = useRouter()
 
 const errorMessage = ref('')
 const errorCode = ref('')
-
 
 // TODO Настроить вход на страницу только с middleware
 onBeforeMount(() => {
@@ -60,7 +59,8 @@ async function createPassword() {
         console.error(error.code)
         if (error.code === 'auth/invalid-action-code') {
           console.error('Неверный код для сброса пароля')
-          errorMessage.value = 'Неверный код для сброса пароля - перейдите на страницу сброса пароля для получения нового кода'
+          errorMessage.value =
+            'Неверный код для сброса пароля - перейдите на страницу сброса пароля для получения нового кода'
         } else if (error.code === 'auth/weak-password') {
           console.error('Ошибка - пароль короткий')
           errorMessage.value = 'Ошибка - пароль короткий'
@@ -160,7 +160,7 @@ async function createPassword() {
             <button
               type="button"
               :disabled="pending"
-              class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px]  gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
+              class="w-full flex items-center justify-center xl:w-fit mb-[10px] px-[39px] py-[13px] gap-[12px] bg-purple rounded-[8px] border border-purple text-white disabled:opacity-60"
               @click="createPassword"
             >
               Reset Password
@@ -184,7 +184,11 @@ async function createPassword() {
             <NuxtLink
               :class="{ 'pointer-events-none opacity-60': pending }"
               class="underline text-purple"
-              :to="pending ? '/authorization/create-new-password' : '/authorization/sign-in'"
+              :to="
+                pending ?
+                  '/authorization/create-new-password'
+                : '/authorization/sign-in'
+              "
             >
               authorization page!
             </NuxtLink>

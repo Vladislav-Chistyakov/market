@@ -12,7 +12,9 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const changeStatusProductWishlist = async function (productId: string) {
-  await wishlistStore.changeProductToWishlist(productId)
+  if (userAuthorizationCheck()) {
+    await wishlistStore.changeProductToWishlist(productId)
+  }
 }
 
 const linkProductPage = computed(() => {
