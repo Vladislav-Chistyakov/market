@@ -5,6 +5,12 @@ import { required, helpers, minLength, maxLength } from '@vuelidate/validators'
 
 const emit = defineEmits(['submit-form'])
 
+const props = defineProps({
+  createOrderPending: {
+    type: Boolean,
+  },
+})
+
 const pending = ref(false)
 
 type StringAndNull = string | null
@@ -69,12 +75,6 @@ const rules = {
 
 const v$ = useVuelidate(rules, form)
 
-const resetForm = function () {
-  ;(Object.keys(form) as (keyof Form)[]).forEach((key) => {
-    form[key] = null
-  })
-}
-
 async function submitForm() {
   pending.value = true
   if (await v$.value.$validate()) {
@@ -94,12 +94,13 @@ async function submitForm() {
 
     <form
       @submit.prevent="submitForm"
+      :disabled="pending || createOrderPending"
       class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-6 gap-x-[38px] gap-y-[29px]"
     >
       <!--  Имя    -->
       <div class="2xl:col-span-3">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="First Name"
           :value="form.name"
@@ -129,7 +130,7 @@ async function submitForm() {
       <!--  Фамиля    -->
       <div class="2xl:col-span-3">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="Last Name"
           :value="form.lastName"
@@ -159,7 +160,7 @@ async function submitForm() {
       <!--   Страна   -->
       <div class="2xl:col-span-3">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="Country / Region"
           :value="form.countryAndRegion"
@@ -189,7 +190,7 @@ async function submitForm() {
       <!--   Название компании   -->
       <div class="2xl:col-span-3">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="Company (optional)"
           :value="form.companyName"
@@ -209,7 +210,7 @@ async function submitForm() {
       <!--  Адрес    -->
       <div class="2xl:col-span-3">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="House number and street name"
           :value="form.streetAddress"
@@ -239,7 +240,7 @@ async function submitForm() {
       <!--  Суит    -->
       <div class="2xl:col-span-3">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="apartment, suite, unit, etc. (optional)"
           :value="form.aptSuiteUnit"
@@ -259,7 +260,7 @@ async function submitForm() {
       <!--  Город    -->
       <div class="2xl:col-span-2">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="Town / City"
           :value="form.city"
@@ -289,7 +290,7 @@ async function submitForm() {
       <!--  Штат - край - область    -->
       <div class="2xl:col-span-2">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="State"
           :value="form.state"
@@ -319,7 +320,7 @@ async function submitForm() {
       <!--  Почтовый код    -->
       <div class="2xl:col-span-2">
         <UniversalBaseInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="Postal Code"
           :value="form.postalCode"
@@ -349,7 +350,7 @@ async function submitForm() {
       <!--   Телефон   -->
       <div class="2xl:col-span-3">
         <UniversalPhoneInput
-          :disabled="pending"
+          :disabled="pending || createOrderPending"
           type="text"
           placeholder="Phone"
           :value="form.phone"
@@ -378,6 +379,7 @@ async function submitForm() {
 
       <div class="2xl:col-span-6">
         <button
+          :disabled="pending || createOrderPending"
           class="bg-purple block w-fit p-[13px_20px] rounded-[8px] text-white text-[18px] font-causten font-light"
         >
           Continue to delivery

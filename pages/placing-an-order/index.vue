@@ -3,8 +3,10 @@ import { useCartStore } from '~/store/cart'
 import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 const cartStore = useCartStore()
+const pending = ref(false)
 
 async function updateDataOrderPage(event: any) {
+  pending.value = true
   const data = {
     userInfo: event,
     products: cartStore.arrayCartProduct,
@@ -14,9 +16,13 @@ async function updateDataOrderPage(event: any) {
 
   await useFirebaseFunctions()
     .createOrder(data)
+    .then(() => {
+      navigateTo('/my-account/successful-order-placement')
+    })
     .catch((error) => {
       console.log('ERROR createOrderFunction', error)
     })
+  pending.value = false
 }
 </script>
 
@@ -48,7 +54,7 @@ async function updateDataOrderPage(event: any) {
       </div>
 
       <nuxt-link
-        to="/"
+        to="/my-account/my-info"
         class="text-[18px] leading-[22px] text-[#807D7E] font-medium"
       >
         My Account
@@ -79,7 +85,10 @@ async function updateDataOrderPage(event: any) {
     <div
       class="flex gap-6 flex-col-reverse md:grid md:gap-x-[38px] md:gap-y-[43px] md:grid-cols-[1fr_400px]"
     >
-      <PagesPlacingAnOrderFormCreateOrder @submit-form="updateDataOrderPage" />
+      <PagesPlacingAnOrderFormCreateOrder
+        :create-order-pending="pending"
+        @submit-form="updateDataOrderPage"
+      />
 
       <client-only>
         <PagesPlacingAnOrderSummary />

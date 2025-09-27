@@ -55,11 +55,13 @@ const changeStatusProductWishlist = async function (productId: string) {
           </button>
 
           <div class="flex gap-6 sm:gap-12 lg:gap-5">
-            <img
-              :src="item.imageScr"
-              :alt="item.name"
-              class="h-fit lg:h-40 block min-w-[146px] sm:min-w-[240px] max-w-[40%] sm:max-w-[250px] lg:min-w-[110px] rounded-[4px] overflow-hidden"
-            />
+            <nuxt-link class="w-fit h-fit" :to="item.productPageLink">
+              <img
+                :src="item.imageScr"
+                :alt="item.name"
+                class="h-fit lg:h-40 block min-w-[146px] sm:min-w-[240px] max-w-[40%] sm:max-w-[250px] lg:min-w-[110px] rounded-[4px] overflow-hidden"
+              />
+            </nuxt-link>
 
             <div
               class="flex-1 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"

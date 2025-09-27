@@ -13,6 +13,7 @@ type Props = {
     size: string
     price: number
     count: number
+    productPageLink: string
     shipping: number | string
   }
   lengthArrayNumber: number
@@ -51,10 +52,6 @@ const addProductToCart = async function () {
       props.item.size,
       props.item.price,
     )
-    // .then(() => {
-    //   // Усли успешно, то прибавляем один товар
-    //   productCount.value += 1
-    // })
     .finally(() => (pendingButtonCount.value = false))
 }
 
@@ -71,10 +68,6 @@ const removeOneItemFromCart = async function () {
         props.item.size,
         props.item.price,
       )
-      // .then(() => {
-      //   // Усли успешно, то убираем один товар
-      //   productCount.value -= 1
-      // })
       .finally(() => (pendingButtonCount.value = false))
   } else {
     // Иначе удаляем товар из корзины
@@ -88,8 +81,9 @@ const removeOneItemFromCart = async function () {
     <!-- Product Details -->
     <td class="pt-[50px] pl-3 sm:pl-4 md:pl-5 lg:pl-12 xl:pl-[102px]">
       <div class="pb-[50px] flex justify-start gap-5">
-        <div
+        <nuxt-link
           v-if="item.imgSrc"
+          :to="item.productPageLink"
           class="h-[120px] overflow-hidden rounded-[10px]"
         >
           <img
@@ -97,7 +91,7 @@ const removeOneItemFromCart = async function () {
             :alt="item.name || ''"
             class="flex w-[105px] min-w-[105px]"
           />
-        </div>
+        </nuxt-link>
 
         <div class="flex flex-col gap-[9px]">
           <b class="text-bold text-[18px] leading-[22px]">

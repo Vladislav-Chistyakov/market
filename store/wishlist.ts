@@ -8,7 +8,6 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   const getProductId = useFirebaseFunctions().getProductId
   const userStore = useUserStore()
 
-
   const wishlistAlreadyReceived = ref(false)
   const pendingWishlist = ref(false)
   const updateWishlistProductIdStatus = ref('')
@@ -22,6 +21,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
     name: string
     id: string
     key: string
+    productPageLink: string
     gender: string
     category: string
   }
@@ -35,32 +35,36 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
   const countProductsWishlist = computed(() => productsIds.length)
 
   type EditedWishlistItem = {
-    id: string,
-    name: string,
-    price: number,
-    imageScr: string,
-    color: string,
-    gender: string,
-    category: string,
+    id: string
+    name: string
+    price: number
+    imageScr: string
+    color: string
+    gender: string
+    category: string
+    productPageLink: string
   }
 
   // Преобразование продуктов для отрисовки списка
-  const editedWishlistForPage: ComputedRef<EditedWishlistItem[]> = computed(() => {
-    if (wishlistUser.length) {
-      return wishlistUser.map((item) => {
-        return {
-          id: item.id || '',
-          name: item.name || '',
-          price: item.price || 0,
-          imageScr: item.images[0] || '',
-          color: item.color[0] || '',
-          gender: item.gender,
-          category: item.category,
-        }
-      })
-    }
-    return []
-  })
+  const editedWishlistForPage: ComputedRef<EditedWishlistItem[]> = computed(
+    () => {
+      if (wishlistUser.length) {
+        return wishlistUser.map((item) => {
+          return {
+            id: item.id || '',
+            name: item.name || '',
+            price: item.price || 0,
+            imageScr: item.images[0] || '',
+            color: item.color[0] || '',
+            gender: item.gender,
+            category: item.category,
+            productPageLink: `/products/${item?.gender}/${item.category.toLowerCase()}/${item?.id}`,
+          }
+        })
+      }
+      return []
+    },
+  )
 
   // Получение id продуктов юзера
   async function getWishlistIdsUser() {
@@ -109,7 +113,11 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
           // Если список готов
           if (Array.isArray(res)) {
             // Перезаписываем наш массив с продуктами
-            wishlistUser.splice(0, wishlistUser.length, ...(res as WishlistUser))
+            wishlistUser.splice(
+              0,
+              wishlistUser.length,
+              ...(res as WishlistUser),
+            )
           }
         })
       } else {

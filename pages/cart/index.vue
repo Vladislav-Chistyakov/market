@@ -280,11 +280,12 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
           Add something to make it happy!
         </span>
 
-        <button
+        <nuxt-link
+          to="/products/male"
           class="mx-auto w-fit px-[48px] py-[12px] rounded-[8px] bg-purple text-white font-causten font-light text-[18px] leading-[22px]"
         >
           Continue Shopping
-        </button>
+        </nuxt-link>
       </div>
     </div>
 

@@ -29,6 +29,7 @@ export const useCartStore = defineStore('cartStore', () => {
     imgSrc: any
     count: number | null
     shipping: number | string | undefined
+    productPageLink: string
     id: string
     productId: string
   }
@@ -87,6 +88,7 @@ export const useCartStore = defineStore('cartStore', () => {
             imgSrc: item.images[0] || '',
             count: arrCart[index]?.countProductCart || null,
             shipping: item.shipping || null,
+            productPageLink: `/products/${item?.gender}/${item.category.toLowerCase()}/${item?.id}`,
             id:
               `${item.id}-${arrCart[index]?.color}-${arrCart[index]?.size}`
               || '',
