@@ -51,7 +51,7 @@ const generateDate = computed(() => {
             </p>
             <span
               v-if="generateDate.createdAt"
-              class="text-[#BEBCBD] text-[14px] leading-4 font-normal"
+              class="text-gray-500 text-[14px] leading-4 font-normal"
             >
               {{ generateDate.createdAt }}
             </span>
@@ -61,7 +61,7 @@ const generateDate = computed(() => {
             <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
               Order Status :
             </p>
-            <span class="text-[#BEBCBD] text-[14px] leading-4 font-normal">
+            <span class="text-gray-500 text-[14px] leading-4 font-normal">
               Inprogress
             </span>
           </div>
@@ -74,7 +74,7 @@ const generateDate = computed(() => {
             <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
               Estimated Delivery Date :
             </p>
-            <span class="text-[#BEBCBD] text-[14px] leading-4 font-normal">
+            <span class="text-gray-500 text-[14px] leading-4 font-normal">
               {{ generateDate.deliveryDate }}
             </span>
           </div>
@@ -83,7 +83,7 @@ const generateDate = computed(() => {
             <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
               Payment Method :
             </p>
-            <span class="text-[#BEBCBD] text-[14px] leading-4 font-normal">
+            <span class="text-gray-500 text-[14px] leading-4 font-normal">
               Cash on delivery
             </span>
           </div>
@@ -118,7 +118,7 @@ const generateDate = computed(() => {
               class="mb-[5px] text-[#3C4242] font-bold text-[14px] leading-4 flex gap-[2px] text-nowrap"
             >
               Color :
-              <span class="text-[#BEBCBD] font-semibold">
+              <span class="text-gray-500 font-semibold">
                 {{ product.color }}
               </span>
             </p>
@@ -128,7 +128,7 @@ const generateDate = computed(() => {
               class="mb-[5px] text-[#3C4242] font-bold text-[14px] leading-4 flex gap-[2px] text-nowrap"
             >
               Qty :
-              <span class="text-[#BEBCBD] font-semibold">{{
+              <span class="text-gray-500 font-semibold">{{
                 product.count
               }}</span>
             </p>

@@ -180,7 +180,7 @@ const removeOneItemFromCart = async function () {
       <div class="pb-[50px] flex justify-center items-center">
         <p
           v-if="shipping"
-          class="uppercase font-bold text-[18px] leading-[22px] text-[#BEBCBD]"
+          class="uppercase font-bold text-[18px] leading-[22px] text-gray-500"
         >
           {{ shipping }}
         </p>

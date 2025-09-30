@@ -69,7 +69,7 @@ withDefaults(defineProps<Props>(), {
             >
               <hr
                 v-if="arrayCartProduct.length - 1 !== index"
-                class="border-b border-[#BEBCBD]"
+                class="border-b border-gray-500"
               />
             </td>
           </tr>

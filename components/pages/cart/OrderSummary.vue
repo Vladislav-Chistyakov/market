@@ -67,7 +67,7 @@ onMounted(() => {
 
         <div class="relative mb-[37px]">
           <div
-            class="relative rounded-[10px] border overflow-hidden border-[#BEBCBD] flex overflow w-fit"
+            class="relative rounded-[10px] border overflow-hidden border-gray-500 flex overflow w-fit"
           >
             <input
               v-model="coupon"
@@ -78,7 +78,7 @@ onMounted(() => {
             <button
               @click="checkCoupon"
               :disabled="pendingComponent || usedCoupon"
-              class="disabled:opacity-40 bg-purple text-white text-[16px] font-semibold leading-[19px] px-[31px] py-[13px] border-l border-[#BEBCBD]"
+              class="disabled:opacity-40 bg-purple text-white text-[16px] font-semibold leading-[19px] px-[31px] py-[13px] border-l border-gray-500"
             >
               Apply Coupon
             </button>
@@ -96,7 +96,7 @@ onMounted(() => {
 
         <nuxt-link
           to="/products/male/"
-          class="disabled:opacity-40 bg-white rounded-[8px] border border-[#BEBCBD]text-color-black text-[16px] font-semibold leading-[19px] px-[49px] py-[11px]"
+          class="disabled:opacity-40 bg-white rounded-[8px] border border-gray-500text-color-black text-[16px] font-semibold leading-[19px] px-[49px] py-[11px]"
         >
           Continue Shopping
         </nuxt-link>
@@ -139,7 +139,7 @@ onMounted(() => {
           </table>
         </div>
 
-        <hr class="border-[#BEBCBD]" />
+        <hr class="border-gray-500" />
 
         <div class="p-[50px] flex items-center justify-center">
           <button
