@@ -162,25 +162,36 @@ export const useFirebaseFunctions = () => {
     if (!uid) throw new Error('UID is not defined')
     const cartRef = doc(db, 'carts', uid)
     const cartSnap = await getDoc(cartRef)
+
     if (cartSnap.exists()) {
-      return cartSnap.data()
+      const data = cartSnap.data()
+      return data?.items || []
     }
-    return {}
+
+    return []
   }
 
-  async function removeProductFromCart(productId: string) {
+  async function removeProductFromCart(productKey: string) {
     try {
       const uid = useUserStore()?.user?.uid
       if (!uid) throw new Error('UID is not defined')
+
       const userCartRef = doc(db, 'carts', uid)
-      await updateDoc(userCartRef, {
-        [productId]: deleteField(),
-      })
-      console.log(
-        `Поле ${productId} удалено из документа корзины пользователя ${uid}`,
-      )
+      const cartSnap = await getDoc(userCartRef)
+
+      if (!cartSnap.exists()) return
+
+      const cartData = cartSnap.data()
+      let cartItems = cartData?.items || []
+
+      // фильтруем массив и удаляем товар по ключу
+      cartItems = cartItems.filter((item: any) => item.key !== productKey)
+
+      await updateDoc(userCartRef, { items: cartItems })
+
+      console.log(`Товар ${productKey} удалён из корзины пользователя ${uid}`)
     } catch (error) {
-      console.error('Ошибка при удалении товара из поля:', error)
+      console.error('Ошибка при удалении товара из корзины:', error)
     }
   }
 
@@ -193,38 +204,54 @@ export const useFirebaseFunctions = () => {
   ) => {
     const uid = useUserStore()?.user?.uid
     if (!uid) throw new Error('UID is not defined')
+
     const cartRef = doc(db, 'carts', uid)
     const cartSnap = await getDoc(cartRef)
-    if (cartSnap.exists()) {
-      const dataProducts = cartSnap.data()
-      const infoProductCart = { ...dataProducts }
-      // Ну и отправляем все данные в базу
-      const keyProductCart = `${productId}-${productColor}-${productSize}`
 
-      try {
-        // добавление данных в стор
-        if (infoProductCart[keyProductCart] && actionOnProduct === 'add') {
-          infoProductCart[keyProductCart].countProductCart += 1
-        } else if (
-          infoProductCart[keyProductCart]
-          && actionOnProduct === 'remove'
-        ) {
-          infoProductCart[keyProductCart].countProductCart -= 1
-        } else {
-          // Инача создаем новый по id продукта
-          infoProductCart[keyProductCart] = {
-            productId: productId,
-            countProductCart: 1,
-            color: productColor,
-            size: productSize,
-            price: productPrice,
+    // данные продукта
+    const keyProductCart = `${productId}-${productColor}-${productSize}`
+    const productData = {
+      key: keyProductCart, // уникальный ключ внутри массива
+      productId,
+      countProductCart: 1,
+      color: productColor,
+      size: productSize,
+      price: productPrice,
+    }
+
+    try {
+      if (cartSnap.exists()) {
+        const cartData = cartSnap.data()
+        let cartItems = cartData?.items || []
+
+        // ищем, есть ли уже такой продукт в корзине
+        const index = cartItems.findIndex(
+          (item: any) => item.key === keyProductCart,
+        )
+
+        if (index !== -1) {
+          if (actionOnProduct === 'add') {
+            cartItems[index].countProductCart += 1
+          } else if (actionOnProduct === 'remove') {
+            cartItems[index].countProductCart -= 1
+
+            // удаляем, если количество стало 0
+            if (cartItems[index].countProductCart <= 0) {
+              cartItems.splice(index, 1)
+            }
           }
+        } else {
+          // если товара нет — добавляем
+          cartItems.push(productData)
         }
 
-        await setDoc(doc(db, 'carts', uid), infoProductCart)
-      } catch (error) {
-        throw error
+        await updateDoc(cartRef, { items: cartItems })
+      } else {
+        // создаём корзину с первым товаром
+        await setDoc(cartRef, { items: [productData] })
       }
+    } catch (error) {
+      throw error
     }
   }
 

@@ -17,7 +17,7 @@ const getCartUser = async function () {
 await getCartUser()
 
 // Получения списка товара для вывода в список
-const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
+const arrayCartProduct = computed(() => cartStore.arrayCartProduct.reverse())
 </script>
 
 <template>
