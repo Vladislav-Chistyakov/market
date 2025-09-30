@@ -1,12 +1,9 @@
-import { initializeApp } from 'firebase/app'
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth'
 import {
-  getFirestore,
   collection,
   addDoc,
   getDocs,
@@ -14,20 +11,15 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-  deleteField,
   arrayUnion,
 } from 'firebase/firestore'
-import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
 import { useUserStore } from '~/store/user'
 
 export const useFirebaseFunctions = () => {
-  const firebaseConfig = useFirebaseConfig()
-  const app = initializeApp(firebaseConfig)
-  const auth = getAuth(app)
-  const db = getFirestore(app)
-
-  auth.languageCode = 'ru'
+  const { $firebase } = useNuxtApp()
+  const auth = $firebase.auth
+  const db = $firebase.db
 
   // Функции работа с юзером
   // ****************************   ************************************
@@ -137,6 +129,11 @@ export const useFirebaseFunctions = () => {
 
   async function getProductId(productId: string): Promise<null | unknown> {
     try {
+      // TODO Заняться!
+      // const test = await $fetch(`/api/product/${productId}`, {
+      //   params: { id: productId },
+      // }).catch((e) => console.error('@@@ ', e))
+      // console.log('test', test)
       console.log('получение продукта по id ', productId)
       // TODO Решить вопрос с запросами на повторяющиеся id продукиа (кэш или useLazyAsyncData)
       const productRef = doc(db, 'products', productId)
