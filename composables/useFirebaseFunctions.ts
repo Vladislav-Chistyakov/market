@@ -15,6 +15,7 @@ import {
   setDoc,
   updateDoc,
   deleteField,
+  arrayUnion,
 } from 'firebase/firestore'
 import { useFirebaseConfig } from '@/composables/useFirebaseConfig'
 import { confirmPasswordReset, onAuthStateChanged } from '@firebase/auth'
@@ -302,47 +303,80 @@ export const useFirebaseFunctions = () => {
   // Работа с orders (Заказы)
   // ****************************   ************************************
   const getOrders = async () => {
-    // Получение uid юзера
     const uid = useUserStore()?.user?.uid
-
-    // Если юзера нет, выкидываем ошибку
     if (!uid) throw new Error('UID is not defined')
 
     try {
-      const querySnapshot = await getDocs(
-        collection(db, 'orders', uid, 'orderList'),
-      )
+      const userOrdersRef = doc(db, 'orders', uid)
+      const snapshot = await getDoc(userOrdersRef)
 
-      const orders = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
+      if (!snapshot.exists()) {
+        return [] // если заказов ещё нет
+      }
+
+      const data = snapshot.data()
+      const orders = data?.orderList || []
 
       return orders
     } catch (error) {
-      console.error('Ошибка при получении продуктов:', error)
+      console.error('Ошибка при получении заказов:', error)
       throw error
     }
   }
 
   const createOrder = async (dataOrder: any) => {
-    // Получение uid юзера
     const uid = useUserStore()?.user?.uid
 
-    // Если юзера нет, выкидываем ошибку
     if (!uid) throw new Error('UID is not defined')
 
     try {
-      const docRef = await addDoc(
-        collection(db, 'orders', uid, 'orderList'),
-        dataOrder,
-      )
+      const userOrdersRef = doc(db, 'orders', uid)
+      const snapshot = await getDoc(userOrdersRef)
+
+      const generateId = () => {
+        return doc(collection(db, '_')).id
+      }
+
+      dataOrder.id = generateId()
+
+      if (snapshot.exists()) {
+        // Если документ уже есть — добавляем в массив
+        await updateDoc(userOrdersRef, {
+          orderList: arrayUnion(dataOrder),
+        })
+      } else {
+        // Если документа ещё нет — создаём и кладём массив
+        await setDoc(userOrdersRef, {
+          orderList: [dataOrder],
+        })
+      }
+
       await removeAllProductFromCart()
-      return docRef.id
+
+      return true // можно вернуть, например, флаг успешности
     } catch (error) {
       throw error
     }
   }
+
+  // const createOrder = async (dataOrder: any) => {
+  //   // Получение uid юзера
+  //   const uid = useUserStore()?.user?.uid
+  //
+  //   // Если юзера нет, выкидываем ошибку
+  //   if (!uid) throw new Error('UID is not defined')
+  //
+  //   try {
+  //     const docRef = await addDoc(
+  //       collection(db, 'orders', uid, 'orderList'),
+  //       dataOrder,
+  //     )
+  //     await removeAllProductFromCart()
+  //     return docRef.id
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
   // *******************************************************************
 
   return {

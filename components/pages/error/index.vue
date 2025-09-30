@@ -32,7 +32,7 @@
 
     <div class="flex flex-col">
       <p
-        class="text-center font-core-sans-c font-semibold text-[22px] leading-[24px] lg:text-[34px] lg:leading-[36px] text-white mb-[11px]"
+        class="text-center font-core-sans-c font-semibold text-[22px] leading-[24px] lg:text-[34px] lg:leading-[36px] text-black mb-[11px]"
       >
         Oops! Page not found
       </p>

@@ -154,7 +154,7 @@ const generateDate = computed(() => {
       <span class="text-gray-600 font-semibold"> ${{ item.totalPrice }} </span>
     </p>
 
-    <hr class="border-b border-t-0 border-[#`EDEEF2`]" />
+    <hr class="border-b border-t-0 border-gray-70" />
   </li>
 </template>
 

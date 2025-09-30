@@ -17,6 +17,7 @@ withDefaults(defineProps<Props>(), {
     </div>
 
     <ul
+      v-if="list"
       class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[30px] xl:gap-[50px]"
     >
       <li
