@@ -35,7 +35,7 @@ const isSignUp = computed(() => route.path.includes('sign-up'))
           :class="[
             isSignIn ?
               'bg-purple border-purple text-white'
-            : 'bg-transparent text-purple border-[#3C4242]',
+            : 'bg-transparent text-purple border-black-100',
           ]"
           class="py-1 px-3 lg:py-3 lg:px-12 border rounded-[8px] leading-[22px] text-[18px] font-causten font-medium hover:bg-purple hover:border-purple hover:text-white"
         >
@@ -49,7 +49,7 @@ const isSignUp = computed(() => route.path.includes('sign-up'))
           :class="[
             isSignUp ?
               'bg-purple border-purple text-white'
-            : 'bg-transparent text-purple border-[#3C4242]',
+            : 'bg-transparent text-purple border-black-100',
           ]"
           class="py-1 px-3 lg:py-3 lg:px-12 border rounded-[8px] leading-[22px] text-[18px] font-causten font-medium hover:bg-purple hover:border-purple hover:text-white"
         >

@@ -82,7 +82,7 @@ watch(maxValueProps, (newValue) => {
         class="w-full bg-transparent border border-[#CBC9CA] rounded-lg pt-[6px] pb-[7px] px-1 text-center"
       >
         <span
-          class="font-causten text-[14px] leading-5 text-[#3C4242] font-semibold"
+          class="font-causten text-[14px] leading-5 text-black-100 font-semibold"
         >
           ${{ minValue }}
         </span>
@@ -92,7 +92,7 @@ watch(maxValueProps, (newValue) => {
         class="w-full bg-transparent border border-[#CBC9CA] rounded-lg pt-[6px] pb-[7px] px-1 text-center"
       >
         <span
-          class="font-causten text-[14px] leading-5 text-[#3C4242] font-semibold"
+          class="font-causten text-[14px] leading-5 text-black-100 font-semibold"
         >
           ${{ maxValue }}
         </span>

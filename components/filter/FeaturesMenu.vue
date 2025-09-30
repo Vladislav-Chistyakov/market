@@ -268,7 +268,7 @@ onMounted(() => {
               :class="{ 'ring-2': sizes.includes(size) }"
             >
               <span
-                class="font-causten text-[14px] leading-4 text-[#3C4242] font-semibold"
+                class="font-causten text-[14px] leading-4 text-black-100 font-semibold"
                 >{{ size }}</span
               >
             </button>

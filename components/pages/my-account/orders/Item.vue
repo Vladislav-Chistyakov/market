@@ -32,11 +32,11 @@ const generateDate = computed(() => {
   <li class="flex flex-col gap-[30px]">
     <div class="bg-[#F6F6F6] py-7 px-4 sm:px-12 rounded-lg">
       <div class="mb-4 flex justify-center gap-1 items-center sm:block">
-        <span class="text-[#3C4242] text-[14px] lg:text-xl font-semibold">
+        <span class="text-black-100 text-[14px] lg:text-xl font-semibold">
           Order id:
         </span>
 
-        <b class="text-[#3C4242] text-[16px] lg:text-[22px] font-semibold">
+        <b class="text-black-100 text-[16px] lg:text-[22px] font-semibold">
           {{ item.id }}
         </b>
       </div>
@@ -115,7 +115,7 @@ const generateDate = computed(() => {
 
             <p
               v-if="product.color"
-              class="mb-[5px] text-[#3C4242] font-bold text-[14px] leading-4 flex gap-[2px] text-nowrap"
+              class="mb-[5px] text-black-100 font-bold text-[14px] leading-4 flex gap-[2px] text-nowrap"
             >
               Color :
               <span class="text-gray-500 font-semibold">
@@ -125,7 +125,7 @@ const generateDate = computed(() => {
 
             <p
               v-if="product.count"
-              class="mb-[5px] text-[#3C4242] font-bold text-[14px] leading-4 flex gap-[2px] text-nowrap"
+              class="mb-[5px] text-black-100 font-bold text-[14px] leading-4 flex gap-[2px] text-nowrap"
             >
               Qty :
               <span class="text-gray-500 font-semibold">{{
