@@ -5,6 +5,7 @@ import type { Ref } from 'vue'
 const ordersList: Ref<any[]> = ref([])
 onMounted(async () => {
   ordersList.value = await useFirebaseFunctions().getOrders()
+  ordersList.value.reverse()
 })
 </script>
 
