@@ -75,22 +75,20 @@ const changeStatusProductWishlist = async function (productId: string) {
                   class="font-bold text-[22px] leading-[26px] flex gap-[2px] text-nowrap"
                 >
                   Color :
-                  <span class="text-[#807D7E] font-light">{{
-                    item.color
-                  }}</span>
+                  <span class="text-gray-600 font-light">{{ item.color }}</span>
                 </p>
 
                 <p
                   class="font-bold text-[22px] leading-[26px] flex gap-[2px] text-nowrap"
                 >
                   Quantity :
-                  <span class="text-[#807D7E] font-light">1</span>
+                  <span class="text-gray-600 font-light">1</span>
                 </p>
               </div>
               <div
                 class="flex flex-col lg:flex-row gap-5 lg:gap-[50px] lg:items-center lg:justify-end"
               >
-                <p class="font-bold text-[22px] leading-[26px] text-[#807D7E]">
+                <p class="font-bold text-[22px] leading-[26px] text-gray-600">
                   ${{ item.price }}
                 </p>
 

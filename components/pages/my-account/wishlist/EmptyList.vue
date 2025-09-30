@@ -33,7 +33,7 @@
       >
 
       <p
-        class="text-center font-medium text-[16px] leading-[18px] text-[#807D7E] mb-[42px]"
+        class="text-center font-medium text-[16px] leading-[18px] text-gray-600 mb-[42px]"
       >
         You don’t have any products in the wishlist yet. You will find a lot of
         interesting products on our Shop page.

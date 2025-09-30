@@ -61,7 +61,7 @@ onMounted(() => {
           Discount Codes
         </b>
 
-        <p class="text-[16px] leading-[19px] text-[#807D7E] mb-[41px]">
+        <p class="text-[16px] leading-[19px] text-gray-600 mb-[41px]">
           Enter your coupon code if you have one
         </p>
 

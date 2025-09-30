@@ -33,20 +33,20 @@ const cartStore = useCartStore()
                 class="mb-[5px] font-bold text-[14px] leading-[17px]"
               >
                 {{ item.name }}
-                <span v-if="item.count" class="text-[#807D7E]">
+                <span v-if="item.count" class="text-gray-600">
                   x {{ item.count }}
                 </span>
               </p>
 
               <p v-if="item.color" class="font-bold text-[14px] leading-[17px]">
                 Colour:
-                <span class="text-[#807D7E] font-light">{{ item.color }}</span>
+                <span class="text-gray-600 font-light">{{ item.color }}</span>
               </p>
             </div>
 
             <p
               v-if="item.price"
-              class="ml-auto font-bold text-[14px] leading-[17px] text-[#807D7E]"
+              class="ml-auto font-bold text-[14px] leading-[17px] text-gray-600"
             >
               ${{ Number(item.price).toFixed(2) }}
             </p>
@@ -57,7 +57,7 @@ const cartStore = useCartStore()
           <p class="font-bold text-[18px] leading-[22px]">
             Subtotal
 
-            <span class="font-light text-[#807D7E]"
+            <span class="font-light text-gray-600"
               >( {{ cartStore.totalCountProducts }} items )</span
             >
           </p>

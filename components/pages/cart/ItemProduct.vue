@@ -99,7 +99,7 @@ const removeOneItemFromCart = async function () {
           </b>
 
           <ul
-            class="flex flex-col gap-[5px] text-[14px] leading-[17px] text-[#807D7E] decoration-0"
+            class="flex flex-col gap-[5px] text-[14px] leading-[17px] text-gray-600 decoration-0"
           >
             <li v-if="item.color">Color: {{ item.color }}</li>
             <li v-if="item.size">Size: {{ item.size }}</li>

@@ -38,7 +38,7 @@
       </p>
 
       <span
-        class="lg:max-w-[462px] mx-auto text-center font-core-sans-c font-normal text-[12px] leading-4 lg:text-[16px] lg:leading-[18px] text-[#807D7E] mb-5 lg:mb-[42px]"
+        class="lg:max-w-[462px] mx-auto text-center font-core-sans-c font-normal text-[12px] leading-4 lg:text-[16px] lg:leading-[18px] text-gray-600 mb-5 lg:mb-[42px]"
       >
         The page you are looking for might have been removed or temporarily
         unavailable.

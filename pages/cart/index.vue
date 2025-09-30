@@ -275,7 +275,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
         </p>
 
         <span
-          class="text-center font-core-sans-c font-normal text-[12px] leading-4 lg:text-[16px] lg:leading-[18px] text-[#807D7E] mb-6 lg:mb-[50px]"
+          class="text-center font-core-sans-c font-normal text-[12px] leading-4 lg:text-[16px] lg:leading-[18px] text-gray-600 mb-6 lg:mb-[50px]"
         >
           Add something to make it happy!
         </span>
@@ -294,7 +294,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
         <div class="flex items-center gap-[15px] mb-[30px]">
           <nuxt-link
             to="/"
-            class="text-[18px] leading-[22px] text-[#807D7E] font-medium"
+            class="text-[18px] leading-[22px] text-gray-600 font-medium"
           >
             Home
           </nuxt-link>
@@ -322,14 +322,14 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
         </div>
 
         <div>
-          <p class="text-[14px] leading-[17px] text-[#807D7E]">
+          <p class="text-[14px] leading-[17px] text-gray-600">
             Please fill in the fields below and click place order to complete
             your purchase!
           </p>
 
           <p
             v-if="!userStore.isAuthorization"
-            class="text-[14px] leading-[17px] text-[#807D7E]"
+            class="text-[14px] leading-[17px] text-gray-600"
           >
             Already registered?
             <nuxt-link

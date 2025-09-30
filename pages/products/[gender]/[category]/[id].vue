@@ -298,7 +298,7 @@ const productInformation = computed(() => {
         <div class="md:max-w-[620px]">
           <p
             v-if="product && product.description"
-            class="font-causten text-[16px] leading-6 text-[#807D7E] font-normal mb-8"
+            class="font-causten text-[16px] leading-6 text-gray-600 font-normal mb-8"
           >
             {{ product.description }}
           </p>

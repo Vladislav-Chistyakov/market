@@ -31,7 +31,7 @@ async function updateDataOrderPage(event: any) {
     <div class="flex items-center gap-[15px] mb-[55px]">
       <nuxt-link
         to="/"
-        class="text-[18px] leading-[22px] text-[#807D7E] font-medium"
+        class="text-[18px] leading-[22px] text-gray-600 font-medium"
       >
         Home
       </nuxt-link>
@@ -55,7 +55,7 @@ async function updateDataOrderPage(event: any) {
 
       <nuxt-link
         to="/my-account/my-info"
-        class="text-[18px] leading-[22px] text-[#807D7E] font-medium"
+        class="text-[18px] leading-[22px] text-gray-600 font-medium"
       >
         My Account
       </nuxt-link>
@@ -77,7 +77,9 @@ async function updateDataOrderPage(event: any) {
         </svg>
       </div>
 
-      <p class="text-[18px] leading-[22px]text-color-black font-medium">Check Out</p>
+      <p class="text-[18px] leading-[22px]text-color-black font-medium">
+        Check Out
+      </p>
     </div>
 
     <UniversalBaseHeading title="Check Out" class="mb-[20px]" :small="true" />

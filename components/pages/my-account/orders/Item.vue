@@ -46,7 +46,7 @@ const generateDate = computed(() => {
           class="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-5"
         >
           <div class="flex flex-col sm:flex-row gap-0.5 items-center">
-            <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
+            <p class="text-gray-600 text-[14px] leading-4 font-semibold">
               Order Date :
             </p>
             <span
@@ -58,7 +58,7 @@ const generateDate = computed(() => {
           </div>
 
           <div class="flex flex-col sm:flex-row gap-0.5 items-center">
-            <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
+            <p class="text-gray-600 text-[14px] leading-4 font-semibold">
               Order Status :
             </p>
             <span class="text-gray-500 text-[14px] leading-4 font-normal">
@@ -71,7 +71,7 @@ const generateDate = computed(() => {
           class="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-5"
         >
           <div class="flex flex-col sm:flex-row gap-0.5 items-center">
-            <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
+            <p class="text-gray-600 text-[14px] leading-4 font-semibold">
               Estimated Delivery Date :
             </p>
             <span class="text-gray-500 text-[14px] leading-4 font-normal">
@@ -80,7 +80,7 @@ const generateDate = computed(() => {
           </div>
 
           <div class="flex flex-col sm:flex-row gap-0.5 items-center">
-            <p class="text-[#807D7E] text-[14px] leading-4 font-semibold">
+            <p class="text-gray-600 text-[14px] leading-4 font-semibold">
               Payment Method :
             </p>
             <span class="text-gray-500 text-[14px] leading-4 font-normal">
@@ -135,10 +135,10 @@ const generateDate = computed(() => {
 
             <p
               v-if="product.price"
-              class="text-[#807D7E] font-bold text-[14px] leading-4"
+              class="text-gray-600 font-bold text-[14px] leading-4"
             >
               Total :
-              <span class="text-[#807D7E] font-semibold">
+              <span class="text-gray-600 font-semibold">
                 ${{ product.price }}
               </span>
             </p>
@@ -151,7 +151,7 @@ const generateDate = computed(() => {
 
     <p>
       Total order amount:
-      <span class="text-[#807D7E] font-semibold"> ${{ item.totalPrice }} </span>
+      <span class="text-gray-600 font-semibold"> ${{ item.totalPrice }} </span>
     </p>
 
     <hr class="border-b border-t-0 border-[#EDEEF2]" />
