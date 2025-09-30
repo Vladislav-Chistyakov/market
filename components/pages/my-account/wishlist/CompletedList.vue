@@ -6,7 +6,7 @@ const wishlistStore = useWishlistStore()
 const route = useRoute()
 
 const list = computed(() => {
-  return wishlistStore.editedWishlistForPage
+  return wishlistStore.editedWishlistForPage.reverse()
 })
 
 const pendingList = computed(() => {
