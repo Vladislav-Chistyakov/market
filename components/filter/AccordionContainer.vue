@@ -15,9 +15,9 @@ const openAccordion = ref(true)
 <template>
   <div>
     <div
-      class="flex items-center justify-between gap-[14px] p-[20px_30px_30px_30px] border-b border-menu-gray font-semibold"
+      class="flex items-center justify-between gap-[14px] p-[20px_30px_30px_30px] border-b border-gray font-semibold"
     >
-      <b class="text-[22px] leading-[26px] text-text-gray-200">{{ title }}</b>
+      <b class="text-[22px] leading-[26px] text-color-gray-200">{{ title }}</b>
 
       <button @click="openAccordion = !openAccordion" class="flex h-full w-fit transition-transform" :class="[openAccordion ? 'rotate-0' : 'rotate-180']" aria-label="arrow">
         <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,7 +26,7 @@ const openAccordion = ref(true)
       </button>
     </div>
 
-    <div class="px-[16px] xl:px-[36px]" :class="{ 'border-b border-menu-gray' : openAccordion && borderBottomActive }">
+    <div class="px-[16px] xl:px-[36px]" :class="{ 'border-b border-gray' : openAccordion && borderBottomActive }">
       <Transition>
         <div v-if="openAccordion" class="py-10">
           <slot />

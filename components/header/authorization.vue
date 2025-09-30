@@ -23,7 +23,7 @@ const isSignUp = computed(() => route.path.includes('sign-up'))
       <input
         disabled
         type="text"
-        class="outline-none placeholder-text-gray-200 max-w-[120px] bg-gray-50 rounded-[8px] font-causten font-medium text-[18px] leading-[22px] text-text-gray-200"
+        class="outline-none placeholder-color-gray-200 max-w-[120px] bg-gray-50 rounded-[8px] font-causten font-medium text-[18px] leading-[22px] text-color-gray-200"
         placeholder="Search"
       />
     </label>

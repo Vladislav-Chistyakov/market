@@ -136,11 +136,11 @@ function listStar(starsNumber: number): StarsStatus {
             </ul>
           </div>
 
-          <b class="block font-core-sans-c font-medium text-[22px] text-black">
+          <b class="block font-core-sans-c font-medium text-[22px]text-color-black">
             {{ item.name }}
           </b>
 
-          <p class="font-causten text-[14px] font-normal text-text-gray-100">
+          <p class="font-causten text-[14px] font-normal text-color-gray-100">
             {{ item.review }}
           </p>
         </div>

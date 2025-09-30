@@ -6,7 +6,7 @@ const cartStore = useCartStore()
 
 <template>
   <div
-    class="h-fit text-black shadow-[2px_2px_4px_0_#0000000D] relative z-[2] after:absolute after:z-[-1] after:top-0 after:h-full after:w-full after:block after:content-[''] after:shadow-[-2px_-2px_4px_0_#0000000D]"
+    class="h-fittext-color-black shadow-[2px_2px_4px_0_#0000000D] relative z-[2] after:absolute after:z-[-1] after:top-0 after:h-full after:w-full after:block after:content-[''] after:shadow-[-2px_-2px_4px_0_#0000000D]"
   >
     <div class="px-[22px] py-[40px]">
       <b class="block text-[24px] leading-[24px] mb-[15px]"> Order Summary </b>

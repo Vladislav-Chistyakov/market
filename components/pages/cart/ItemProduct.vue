@@ -146,7 +146,7 @@ const removeOneItemFromCart = async function () {
 
           <p
             v-if="productCount"
-            class="font-medium text-black text-[12px] leading-[14px]"
+            class="font-mediumtext-color-black text-[12px] leading-[14px]"
           >
             {{ productCount }}
           </p>

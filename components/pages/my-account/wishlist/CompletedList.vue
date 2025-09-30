@@ -19,7 +19,7 @@ const changeStatusProductWishlist = async function (productId: string) {
 </script>
 
 <template>
-  <div class="font-causten text-black min-h-[656px]">
+  <div class="font-caustentext-color-black min-h-[656px]">
     <h1 class="mb-[58px] text-[29px] leading-[20px] font-semibold">Wishlist</h1>
 
     <client-only>

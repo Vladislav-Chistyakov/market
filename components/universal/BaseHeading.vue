@@ -24,7 +24,7 @@ withDefaults(defineProps<Props>(), {
     />
 
     <span
-      class="block font-core-sans-c font-semibold  text-black"
+      class="block font-core-sans-c font-semibold text-color-black"
       :class="[small ? 'text-[28px] leading-[28px]' : 'text-[34px] leading-[34px]']"
     >
       {{ title }}

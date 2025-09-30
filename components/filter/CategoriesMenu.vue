@@ -37,7 +37,7 @@ const listCategoriesMenuFilter = computed(() => {
 </script>
 
 <template>
-  <ul class="border-b border-menu-gray py-[31px]">
+  <ul class="border-b border-gray py-[31px]">
     <li
       v-for="(category, indexCategory) in listCategoriesMenuFilter"
       :key="indexCategory"

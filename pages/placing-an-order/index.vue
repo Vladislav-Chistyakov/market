@@ -77,7 +77,7 @@ async function updateDataOrderPage(event: any) {
         </svg>
       </div>
 
-      <p class="text-[18px] leading-[22px] text-black font-medium">Check Out</p>
+      <p class="text-[18px] leading-[22px]text-color-black font-medium">Check Out</p>
     </div>
 
     <UniversalBaseHeading title="Check Out" class="mb-[20px]" :small="true" />

@@ -13,38 +13,38 @@
       >
         <li>
           <b
-            class="block font-causten font-bold text-text-gray-50 text-[28px] leading-[32px] mb-[39px]"
+            class="block font-causten font-bold text-color-gray-50 text-[28px] leading-[32px] mb-[39px]"
           >
             Need Help
           </b>
 
           <ul class="flex flex-col gap-[22px]">
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Contact Us
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Track Order
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Returns & Refunds
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               FAQ's
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Career
             </li>
@@ -53,38 +53,38 @@
 
         <li>
           <b
-            class="block font-causten font-bold text-text-gray-50 text-[28px] leading-[32px] mb-[39px]"
+            class="block font-causten font-bold text-color-gray-50 text-[28px] leading-[32px] mb-[39px]"
           >
             Company
           </b>
 
           <ul class="flex flex-col gap-[22px]">
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               About Us
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               euphoria Blog
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               euphoriastan
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Collaboration
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Media
             </li>
@@ -93,32 +93,32 @@
 
         <li>
           <b
-            class="block font-causten font-bold text-text-gray-50 text-[28px] leading-[32px] mb-[39px]"
+            class="block font-causten font-bold text-color-gray-50 text-[28px] leading-[32px] mb-[39px]"
           >
             More Info
           </b>
 
           <ul class="flex flex-col gap-[22px]">
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Term and Conditions
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Privacy Policy
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Shipping Policy
             </li>
 
             <li
-              class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+              class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
             >
               Sitemap
             </li>
@@ -129,26 +129,26 @@
       <!-- Блок Location      -->
       <div class="">
         <b
-          class="block font-causten font-bold text-text-gray-50 text-[28px] leading-[32px] mb-[39px]"
+          class="block font-causten font-bold text-color-gray-50 text-[28px] leading-[32px] mb-[39px]"
         >
           Location
         </b>
 
         <ul class="flex flex-col gap-[22px]">
           <li
-            class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+            class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
           >
             support@euphoria.in
           </li>
 
           <li
-            class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+            class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
           >
             Eklingpura Chouraha, Ahmedabad Main Road
           </li>
 
           <li
-            class="font-causten font-bold text-text-gray-50 text-[18px] leading-[22px]"
+            class="font-causten font-bold text-color-gray-50 text-[18px] leading-[22px]"
           >
             (NH 8- Near Mahadev Hotel) Udaipur, India- 313002
           </li>
@@ -187,7 +187,7 @@
       <!--  Блок скачать приложение через store  -->
       <div>
         <strong
-          class="block mb-3 md:mb-5 lg:mb-6 xl:mb-9 font-causten font-bold text-text-gray-50 text-[28px] leading-8"
+          class="block mb-3 md:mb-5 lg:mb-6 xl:mb-9 font-causten font-bold text-color-gray-50 text-[28px] leading-8"
         >
           Download The App
         </strong>

@@ -87,7 +87,7 @@ async function submitForm() {
 <template>
   <div>
     <b
-      class="block text-[24px] leading-[26px] font-bold text-black mb-6 md:mb-[56px]"
+      class="block text-[24px] leading-[26px] font-boldtext-color-black mb-6 md:mb-[56px]"
     >
       Billing Details pending - {{ pending }}
     </b>
@@ -109,7 +109,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               First Name*
             </p>
@@ -139,7 +139,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               Last Name*
             </p>
@@ -169,7 +169,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               Country / Region*
             </p>
@@ -199,7 +199,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               Company Name
             </p>
@@ -219,7 +219,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               Street Address*
             </p>
@@ -249,7 +249,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               Apt, suite, unit
             </p>
@@ -269,7 +269,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               City*
             </p>
@@ -299,7 +299,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               State*
             </p>
@@ -329,7 +329,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               Postal Code*
             </p>
@@ -359,7 +359,7 @@ async function submitForm() {
         >
           <template #label>
             <p
-              class="font-causten mb-[9px] text-[16px] leading-[18px] text-black font-semibold"
+              class="font-causten mb-[9px] text-[16px] leading-[18px]text-color-black font-semibold"
             >
               Phone*
             </p>

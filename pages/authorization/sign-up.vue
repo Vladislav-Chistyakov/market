@@ -70,7 +70,7 @@ async function createAccount() {
       <div class="pt-4 pb-12 xl:pb-8 xl:pt-[50px]">
         <button
           disabled
-          class="mb-3 xl:mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          class="mb-3 xl:mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-color-black rounded-lg"
         >
           <img
             src="@/assets/images/pages/authorization/icon/google.svg"
@@ -86,7 +86,7 @@ async function createAccount() {
 
         <button
           disabled
-          class="mb-5 xl:mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          class="mb-5 xl:mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-color-black rounded-lg"
         >
           <img
             src="@/assets/images/pages/authorization/icon/twitter.svg"
@@ -112,7 +112,7 @@ async function createAccount() {
           >
             <template #label>
               <span
-                class="text-black font-causten text-[18px] leading-5 mb-[10px]"
+                class="text-color-black font-causten text-[18px] leading-5 mb-[10px]"
               >
                 Email Address
               </span>
@@ -131,7 +131,7 @@ async function createAccount() {
             <template #label>
               <div class="flex items-center justify-between gap-2">
                 <span
-                  class="text-black font-causten text-[18px] leading-5 mb-[10px]"
+                  class="text-color-black font-causten text-[18px] leading-5 mb-[10px]"
                 >
                   Password
                 </span>
@@ -156,7 +156,7 @@ async function createAccount() {
                   />
 
                   <span
-                    class="text-black font-causten text-[18px] leading-5"
+                    class="text-color-black font-causten text-[18px] leading-5"
                     :class="[
                       statusHidePassword ? 'text-purple' : 'text-gray-300',
                     ]"
@@ -184,7 +184,7 @@ async function createAccount() {
           </button>
 
           <p
-            class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
+            class="inline-block w-fittext-color-black font-causten text-[16px] leading-[18px]"
           >
             Already have an account?
             <NuxtLink

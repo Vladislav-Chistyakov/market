@@ -54,7 +54,7 @@ async function loginYourAccount() {
     <template #default>
       <div class="pt-4 pb-12 xl:pb-8 xl:pt-[50px]">
         <button
-          class="mb-3 xl:mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          class="mb-3 xl:mb-5 flex items-center justify-center gap-3 w-full p-[15px] border border-color-black rounded-lg"
           disabled
           type="button"
         >
@@ -71,7 +71,7 @@ async function loginYourAccount() {
         </button>
 
         <button
-          class="mb-5 xl:mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-text-black rounded-lg"
+          class="mb-5 xl:mb-[50px] flex items-center justify-center gap-3 w-full p-[15px] border border-color-black rounded-lg"
           disabled
           type="button"
         >
@@ -111,7 +111,7 @@ async function loginYourAccount() {
           >
             <template #label>
               <span
-                class="text-black font-causten text-[18px] leading-5 mb-[10px]"
+                class="text-color-black font-causten text-[18px] leading-5 mb-[10px]"
               >
                 User name or email address
               </span>
@@ -130,7 +130,7 @@ async function loginYourAccount() {
             <template #label>
               <div class="flex items-center justify-between gap-2">
                 <span
-                  class="text-black font-causten text-[18px] leading-5 mb-[10px]"
+                  class="text-color-black font-causten text-[18px] leading-5 mb-[10px]"
                 >
                   Password
                 </span>
@@ -155,7 +155,7 @@ async function loginYourAccount() {
                   />
 
                   <span
-                    class="text-black font-causten text-[18px] leading-5"
+                    class="text-color-black font-causten text-[18px] leading-5"
                     :class="[
                       statusHidePassword ? 'text-purple' : 'text-gray-300',
                     ]"
@@ -175,7 +175,7 @@ async function loginYourAccount() {
 
           <NuxtLink
             to="/authorization/reset-password"
-            class="block mb-4 xl:mb-0 ml-auto w-fit text-black underline font-causten text-[16px] leading-[18px]"
+            class="block mb-4 xl:mb-0 ml-auto w-fittext-color-black underline font-causten text-[16px] leading-[18px]"
           >
             Forget your password
           </NuxtLink>
@@ -190,7 +190,7 @@ async function loginYourAccount() {
           </button>
 
           <p
-            class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
+            class="inline-block w-fittext-color-black font-causten text-[16px] leading-[18px]"
           >
             Don’t have an account?
             <NuxtLink

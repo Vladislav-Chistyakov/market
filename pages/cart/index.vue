@@ -316,7 +316,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
             </svg>
           </div>
 
-          <p class="text-[18px] leading-[22px] text-black font-medium">
+          <p class="text-[18px] leading-[22px]text-color-black font-medium">
             Add To Cart
           </p>
         </div>

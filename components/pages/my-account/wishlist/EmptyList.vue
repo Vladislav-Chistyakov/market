@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="mb-[100px] font-causten max-w-[692px] w-fit mx-auto h-fit text-black shadow-[2px_2px_4px_0_#0000000D] relative z-[2] after:absolute after:z-[-1] after:top-0 after:h-full after:w-full after:block after:content-[''] after:shadow-[-2px_-2px_4px_0_#0000000D]"
+    class="mb-[100px] font-causten max-w-[692px] w-fit mx-auto h-fittext-color-black shadow-[2px_2px_4px_0_#0000000D] relative z-[2] after:absolute after:z-[-1] after:top-0 after:h-full after:w-full after:block after:content-[''] after:shadow-[-2px_-2px_4px_0_#0000000D]"
   >
     <div
       class="px-8 lg:px-[118px] py-6 lg:py-[78px] flex flex-col justify-center items-center"

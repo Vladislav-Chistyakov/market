@@ -73,12 +73,12 @@ const updateStatusProductId = computed(
       <div class="flex gap-[15px] justify-between">
         <div>
           <b
-            class="block font-semibold text-[16px] leading-[18px] text-black mb-[5px]"
+            class="block font-semibold text-[16px] leading-[18px]text-color-black mb-[5px]"
           >
             {{ item.name }}
           </b>
 
-          <p class="font-medium text-[14px] leading-[16px] text-text-gray-200">
+          <p class="font-medium text-[14px] leading-[16px] text-color-gray-200">
             {{ item.brands || 'No brands' }}
           </p>
         </div>
@@ -86,7 +86,7 @@ const updateStatusProductId = computed(
         <nuxt-link
           target="_blank"
           :href="linkProductPage"
-          class="flex items-center justify-center text-center text-black p-[10px] bg-text-gray-50 font-bold text-[14px] leading-[16px] min-w-[82px] rounded-[8px]"
+          class="flex items-center justify-center text-centertext-color-black p-[10px] bg-color-gray-50 font-bold text-[14px] leading-[16px] min-w-[82px] rounded-[8px]"
         >
           ${{ item.price }}
         </nuxt-link>

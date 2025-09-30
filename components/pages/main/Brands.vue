@@ -13,7 +13,7 @@
         class="font-causten text-[22px] text-white mb-[32px] lg:mb-[64px] text-center"
       >
         Up To
-        <span class="text-text-yellow font-causten font-bold">60%</span>
+        <span class="text-color-yellow font-causten font-bold">60%</span>
         off on brands
       </p>
 

@@ -123,14 +123,14 @@ const productInformation = computed(() => {
 
         <h2
           v-if="product && product.name"
-          class="font-core-sans-c font-semibold text-[34px] leading-[40px] text-black mb-6"
+          class="font-core-sans-c font-semibold text-[34px] leading-[40px]text-color-black mb-6"
         >
           {{ product.name }}
         </h2>
 
         <div class="mb-[34px]">
           <p
-            class="font-causten font-semibold text-[18px] leading-[18px] text-black mb-6"
+            class="font-causten font-semibold text-[18px] leading-[18px]text-color-black mb-6"
           >
             Select size
           </p>
@@ -144,7 +144,7 @@ const productInformation = computed(() => {
                   'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
                     form.size === size,
                 }"
-                class="flex justify-center items-center h-[38px] w-[38px] rounded-[12px] border-gray-border border text-black font-causten font-medium text-[14px] leading-[14px]"
+                class="flex justify-center items-center h-[38px] w-[38px] rounded-[12px] border-gray-border bordertext-color-black font-causten font-medium text-[14px] leading-[14px]"
               >
                 {{ size }}
               </button>
@@ -154,7 +154,7 @@ const productInformation = computed(() => {
 
         <div v-if="colors.length" class="mb-[34px]">
           <p
-            class="font-causten font-semibold text-[18px] leading-[18px] text-black mb-6"
+            class="font-causten font-semibold text-[18px] leading-[18px]text-color-black mb-6"
           >
             Colours Available
           </p>
@@ -219,7 +219,7 @@ const productInformation = computed(() => {
 
             <div
               v-if="product && product.price"
-              class="px-[39px] py-[13px] text-black font-causten font-bold text-[18px] leading-[18px] rounded border border-black"
+              class="px-[39px] py-[13px]text-color-black font-causten font-bold text-[18px] leading-[18px] rounded border border-black"
             >
               ${{ product.price }}
             </div>
@@ -233,7 +233,7 @@ const productInformation = computed(() => {
         >
           <li class="flex items-center gap-[15px]">
             <div
-              class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
+              class="flex justify-center items-center h-11 w-11 rounded-full bg-color-gray-50"
             >
               <img
                 src="@/assets/images/pages/product/credit-card.svg"
@@ -248,7 +248,7 @@ const productInformation = computed(() => {
 
           <li class="flex items-center gap-[15px]">
             <div
-              class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
+              class="flex justify-center items-center h-11 w-11 rounded-full bg-color-gray-50"
             >
               <img
                 src="@/assets/images/pages/product/Size-&-Fit.svg"
@@ -263,7 +263,7 @@ const productInformation = computed(() => {
 
           <li class="flex items-center gap-[15px]">
             <div
-              class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
+              class="flex justify-center items-center h-11 w-11 rounded-full bg-color-gray-50"
             >
               <img src="@/assets/images/pages/product/truck.svg" alt="basket" />
             </div>
@@ -275,7 +275,7 @@ const productInformation = computed(() => {
 
           <li class="flex items-center gap-[15px]">
             <div
-              class="flex justify-center items-center h-11 w-11 rounded-full bg-text-gray-50"
+              class="flex justify-center items-center h-11 w-11 rounded-full bg-color-gray-50"
             >
               <img
                 src="@/assets/images/pages/product/Free-Shipping-&-Returns.svg"
@@ -339,12 +339,12 @@ const productInformation = computed(() => {
                     ]"
                   >
                     <span
-                      class="block text-text-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
+                      class="block text-color-gray-200 font-causten font-normal text-4 leading-4 mb-[12px]"
                     >
                       {{ item.label }}
                     </span>
                     <p
-                      class="text-black font-causten font-medium text-4 leading-4"
+                      class="text-color-black font-causten font-medium text-4 leading-4"
                     >
                       {{ item.value }}
                     </p>

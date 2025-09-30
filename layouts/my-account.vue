@@ -23,7 +23,7 @@ enum Pages {
         />
 
         <p
-          class="font-core-sans-c text-[13px] leading-[15px] text-text-gray-200 mb-[32px]"
+          class="font-core-sans-c text-[13px] leading-[15px] text-color-gray-200 mb-[32px]"
         >
           Welcome to your Account
         </p>
@@ -42,7 +42,7 @@ enum Pages {
               />
 
               <span
-                class="block font-causten font-semibold text-[18px] leading-[20px] text-text-gray-200"
+                class="block font-causten font-semibold text-[18px] leading-[20px] text-color-gray-200"
               >
                 My orders
               </span>
@@ -62,7 +62,7 @@ enum Pages {
               />
 
               <span
-                class="block font-causten font-semibold text-[18px] leading-[20px] text-text-gray-200"
+                class="block font-causten font-semibold text-[18px] leading-[20px] text-color-gray-200"
               >
                 Wishlist
               </span>
@@ -79,7 +79,7 @@ enum Pages {
               <img src="@/assets/images/pages/my-account/user.svg" alt="user" />
 
               <span
-                class="block font-causten font-semibold text-[18px] leading-[20px] text-text-gray-200"
+                class="block font-causten font-semibold text-[18px] leading-[20px] text-color-gray-200"
               >
                 My info
               </span>
@@ -96,7 +96,7 @@ enum Pages {
               />
 
               <span
-                class="block font-causten font-semibold text-[18px] leading-[20px] text-text-gray-200"
+                class="block font-causten font-semibold text-[18px] leading-[20px] text-color-gray-200"
               >
                 Sign out
               </span>
@@ -116,6 +116,6 @@ enum Pages {
 
 <style scoped>
 .nuxt-link-active {
-  @apply border-text-black bg-text-gray-50 rounded-r-lg;
+  @apply border-color-black bg-color-gray-50 rounded-r-lg;
 }
 </style>
