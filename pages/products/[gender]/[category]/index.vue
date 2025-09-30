@@ -51,7 +51,7 @@ watch(productsList, (newValue, oldValue) => {
         <ListClothes :list="list" title="Products" class="mt-[33px]" />
         <div
           v-if="isFilteredList"
-          class="text-[20px] text-center pt-20 w-fulltext-color-black font-core-sans-c"
+          class="text-[20px] text-center pt-20 w-full text-black font-core-sans-c"
         >
           По этим фильтрам список пуст
         </div>

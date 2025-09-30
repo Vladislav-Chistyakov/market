@@ -30,7 +30,7 @@ const generateDate = computed(() => {
 
 <template>
   <li class="flex flex-col gap-[30px]">
-    <div class="bg-[#F6F6F6] py-7 px-4 sm:px-12 rounded-lg">
+    <div class="bg-gray-50 py-7 px-4 sm:px-12 rounded-lg">
       <div class="mb-4 flex justify-center gap-1 items-center sm:block">
         <span class="text-black-100 text-[14px] lg:text-xl font-semibold">
           Order id:
@@ -145,7 +145,7 @@ const generateDate = computed(() => {
           </div>
         </div>
 
-        <hr class="border-b border-t-0 border-[#EDEEF2]" />
+        <hr class="border-b border-t-0 border-gray-70" />
       </li>
     </ul>
 
@@ -154,7 +154,7 @@ const generateDate = computed(() => {
       <span class="text-gray-600 font-semibold"> ${{ item.totalPrice }} </span>
     </p>
 
-    <hr class="border-b border-t-0 border-[#EDEEF2]" />
+    <hr class="border-b border-t-0 border-[#`EDEEF2`]" />
   </li>
 </template>
 

@@ -19,7 +19,7 @@ const changeStatusProductWishlist = async function (productId: string) {
 </script>
 
 <template>
-  <div class="font-caustentext-color-black min-h-[656px]">
+  <div class="font-causten text-black min-h-[656px]">
     <h1 class="mb-[58px] text-[29px] leading-[20px] font-semibold">Wishlist</h1>
 
     <client-only>
@@ -30,7 +30,7 @@ const changeStatusProductWishlist = async function (productId: string) {
         <li
           v-for="(item, index) in list"
           :key="index + item.id"
-          class="flex flex-col-reverse lg:flex-row gap-[30px] lg:gap-[36px] lg:items-center border-b border-[#EDEEF2] pb-[30px]"
+          class="flex flex-col-reverse lg:flex-row gap-[30px] lg:gap-[36px] lg:items-center border-b border-gray-70 pb-[30px]"
         >
           <button
             @click.prevent="changeStatusProductWishlist(item.id)"

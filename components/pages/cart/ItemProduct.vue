@@ -121,7 +121,7 @@ const removeOneItemFromCart = async function () {
     <td class="pt-[50px]">
       <div class="pb-[50px] flex justify-center items-center">
         <div
-          class="flex flex-row gap-4 items-center py-[11px] px-[23px] bg-[#F6F6F6] rounded-[12px]"
+          class="flex flex-row gap-4 items-center py-[11px] px-[23px] bg-gray-50 rounded-[12px]"
         >
           <button
             @click="removeOneItemFromCart"
@@ -146,7 +146,7 @@ const removeOneItemFromCart = async function () {
 
           <p
             v-if="productCount"
-            class="font-mediumtext-color-black text-[12px] leading-[14px]"
+            class="font-medium text-black text-[12px] leading-[14px]"
           >
             {{ productCount }}
           </p>

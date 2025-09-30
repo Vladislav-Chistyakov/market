@@ -39,7 +39,7 @@
 
           <div class="flex flex-col items-center gap-5">
             <b
-              class="font-core-sans-c max-w-[230px] text-center font-semibold text-[22px] leading-[24px] lg:text-[34px] lg:leading-[36px]text-color-black"
+              class="font-core-sans-c max-w-[230px] text-center font-semibold text-[22px] leading-[24px] lg:text-[34px] lg:leading-[36px] text-black"
             >
               Your Order is Confirmed
             </b>

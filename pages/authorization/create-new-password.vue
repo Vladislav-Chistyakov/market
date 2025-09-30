@@ -93,7 +93,7 @@ async function createPassword() {
             <template #label>
               <div class="flex items-center justify-between gap-2">
                 <span
-                  class="text-color-black font-causten text-[18px] leading-5 mb-[10px]"
+                  class="text-black font-causten text-[18px] leading-5 mb-[10px]"
                 >
                   Password
                 </span>
@@ -118,7 +118,7 @@ async function createPassword() {
                   />
 
                   <span
-                    class="text-color-black font-causten text-[18px] leading-5"
+                    class="text-black font-causten text-[18px] leading-5"
                     :class="[
                       statusHidePassword ? 'text-purple' : 'text-gray-300',
                     ]"
@@ -142,7 +142,7 @@ async function createPassword() {
             <template #label>
               <div class="flex items-center justify-between gap-2">
                 <span
-                  class="text-color-black font-causten text-[18px] leading-5 mb-[10px]"
+                  class="text-black font-causten text-[18px] leading-5 mb-[10px]"
                 >
                   Confirm Password
                 </span>
@@ -169,7 +169,7 @@ async function createPassword() {
             <NuxtLink
               v-if="errorCode === 'auth/invalid-action-code'"
               to="/authorization/reset-password"
-              class="block ml-auto w-fittext-color-black underline font-causten text-[16px] leading-[18px]"
+              class="block ml-auto w-fit text-black underline font-causten text-[16px] leading-[18px]"
             >
               Forget your password
             </NuxtLink>
@@ -178,7 +178,7 @@ async function createPassword() {
 
         <div v-else>
           <p
-            class="block w-fittext-color-black font-causten text-[24px] leading-[26px] mb-[12px]"
+            class="block w-fit text-black font-causten text-[24px] leading-[26px] mb-[12px]"
           >
             Password successfully changed. You can go to the
             <NuxtLink

@@ -54,7 +54,7 @@ async function resetPassword() {
           >
             <template #label>
               <span
-                class="text-color-black font-causten text-[18px] leading-5 mb-[10px]"
+                class="text-black font-causten text-[18px] leading-5 mb-[10px]"
               >
                 Email
               </span>
@@ -77,7 +77,7 @@ async function resetPassword() {
           </button>
 
           <p
-            class="inline-block w-fittext-color-black font-causten text-[16px] leading-[18px]"
+            class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
           >
             Back to
             <NuxtLink
@@ -92,13 +92,13 @@ async function resetPassword() {
 
         <div v-else>
           <p
-            class="block w-fittext-color-black font-causten text-[24px] leading-[26px] mb-[12px]"
+            class="block w-fit text-black font-causten text-[24px] leading-[26px] mb-[12px]"
           >
             A link to reset your password has been sent to your email!
           </p>
 
           <p
-            class="inline-block w-fittext-color-black font-causten text-[16px] leading-[18px]"
+            class="inline-block w-fit text-black font-causten text-[16px] leading-[18px]"
           >
             Back to
             <NuxtLink

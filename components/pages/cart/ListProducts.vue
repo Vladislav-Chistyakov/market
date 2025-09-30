@@ -38,7 +38,7 @@ withDefaults(defineProps<Props>(), {
         </th>
       </tr>
     </thead>
-    <tbody class="bg-whitetext-color-black">
+    <tbody class="bg-white text-black">
       <!-- Loading -->
       <tr v-if="pending">
         <td colspan="6" class="p-[20px] text-center text-[22px] leading-[26px]">

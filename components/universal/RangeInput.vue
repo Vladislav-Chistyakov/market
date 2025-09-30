@@ -79,7 +79,7 @@ watch(maxValueProps, (newValue) => {
     <!-- Вывод значений -->
     <div class="flex justify-between text-sm gap-[30px]">
       <div
-        class="w-full bg-transparent border border-[#CBC9CA] rounded-lg pt-[6px] pb-[7px] px-1 text-center"
+        class="w-full bg-transparent border border-gray-150 rounded-lg pt-[6px] pb-[7px] px-1 text-center"
       >
         <span
           class="font-causten text-[14px] leading-5 text-black-100 font-semibold"
@@ -89,7 +89,7 @@ watch(maxValueProps, (newValue) => {
       </div>
 
       <div
-        class="w-full bg-transparent border border-[#CBC9CA] rounded-lg pt-[6px] pb-[7px] px-1 text-center"
+        class="w-full bg-transparent border border-gray-150 rounded-lg pt-[6px] pb-[7px] px-1 text-center"
       >
         <span
           class="font-causten text-[14px] leading-5 text-black-100 font-semibold"

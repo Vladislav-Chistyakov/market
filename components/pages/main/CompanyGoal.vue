@@ -27,7 +27,7 @@
 
         <nuxt-link
           to="/products/female"
-          class="py-[12px] px-[42px] bg-white rounded-[8px] text-color-black text-[18px] leading-[22px] font-semibold"
+          class="py-[12px] px-[42px] bg-white rounded-[8px] text-black text-[18px] leading-[22px] font-semibold"
         >
           Shop Now
         </nuxt-link>

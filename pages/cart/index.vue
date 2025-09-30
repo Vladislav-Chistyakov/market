@@ -24,7 +24,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
   <div class="font-causten">
     <div
       v-if="arrayCartProduct.length === 0"
-      class="flex justify-center items-center flex-col container xl:max-w-[1440px] bg-[#F6F6F6] py-12 lg:py-[105px]"
+      class="flex justify-center items-center flex-col container xl:max-w-[1440px] bg-gray-50 py-12 lg:py-[105px]"
     >
       <svg
         class="max-w-[310px] mb-8 lg:mb-[50px]"
@@ -269,7 +269,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
 
       <div class="flex flex-col">
         <p
-          class="text-center font-core-sans-c font-semibold text-[22px] leading-[24px] lg:text-[34px] lg:leading-[36px] text-[#000000] mb-[11px]"
+          class="text-center font-core-sans-c font-semibold text-[22px] leading-[24px] lg:text-[34px] lg:leading-[36px] text-white mb-[11px]"
         >
           Your cart is empty and sad :(
         </p>
@@ -316,7 +316,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct)
             </svg>
           </div>
 
-          <p class="text-[18px] leading-[22px]text-color-black font-medium">
+          <p class="text-[18px] leading-[22px] text-black font-medium">
             Add To Cart
           </p>
         </div>

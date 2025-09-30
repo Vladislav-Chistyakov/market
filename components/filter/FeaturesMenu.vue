@@ -264,7 +264,7 @@ onMounted(() => {
           <li v-for="size in allSizes" :key="size">
             <button
               @click="changeSizesFilters(size)"
-              class="w-full bg-transparent border border-[#CBC9CA] rounded-lg pt-[6px] pb-[7px] px-1 text-center"
+              class="w-full bg-transparent border border-gray-150 rounded-lg pt-[6px] pb-[7px] px-1 text-center"
               :class="{ 'ring-2': sizes.includes(size) }"
             >
               <span

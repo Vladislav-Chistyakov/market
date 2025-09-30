@@ -24,7 +24,7 @@ withDefaults(defineProps<Props>(), {
 
       <div v-else class="flex h-full items-center w-full">
         <p
-          class="w-fulltext-color-black font-causten font-semibold text-[16px] leading-[18px] text-center"
+          class="w-full text-black font-causten font-semibold text-[16px] leading-[18px] text-center"
         >
           Loading...
         </p>

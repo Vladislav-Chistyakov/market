@@ -39,11 +39,11 @@ function parsePhoneValue(phone: string | null) {
 
       <input
         v-maska="'+7 (###) ###-##-##'"
-        class="font-causten w-full block focus-visible:outline-0 border rounded-[8px] text-[14px] leading-[16px]text-color-black"
+        class="font-causten w-full block focus-visible:outline-0 border rounded-[8px] text-[14px] leading-[16px] text-black"
         :class="{
-          'border-[#F6F6F6] bg-[#F6F6F6] p-[16px_20px] placeholder:placeholder-gray-600':
+          'border-gray-50 bg-gray-50 p-[16px_20px] placeholder:placeholder-gray-600':
             styleInput === 'gray',
-          'border-black px-[19px] py-[20px] placeholder:placeholder-color-gray-200':
+          'border-black px-[19px] py-[20px] placeholder:placeholder-gray-200':
             styleInput === 'white',
           '!border-red': errorStyle,
         }"

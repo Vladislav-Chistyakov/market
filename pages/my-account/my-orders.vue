@@ -10,10 +10,10 @@ onMounted(async () => {
 
 <template>
   <NuxtLayout name="my-account">
-    <div class="font-caustentext-color-black min-h-[656px]">
+    <div class="font-causten text-black min-h-[656px]">
       <h1 class="mb-5 text-[29px] leading-5 font-semibold">My Orders</h1>
 
-      <hr class="border-b border-[#F6F6F6] mb-5" />
+      <hr class="border-b border-gray-50 mb-5" />
 
       <client-only>
         <template v-if="ordersList && ordersList.length > 0">

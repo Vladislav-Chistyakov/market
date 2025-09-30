@@ -43,7 +43,7 @@ const modules = [Pagination, Scrollbar]
 
           <nuxt-link
             to="/products/female"
-            class="block w-fit bg-white rounded-[8px] px-8 py-4 xl:px-[72px] xl:py-[16px] text-color-black font-causten text-[20px] leading-6 xl:text-[24px] xl:leading-7 font-bold"
+            class="block w-fit bg-white rounded-[8px] px-8 py-4 xl:px-[72px] xl:py-[16px] text-black font-causten text-[20px] leading-6 xl:text-[24px] xl:leading-7 font-bold"
           >
             Shop Now
           </nuxt-link>
@@ -74,7 +74,7 @@ const modules = [Pagination, Scrollbar]
 
           <nuxt-link
             to="/products/female"
-            class="block w-fit bg-white rounded-[8px] px-8 py-4 xl:px-[72px] xl:py-[16px] text-color-black font-causten text-[20px] leading-6 xl:text-[24px] xl:leading-7 font-bold"
+            class="block w-fit bg-white rounded-[8px] px-8 py-4 xl:px-[72px] xl:py-[16px] text-black font-causten text-[20px] leading-6 xl:text-[24px] xl:leading-7 font-bold"
           >
             Shop Now
           </nuxt-link>

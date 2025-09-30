@@ -42,7 +42,7 @@ withDefaults(defineProps<Props>(), {
           <div class="flex justify-between gap-2.5">
             <div>
               <b
-                class="block font-causten font-bold text-[18px] leading-[26px]text-color-black"
+                class="block font-causten font-bold text-[18px] leading-[26px] text-black"
               >
                 {{ item.category[0].toUpperCase() + item.category.slice(1) }}
               </b>

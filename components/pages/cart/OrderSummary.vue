@@ -54,10 +54,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container max-w-full xl:max-w-[1440px] bg-[#F6F6F6]">
+  <div class="container max-w-full xl:max-w-[1440px] bg-gray-50">
     <div class="flex flex-col lg:flex-row gap-5 justify-between font-causten">
       <div class="py-[29px]">
-        <b class="block text-[24px] leading-[29px]text-color-black mb-[10px]">
+        <b class="block text-[24px] leading-[29px] text-black mb-[10px]">
           Discount Codes
         </b>
 
@@ -96,7 +96,7 @@ onMounted(() => {
 
         <nuxt-link
           to="/products/male/"
-          class="disabled:opacity-40 bg-white rounded-[8px] border border-gray-500text-color-black text-[16px] font-semibold leading-[19px] px-[49px] py-[11px]"
+          class="disabled:opacity-40 bg-white rounded-[8px] border border-gray-500 text-black text-[16px] font-semibold leading-[19px] px-[49px] py-[11px]"
         >
           Continue Shopping
         </nuxt-link>
@@ -109,28 +109,28 @@ onMounted(() => {
           <table border="1" cellpadding="8" cellspacing="0">
             <tbody>
               <tr
-                class="font-medium font-caustentext-color-black text-[22px] leading-[26px]"
+                class="font-medium font-causten text-black text-[22px] leading-[26px]"
               >
                 <td>Sub Total</td>
                 <td>${{ cartStore.subtotalProducts }}</td>
               </tr>
 
               <tr
-                class="font-medium font-caustentext-color-black text-[22px] leading-[26px]"
+                class="font-medium font-causten text-black text-[22px] leading-[26px]"
               >
                 <td>Shipping</td>
                 <td>${{ cartStore.shippingAmount }}</td>
               </tr>
 
               <tr
-                class="font-medium font-caustentext-color-black text-[22px] leading-[26px]"
+                class="font-medium font-causten text-black text-[22px] leading-[26px]"
               >
                 <td>Saving</td>
                 <td>${{ cartStore.saving }}</td>
               </tr>
 
               <tr
-                class="font-bold font-caustentext-color-black text-[22px] leading-[26px]"
+                class="font-bold font-causten text-black text-[22px] leading-[26px]"
               >
                 <td>Grand Total</td>
                 <td>${{ cartStore.fullAmount }}</td>

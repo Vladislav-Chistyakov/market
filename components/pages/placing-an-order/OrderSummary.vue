@@ -6,19 +6,19 @@ const cartStore = useCartStore()
 
 <template>
   <div
-    class="h-fittext-color-black shadow-[2px_2px_4px_0_#0000000D] relative z-[2] after:absolute after:z-[-1] after:top-0 after:h-full after:w-full after:block after:content-[''] after:shadow-[-2px_-2px_4px_0_#0000000D]"
+    class="h-fit text-black shadow-[2px_2px_4px_0_#0000000D] relative z-[2] after:absolute after:z-[-1] after:top-0 after:h-full after:w-full after:block after:content-[''] after:shadow-[-2px_-2px_4px_0_#0000000D]"
   >
     <div class="px-[22px] py-[40px]">
       <b class="block text-[24px] leading-[24px] mb-[15px]"> Order Summary </b>
 
-      <hr class="border-[#EDEEF2]" />
+      <hr class="border-gray-70" />
 
       <template v-if="cartStore.arrayCartProduct.length">
         <ul class="flex flex-col gap-[15px] pt-[15px] mb-[15px]">
           <li
             v-for="(item, index) in cartStore.arrayCartProduct"
             :key="index"
-            class="flex gap-[15px] items-center border-b border-[#EDEEF2] pb-[15px]"
+            class="flex gap-[15px] items-center border-b border-gray-70 pb-[15px]"
           >
             <img
               v-if="item.imgSrc"
@@ -75,7 +75,7 @@ const cartStore = useCartStore()
           >
         </div>
 
-        <hr class="border-[#EDEEF2] block mb-[15px]" />
+        <hr class="border-gray-70 block mb-[15px]" />
 
         <div class="flex items-center justify-between gap-[10px] mb-[15px]">
           <p class="font-bold text-[18px] leading-[22px]">Shipping</p>
@@ -85,7 +85,7 @@ const cartStore = useCartStore()
           >
         </div>
 
-        <hr class="border-[#EDEEF2] block mb-[15px]" />
+        <hr class="border-gray-70 block mb-[15px]" />
 
         <div class="flex items-center justify-between gap-[10px]">
           <p class="font-bold text-[18px] leading-[22px]">Total</p>

@@ -10,7 +10,7 @@ const props = defineProps()
     <li
       v-for="(item, index) in arrayProductsOrder"
       :key="index"
-      class="flex gap-[15px] items-center border-b border-[#EDEEF2] pb-[15px]"
+      class="flex gap-[15px] items-center border-b border-gray-70 pb-[15px]"
     >
       <img
         v-if="item.imgSrc"
