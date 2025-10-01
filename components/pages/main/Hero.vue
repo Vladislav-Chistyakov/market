@@ -21,7 +21,7 @@ const modules = [Pagination, Scrollbar]
     >
       <swiper-slide class="text-white">
         <div
-          class="pl-[40px] pt-[40px] pb-[32px] image-hero-one bg-[url('@/assets/images/pages/main/hero/hero-one.jpeg')] bg-position-left bg-cover bg-no-repeat xl:h-full xl:bg-cover xl:pl-[193px] xl:pt-[140px] xl:pb-[132px] xl:bg-position-top"
+          class="pl-[40px] pt-[40px] pb-[32px] image-hero-one bg-[url('@/assets/images/pages/main/hero/hero-one.webp')] bg-position-left bg-cover bg-no-repeat xl:h-full xl:bg-cover xl:pl-[193px] xl:pt-[140px] xl:pb-[132px] xl:bg-position-top"
         >
           <b
             class="text-start block text-white font-core-sans-c text-[20px] leading-6 xl:text-[32px] xl:leading-[38px] font-medium mb-[40px]"
@@ -52,7 +52,7 @@ const modules = [Pagination, Scrollbar]
 
       <swiper-slide class="text-white">
         <div
-          class="pl-[40px] pt-[40px] pb-[32px] xl:pl-[193px] xl:pt-[140px] xl:pb-[132px] bg-[url('@/assets/images/pages/main/hero/hero-two.jpeg')] bg-cover bg-no-repeat xl:h-full"
+          class="pl-[40px] pt-[40px] pb-[32px] xl:pl-[193px] xl:pt-[140px] xl:pb-[132px] bg-[url('@/assets/images/pages/main/hero/hero-two.webp')] bg-cover bg-no-repeat xl:h-full"
         >
           <b
             class="text-start block text-white font-core-sans-c text-[20px] leading-6 xl:text-[32px] xl:leading-[38px] font-medium mb-[40px]"

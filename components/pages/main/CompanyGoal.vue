@@ -5,7 +5,7 @@
     class="container xl:max-w-[1440px] xl:mx-auto grid grid-cols-1 xl:grid-cols-[614px_1fr]"
   >
     <div
-      class="relative p-[54px_24px_84px] md:p-[123px_54px_124px] xl:p-[183px_74px_174px] bg-[url(@/assets/images/pages/main/background-one.jpeg)] rounded-lg overflow-hidden xl:overflow-visible xl:rounded-r-[0px]"
+      class="relative p-[54px_24px_84px] md:p-[123px_54px_124px] xl:p-[183px_74px_174px] bg-[url(@/assets/images/pages/main/background-one.webp)] rounded-lg overflow-hidden xl:overflow-visible xl:rounded-r-[0px]"
     >
       <div
         class="bg-[#000000B2] absolute top-0 bottom-0 left-0 right-0 z-5 xl:rounded-l-[8px]"
@@ -35,7 +35,7 @@
     </div>
 
     <div
-      class="bg-[url(@/assets/images/pages/main/peoples.jpg)] rounded-r-[8px]"
+      class="bg-[url(@/assets/images/pages/main/peoples.webp)] rounded-r-[8px]"
     />
   </div>
 </template>

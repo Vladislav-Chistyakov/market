@@ -120,7 +120,7 @@ async function resetPassword() {
 
 <style scoped>
 .background {
-  @apply bg-[url(@/assets/images/pages/authorization/background/bg-three.jpg)] bg-no-repeat;
+  @apply bg-[url(@/assets/images/pages/authorization/background/bg-three.webp)] bg-no-repeat;
   @apply w-full min-h-[208px];
   background-size: 100% auto;
   background-position: center top 0;

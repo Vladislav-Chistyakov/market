@@ -342,7 +342,7 @@ const arrayCartProduct = computed(() => cartStore.arrayCartProduct.reverse())
         </div>
       </div>
 
-      <div class="mx-auto overflow-x-scroll xl:max-w-[1440px]">
+      <div class="mx-auto overflow-x-auto xl:max-w-[1440px]">
         <PagesCartListProducts
           :array-cart-product="arrayCartProduct"
           :pending="pagePending"

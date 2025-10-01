@@ -199,7 +199,7 @@ async function createPassword() {
 
 <style scoped>
 .background {
-  @apply bg-[url(@/assets/images/pages/authorization/background/bg-four.jpg)] bg-no-repeat;
+  @apply bg-[url(@/assets/images/pages/authorization/background/bg-four.webp)] bg-no-repeat;
   @apply w-full min-h-[458px];
   background-size: 100% auto;
   background-position: center top -20px;

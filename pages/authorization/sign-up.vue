@@ -203,7 +203,7 @@ async function createAccount() {
 
 <style scoped>
 .background {
-  @apply bg-[url(@/assets/images/pages/authorization/background/bg-two.jpg)] bg-no-repeat;
+  @apply bg-[url(@/assets/images/pages/authorization/background/bg-two.webp)] bg-no-repeat;
   @apply w-full min-h-[342px];
   background-size: 100% auto;
   background-position: center top -24px;
