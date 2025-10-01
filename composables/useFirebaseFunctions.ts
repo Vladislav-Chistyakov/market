@@ -106,7 +106,6 @@ export const useFirebaseFunctions = () => {
       const docRef = await addDoc(collection(db, 'products'), productWithDate)
       return docRef.id
     } catch (error) {
-      console.log('err', error)
       throw error
     }
   }
@@ -115,12 +114,10 @@ export const useFirebaseFunctions = () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'products'))
 
-      const products = querySnapshot.docs.map((doc) => ({
+      return querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }))
-
-      return products
     } catch (error) {
       console.error('Ошибка при получении продуктов:', error)
       throw error
@@ -129,24 +126,9 @@ export const useFirebaseFunctions = () => {
 
   async function getProductId(productId: string): Promise<null | unknown> {
     try {
-      // TODO Заняться!
-      // const test = await $fetch(`/api/product/${productId}`, {
-      //   params: { id: productId },
-      // }).catch((e) => console.error('@@@ ', e))
-      // console.log('test', test)
-      console.log('получение продукта по id ', productId)
-      // TODO Решить вопрос с запросами на повторяющиеся id продукиа (кэш или useLazyAsyncData)
-      const productRef = doc(db, 'products', productId)
-      const productSnap = await getDoc(productRef)
-
-      if (productSnap.exists()) {
-        return {
-          id: productSnap.id,
-          ...productSnap.data(),
-        }
-      }
-
-      return null
+      return await $fetch(`/api/product/${productId}`, {
+        params: { id: productId },
+      })
     } catch (error) {
       throw error
     }
@@ -185,8 +167,6 @@ export const useFirebaseFunctions = () => {
       cartItems = cartItems.filter((item: any) => item.key !== productKey)
 
       await updateDoc(userCartRef, { items: cartItems })
-
-      console.log(`Товар ${productKey} удалён из корзины пользователя ${uid}`)
     } catch (error) {
       console.error('Ошибка при удалении товара из корзины:', error)
     }
@@ -259,8 +239,6 @@ export const useFirebaseFunctions = () => {
 
       const userCartRef = doc(db, 'carts', uid)
       await setDoc(userCartRef, {}) // записываем пустой объект
-
-      console.log(`Корзина пользователя ${uid} очищена (документ остался)`)
     } catch (error) {
       console.error('Ошибка при очистке корзины:', error)
     }
@@ -299,11 +277,7 @@ export const useFirebaseFunctions = () => {
 
     // Перезаписываем весь массив
     await setDoc(wishlistRef, { products })
-      .then((res) => {
-        console.log('успех setDoc res', res)
-      })
-      .catch((error) => console.error('error setDoc', error))
-      .finally(() => console.log('set doc'))
+      .catch((error) => console.error('Error changeStatusProductInWishlist - ', error))
   }
 
   const getWishlist = async (uid: string) => {

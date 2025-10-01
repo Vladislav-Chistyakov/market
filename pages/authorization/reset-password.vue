@@ -19,7 +19,6 @@ async function resetPassword() {
   pending.value = true
   await sendPasswordUserEmail(form.email)
     .then(() => {
-      console.log('Выслана ссылка для сброса пароля на почту')
       errorMessage.value = ''
       linkSentSuccessfully.value = true
     })

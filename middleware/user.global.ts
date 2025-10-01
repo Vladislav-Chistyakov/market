@@ -2,12 +2,10 @@ import { useUserStore } from '@/store/user'
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   if (import.meta.server) {
-    console.log('Заход в миддвеваре server')
     return
   }
-  // skip middleware on client side entirely
+
   if (import.meta.client) {
-    console.log('Заход в миддвеваре client')
     try {
       const userStore = useUserStore()
 

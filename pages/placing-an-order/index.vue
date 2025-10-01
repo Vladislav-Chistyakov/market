@@ -20,7 +20,7 @@ async function updateDataOrderPage(event: any) {
       navigateTo('/my-account/successful-order-placement')
     })
     .catch((error) => {
-      console.log('ERROR createOrderFunction', error)
+      console.error('ERROR createOrderFunction', error)
     })
   pending.value = false
 }

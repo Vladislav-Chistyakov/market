@@ -27,9 +27,7 @@ async function loginYourAccount() {
   pending.value = true
   await userSignIn(form.nameOrEmail, form.password)
     .then((result) => {
-      console.log(result)
       errorMessage.value = ''
-      console.log('Прошла успешная авторизация юзера')
       userStore.userData = result
       router.push('/')
     })

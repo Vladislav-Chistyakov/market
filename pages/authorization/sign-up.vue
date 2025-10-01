@@ -25,8 +25,6 @@ async function createAccount() {
   pending.value = true
   await userRegistration(form.email, form.password)
     .then((result) => {
-      console.log(result)
-      console.log('Успешное создание юзера')
       errorMessage.value = ''
       router.push('/')
     })

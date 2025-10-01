@@ -10,7 +10,6 @@ const add = async () => {
   try {
     pending.value = true
     const id = await addProduct(form)
-    console.log('Товар добавлен, ID:', id)
     resetForm()
   } catch (err) {
     console.error('Ошибка:', err)

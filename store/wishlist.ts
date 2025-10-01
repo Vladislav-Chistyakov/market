@@ -93,7 +93,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
         await getProductsFromWishlistIds()
       }
     } catch (error) {
-      console.log('Error getWishlistUser', error)
+      console.error('Error getWishlistUser', error)
     } finally {
       pendingWishlist.value = false
     }
@@ -125,7 +125,7 @@ export const useWishlistStore = defineStore('wishlistStore', () => {
         wishlistUser.splice(0, wishlistUser.length)
       }
     } catch (error) {
-      console.log('Error getProductsFromWishlistIds', error)
+      console.error('Error getProductsFromWishlistIds', error)
     } finally {
       pendingWishlist.value = false
     }

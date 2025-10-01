@@ -13,7 +13,6 @@ const router = useRouter()
 const errorMessage = ref('')
 const errorCode = ref('')
 
-// TODO Настроить вход на страницу только с middleware
 onBeforeMount(() => {
   const route = useRoute()
   if (route?.query?.oobCode) {
@@ -21,13 +20,8 @@ onBeforeMount(() => {
 
     if (!oobCode.value) {
       router.push('/')
-    } else {
-      console.log('oobCode', oobCode.value)
     }
   }
-  // else {
-  //   router.push('/')
-  // }
 })
 
 const statusHidePassword = ref(false)

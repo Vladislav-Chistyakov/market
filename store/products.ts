@@ -13,8 +13,7 @@ export const useProductsStore = defineStore('productsStore', () => {
   const getProducts = async () => {
     try {
       productsPending.value = true
-      const data = await getAllProducts()
-      products.value = data
+      products.value = await getAllProducts()
       return products.value
     } catch (err) {
       console.error('Ошибка получения списка продуктов:', err)
@@ -27,7 +26,6 @@ export const useProductsStore = defineStore('productsStore', () => {
     return products.value.find((item) => item.id === id)
   }
 
-  // TODO тут прям все зависит от гендера, функции повторяются, исправить!
   const womenProducts = computed(() => {
     if (products.value.length) {
       return products.value.filter((item) => {

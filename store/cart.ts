@@ -68,7 +68,7 @@ export const useCartStore = defineStore('cartStore', () => {
         return products.value
       }
     } catch (error) {
-      console.log('Error getCartUser', error)
+      console.error('Error getCartUser', error)
       return undefined
     } finally {
       pendingCart.value = false
