@@ -13,8 +13,8 @@ definePageMeta({
 const statusHidePassword = ref(false)
 
 const form = reactive({
-  nameOrEmail: 'chey69@yandex.ru',
-  password: 'testtest',
+  nameOrEmail: '',
+  password: '',
 })
 
 const pending = ref(false)

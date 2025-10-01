@@ -6,7 +6,7 @@ definePageMeta({
 })
 
 const form = reactive({
-  email: 'chey69@yandex.ru',
+  email: '',
 })
 
 const pending = ref(false)

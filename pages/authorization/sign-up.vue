@@ -11,8 +11,8 @@ const router = useRouter()
 const statusHidePassword = ref(false)
 
 const form = reactive({
-  email: 'chey69@yandex.ru',
-  password: 'qweqwe',
+  email: '',
+  password: '',
 })
 
 const pending = ref(false)
