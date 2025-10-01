@@ -209,7 +209,7 @@ async function loginYourAccount() {
 
 <style scoped>
 .background {
-  @apply bg-[url(@/assets/images/pages/authorization/background/bg-one.wepb)] bg-no-repeat;
+  @apply bg-[url(@/assets/images/pages/authorization/background/bg-one.webp)] bg-no-repeat;
   @apply w-full min-h-[238px];
   background-size: 100% auto;
   background-position: center top 0;

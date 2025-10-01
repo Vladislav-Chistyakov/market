@@ -28,7 +28,7 @@ function goToCreateOrderPage() {
 async function checkCoupon() {
   if (coupon.value && !usedCoupon.value) {
     pendingDiscount.value = true
-    await $fetch(`/api/coupon/${coupon.value}`, {
+    await $fetch(`/nuxt-api/coupon/${coupon.value}`, {
       method: 'GET',
     })
       .then((res) => {

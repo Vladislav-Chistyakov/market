@@ -1,10 +1,11 @@
 import { type H3Event } from 'h3'
 import { doc, getDoc } from 'firebase/firestore'
-import { db } from '@/utils/firebase'
+import { db } from '~/utils/firebase'
 
 export default defineCachedEventHandler(
   async (event: H3Event) => {
     try {
+      // TODO Разобраться, почему не работает в прод версии
       const id = getRouterParam(event, 'id')
       const productRef = doc(db, 'products', id as string)
       const productSnap = await getDoc(productRef)

@@ -126,9 +126,17 @@ export const useFirebaseFunctions = () => {
 
   async function getProductId(productId: string): Promise<null | unknown> {
     try {
-      return await $fetch(`/api/product/${productId}`, {
-        params: { id: productId },
-      })
+      const productRef = doc(db, 'products', productId)
+      const productSnap = await getDoc(productRef)
+
+      if (productSnap.exists()) {
+        return {
+          id: productSnap.id,
+          ...productSnap.data(),
+        }
+      }
+
+      return null
     } catch (error) {
       throw error
     }
