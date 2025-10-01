@@ -17,6 +17,7 @@ export default defineEventHandler((event) => {
   ]
 
   function couponCheck() {
+    // TODO Купоны на проде не работают
     const result = couponsList.find((coupon) => {
       return usedCoupon === coupon.name
     })
