@@ -35,7 +35,6 @@ async function checkCoupon() {
       .checkCoupon(coupon.value)
       .then((res) => {
         if (res) {
-          console.log('TEst 3 __ ', res)
           cartStore.useCouponDiscount(res)
           usedCoupon.value = true
           messageCoupon.value = ''
