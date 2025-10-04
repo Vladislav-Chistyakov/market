@@ -94,6 +94,18 @@ export const useFirebaseFunctions = () => {
   }
   // *******************************************************************
 
+  // Получение купонов
+  async function checkCoupon(name: string) {
+    const docRef = doc(db, 'coupons', name)
+    const snapshot = await getDoc(docRef)
+
+    if (snapshot.exists()) {
+      return snapshot.data()
+    } else {
+      return null
+    }
+  }
+
   // Работа с продуктами
   // ****************************   ************************************
   async function addProduct(product: Record<string, unknown>) {
@@ -284,8 +296,9 @@ export const useFirebaseFunctions = () => {
     }
 
     // Перезаписываем весь массив
-    await setDoc(wishlistRef, { products })
-      .catch((error) => console.error('Error changeStatusProductInWishlist - ', error))
+    await setDoc(wishlistRef, { products }).catch((error) =>
+      console.error('Error changeStatusProductInWishlist - ', error),
+    )
   }
 
   const getWishlist = async (uid: string) => {
@@ -390,6 +403,7 @@ export const useFirebaseFunctions = () => {
     auth,
     getOrders,
     createOrder,
+    checkCoupon,
     addProduct,
     convertItemInCart,
     changeStatusProductInWishlist,

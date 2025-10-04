@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from '#vue-router'
 import { useCartStore } from '~/store/cart'
+import { useFirebaseFunctions } from '~/composables/useFirebaseFunctions'
 
 type Props = {
   pending: boolean
@@ -25,12 +26,13 @@ function goToCreateOrderPage() {
   router.push('/placing-an-order')
 }
 
+const firebaseFunctions = useFirebaseFunctions()
+
 async function checkCoupon() {
   if (coupon.value && !usedCoupon.value) {
     pendingDiscount.value = true
-    await $fetch(`/nuxt-api/coupon/${coupon.value}`, {
-      method: 'GET',
-    })
+    await firebaseFunctions
+      .checkCoupon(coupon.value)
       .then((res) => {
         if (res) {
           console.log('TEst 3 __ ', res)
