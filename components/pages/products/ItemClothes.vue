@@ -32,7 +32,7 @@ const updateStatusProductId = computed(
 
 <template>
   <li class="w-fit font-causten 2xl:pb-[26px]">
-    <nuxt-link target="_blank" :href="linkProductPage">
+    <nuxt-link :href="linkProductPage">
       <div
         class="relative 2xl:h-[370px] 2xl:w-[281px] rounded-[12px] overflow-hidden mb-[30px]"
       >

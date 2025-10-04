@@ -101,6 +101,16 @@ const productInformation = computed(() => {
   }
   return []
 })
+
+const disabledColor = ref(false)
+
+onMounted(() => {
+  // Если цвет всего один, делаем его активным
+  if (colors.value && colors.value.length) {
+    form.value.color = colors.value[0]
+    disabledColor.value = true
+  }
+})
 </script>
 
 <template>
@@ -163,8 +173,8 @@ const productInformation = computed(() => {
             <li v-for="(color, indexColor) in colors" :key="indexColor">
               <button
                 v-if="color === 'white'"
-                @click="activeColorButton(color)"
-                :disabled="pending"
+                @click.prevent="activeColorButton(color)"
+                :disabled="pending || disabledColor"
                 :class="{
                   'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
                     form.color === color,
@@ -179,7 +189,7 @@ const productInformation = computed(() => {
               <button
                 v-else
                 @click="activeColorButton(color)"
-                :disabled="pending"
+                :disabled="pending || disabledColor"
                 class="flex w-fit p-[3px] border rounded-full"
                 :class="{
                   'shadow-[0_0_21px_-1px_rgba(34,60,80,0.6)]':
