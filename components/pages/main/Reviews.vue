@@ -107,7 +107,12 @@ function listStar(starsNumber: number): StarsStatus {
           class="h-full flex flex-col gap-[15px] p-[21px_22px_21px_21px] border-2 border-gray-border rounded-[10px]"
         >
           <div class="flex justify-between gap-2.5">
-            <img :src="item.srcImg" height="58px" width="58px" />
+            <img
+              :src="item.srcImg"
+              height="58px"
+              width="58px"
+              class="max-w-[58px] max-h-[58px]"
+            />
 
             <ul class="flex flex-row items-center h-fit">
               <li
@@ -136,11 +141,15 @@ function listStar(starsNumber: number): StarsStatus {
             </ul>
           </div>
 
-          <b class="block font-core-sans-c font-medium text-[22px] text-black">
+          <b
+            class="block font-core-sans-c font-medium text-[22px] text-black text-start"
+          >
             {{ item.name }}
           </b>
 
-          <p class="font-causten text-[14px] font-normal text-gray-100">
+          <p
+            class="font-causten text-[14px] font-normal text-gray-100 text-start"
+          >
             {{ item.review }}
           </p>
         </div>
